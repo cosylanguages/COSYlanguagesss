@@ -77,38 +77,39 @@ export class StageTimeline {
       } else {
         // Auto-generate default beats based on block type
         if (block.type === 'heading') {
-          const headingSay = block.say || block.text || '';
+          const headingSay = stripMarkdown(block.text || block.title || '');
           this.beats.push({
             id: `beat-block-${idx}`,
             targetSelector: blockId,
             duration: calculateWpmDuration(headingSay, 3500),
             cameraPreset: 'push-in',
             reveal: 'fade-in',
-            caption: block.text || '',
+            caption: headingSay,
             say: headingSay
           });
         } else if (block.type === 'pullquote') {
-          const quoteSay = block.say || block.quote || '';
+          const quoteSay = stripMarkdown(block.quote || block.text || '');
           this.beats.push({
             id: `beat-block-${idx}`,
             targetSelector: blockId,
             duration: calculateWpmDuration(quoteSay, 4000),
             cameraPreset: 'spotlight',
             reveal: 'fade-in',
-            caption: block.quote || '',
+            caption: quoteSay,
             say: quoteSay
           });
         } else if (block.type === 'table') {
           const rows = block.rows || [];
           if (rows.length === 0) {
+            const tableSay = stripMarkdown(block.title || 'Vocabulary Table');
             this.beats.push({
               id: `beat-block-${idx}`,
               targetSelector: blockId,
               duration: 3500,
               cameraPreset: 'focus',
               reveal: 'fade-in',
-              caption: block.title || 'Vocabulary Table',
-              say: block.say || block.title || 'Vocabulary Table'
+              caption: tableSay,
+              say: tableSay
             });
           } else {
             const groupSize = rows.length > 6 ? 5 : 3;
@@ -117,41 +118,38 @@ export class StageTimeline {
             for (let g = 0; g < totalGroups; g++) {
               const groupRows = rows.slice(g * groupSize, (g + 1) * groupSize);
               const groupSayParts = groupRows.map(r => {
-                const col0 = stripMarkdown(r[0] || '');
-                const col1 = stripMarkdown(r[1] || '');
-                if (col0 && col1) return `Instead of ${col0}, try ${col1}.`;
+                const col0 = stripMarkdown(r[0] || '').trim();
+                const col1 = stripMarkdown(r[1] || '').trim();
+                if (col0 && col1) return `Instead of '${col0}', try ${col1}.`;
                 return col0 || col1 || '';
-              });
-              const groupSay = block.say
-                ? (totalGroups === 1 ? block.say : `${block.say} (Part ${g + 1})`)
-                : groupSayParts.join(' ');
+              }).filter(Boolean);
 
-              const rowRangeStr = `${g * groupSize + 1}–${Math.min((g + 1) * groupSize, rows.length)}`;
+              const groupSay = groupSayParts.join(' ');
               this.beats.push({
                 id: `beat-block-${idx}-group-${g}`,
                 targetSelector: `#block-${idx}-group-${g}`,
                 duration: calculateWpmDuration(groupSay, 3500),
                 cameraPreset: 'focus',
                 reveal: 'fade-in',
-                caption: `Vocabulary Focus: Rows ${rowRangeStr}`,
+                caption: groupSay,
                 say: groupSay
               });
             }
           }
         } else if (block.type === 'list-item') {
           const items = block.items || [];
-          const listSay = block.say || items.map(it => stripMarkdown(it)).join('. ');
+          const listSay = items.map(it => stripMarkdown(it)).join('. ');
           this.beats.push({
             id: `beat-block-${idx}`,
             targetSelector: blockId,
             duration: calculateWpmDuration(listSay, 3500),
             cameraPreset: 'focus',
             reveal: 'fade-in',
-            caption: block.title || `List (${items.length} items)`,
+            caption: listSay,
             say: listSay
           });
         } else {
-          const textSay = block.say || block.text || block.content || block.question || block.title || '';
+          const textSay = stripMarkdown(block.text || block.content || block.question || block.title || '');
           const preset = block.type === 'culture-bite' ? 'push-in' : 'focus';
           this.beats.push({
             id: `beat-block-${idx}`,
@@ -159,7 +157,7 @@ export class StageTimeline {
             duration: calculateWpmDuration(textSay, 3000),
             cameraPreset: preset,
             reveal: 'fade-in',
-            caption: block.text || block.title || block.quote || block.question || '',
+            caption: textSay,
             say: textSay
           });
         }
