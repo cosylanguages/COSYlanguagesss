@@ -6,7 +6,8 @@ import { createServer } from 'http';
 const POST_SLUGS = [
   'replace-very-50-stronger-adjectives',
   'replace-very-50-stronger-adjectives-ru',
-  'replace-very-50-stronger-adjectives-el'
+  'replace-very-50-stronger-adjectives-el',
+  'replace-very-50-stronger-adjectives-fr'
 ];
 
 let server;
@@ -76,9 +77,10 @@ test.describe('Stage Mode Camera & Viewport Bounding Box Verification', () => {
         // Wait a bit for requestAnimationFrame / transform application
         await page.waitForTimeout(100);
 
-        // Check target element bounding box against stage-viewport
+        // Check target element bounding box against stage-viewport and caption band
         const boundingInfo = await page.evaluate((beatIdx) => {
           const viewport = document.querySelector('#stage-viewport');
+          const lowerThird = document.querySelector('#stage-lower-third');
           const controller = window.stageController;
           if (!viewport || !controller || !controller.timeline) return null;
 
@@ -87,48 +89,72 @@ test.describe('Stage Mode Camera & Viewport Bounding Box Verification', () => {
 
           let targetEl = beat.targetSelector ? document.querySelector(beat.targetSelector) : null;
 
-          // Fallback if target element is not found or has zero rect
           if (!targetEl || targetEl.getBoundingClientRect().width === 0 || targetEl.getBoundingClientRect().height === 0) {
             targetEl = document.querySelector('.stage-card') || viewport;
           }
 
           const vpRect = viewport.getBoundingClientRect();
           const targetRect = targetEl.getBoundingClientRect();
+          const ltRect = lowerThird ? lowerThird.getBoundingClientRect() : null;
 
-          const toleranceX = vpRect.width * 0.02;
-          const toleranceY = vpRect.height * 0.02;
-
-          const isInside = (
-            targetRect.left >= vpRect.left - toleranceX &&
-            targetRect.right <= vpRect.right + toleranceX &&
-            targetRect.top >= vpRect.top - toleranceY &&
-            targetRect.bottom <= vpRect.bottom + toleranceY
+          const isInsideViewport = (
+            targetRect.left >= vpRect.left - 1 &&
+            targetRect.right <= vpRect.right + 1 &&
+            targetRect.top >= vpRect.top - 1 &&
+            targetRect.bottom <= vpRect.bottom + 1
           );
+
+          const isAboveCaption = ltRect
+            ? targetRect.bottom <= ltRect.top + 1
+            : true;
 
           return {
             beatIdx,
             targetSelector: beat.targetSelector,
-            isInside,
+            isInsideViewport,
+            isAboveCaption,
+            isInside: isInsideViewport && isAboveCaption,
             vpRect: { left: vpRect.left, right: vpRect.right, top: vpRect.top, bottom: vpRect.bottom, w: vpRect.width, h: vpRect.height },
-            targetRect: { left: targetRect.left, right: targetRect.right, top: targetRect.top, bottom: targetRect.bottom, w: targetRect.width, h: targetRect.height }
+            targetRect: { left: targetRect.left, right: targetRect.right, top: targetRect.top, bottom: targetRect.bottom, w: targetRect.width, h: targetRect.height },
+            ltRect: ltRect ? { left: ltRect.left, right: ltRect.right, top: ltRect.top, bottom: ltRect.bottom } : null
           };
         }, i);
 
         expect(boundingInfo, `Beat index ${i}: Failed to get bounding info`).not.toBeNull();
         if (!boundingInfo.isInside) {
           throw new Error(
-            `Beat index ${i} (${boundingInfo.targetSelector}) is outside .stage-viewport!\n` +
+            `Beat index ${i} (${boundingInfo.targetSelector}) failed bounds check!\n` +
             `Viewport: ${JSON.stringify(boundingInfo.vpRect)}\n` +
-            `Target: ${JSON.stringify(boundingInfo.targetRect)}`
+            `Target: ${JSON.stringify(boundingInfo.targetRect)}\n` +
+            `LowerThird: ${JSON.stringify(boundingInfo.ltRect)}\n` +
+            `isInsideViewport: ${boundingInfo.isInsideViewport}, isAboveCaption: ${boundingInfo.isAboveCaption}`
           );
         }
 
-        // Take visual regression screenshots for beats 1, 5, 10, and last beat for 'replace-very-50-stronger-adjectives'
+        // Visual regression screenshots for beats 1, 5, 20, and last beat for 'replace-very-50-stronger-adjectives'
         if (slug === 'replace-very-50-stronger-adjectives') {
           const beatNum = i + 1;
-          if (beatNum === 1 || beatNum === 5 || beatNum === 10 || beatNum === totalBeats) {
+          if (beatNum === 1 || beatNum === 5 || beatNum === 20 || beatNum === totalBeats) {
+            // Standard View Screenshot
             const screenshotPath = path.join(screenshotsDir, `stage-beat-${beatNum}.png`);
             await page.screenshot({ path: screenshotPath });
+
+            // Clean View Screenshot (hides lower third, controls, and progress bar)
+            await page.evaluate(() => {
+              document.querySelector('#stage-lower-third')?.classList.add('hide-recording');
+              document.querySelector('#stage-controls')?.classList.add('hide-recording');
+              document.querySelector('#stage-progress-bar')?.classList.add('hide-recording');
+            });
+            await page.waitForTimeout(50);
+            const cleanPath = path.join(screenshotsDir, `stage-clean-beat-${beatNum}.png`);
+            await page.screenshot({ path: cleanPath });
+
+            await page.evaluate(() => {
+              document.querySelector('#stage-lower-third')?.classList.remove('hide-recording');
+              document.querySelector('#stage-controls')?.classList.remove('hide-recording');
+              document.querySelector('#stage-progress-bar')?.classList.remove('hide-recording');
+            });
+            await page.waitForTimeout(50);
           }
         }
       }

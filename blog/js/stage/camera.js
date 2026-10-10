@@ -49,6 +49,10 @@ export class StageCamera {
 
     const vpRect = vp.getBoundingClientRect();
 
+    // Temporarily clear element spotlight classes during geometry measurement
+    const activeSpotlights = document.querySelectorAll('.stage-spotlight-active, .stage-spotlight-dim');
+    activeSpotlights.forEach(el => el.classList.remove('stage-spotlight-active', 'stage-spotlight-dim'));
+
     // Reset content transform temporarily to measure true unscaled layout offset
     const savedTransform = content.style.transform;
     content.style.transform = 'none';
@@ -69,10 +73,10 @@ export class StageCamera {
     const xCenterLocal = xLocal + wUnscaled / 2;
     const yCenterLocal = yLocal + hUnscaled / 2;
 
-    // Insets / Safe area inside viewport (top=20, bottom=120 for lower third caption, side=30)
-    const topInset = options.topInset !== undefined ? options.topInset : 20;
-    const bottomInset = options.bottomInset !== undefined ? options.bottomInset : 120;
-    const sideInset = options.sideInset !== undefined ? options.sideInset : 30;
+    // Insets / Safe area inside viewport (top=30, bottom=160 reserves caption band, side=40)
+    const topInset = options.topInset !== undefined ? options.topInset : 30;
+    const bottomInset = options.bottomInset !== undefined ? options.bottomInset : 160;
+    const sideInset = options.sideInset !== undefined ? options.sideInset : 40;
 
     const availW = Math.max(100, vpRect.width - sideInset * 2);
     const availH = Math.max(100, vpRect.height - (topInset + bottomInset));
