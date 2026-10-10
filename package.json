@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "test": "playwright test",
+    "build:blog": "node scripts/build-blog.js && node scripts/generate-blog-art.js",
     "sync:footer": "node scripts/sync-footer.js",
     "check:footer": "node scripts/check-footer.js",
     "check:names": "node scripts/check-names.js",
