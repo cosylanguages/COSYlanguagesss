@@ -131,6 +131,12 @@ test.describe('Stage Mode Camera & Viewport Bounding Box Verification', () => {
           );
         }
 
+        // Verify Clean View toggle & lower third caption quality
+        const lowerThirdText = await page.evaluate(() => {
+          return document.querySelector('#lower-third-text')?.textContent || '';
+        });
+        expect(lowerThirdText).not.toMatch(/[*_`#~]/);
+
         // Visual regression screenshots for beats 1, 5, 20, and last beat for 'replace-very-50-stronger-adjectives'
         if (slug === 'replace-very-50-stronger-adjectives') {
           const beatNum = i + 1;
@@ -139,20 +145,33 @@ test.describe('Stage Mode Camera & Viewport Bounding Box Verification', () => {
             const screenshotPath = path.join(screenshotsDir, `stage-beat-${beatNum}.png`);
             await page.screenshot({ path: screenshotPath });
 
-            // Clean View Screenshot (hides lower third, controls, and progress bar)
+            // Test Clean View by adding .hide-recording
             await page.evaluate(() => {
-              document.querySelector('#stage-lower-third')?.classList.add('hide-recording');
               document.querySelector('#stage-controls')?.classList.add('hide-recording');
               document.querySelector('#stage-progress-bar')?.classList.add('hide-recording');
+              document.querySelector('#stage-lower-third')?.classList.add('hide-recording');
             });
             await page.waitForTimeout(50);
+
+            const isCleanHidden = await page.evaluate(() => {
+              const controls = document.querySelector('#stage-controls');
+              const progress = document.querySelector('#stage-progress-bar');
+              const lowerThird = document.querySelector('#stage-lower-third');
+              const cDisp = window.getComputedStyle(controls).display;
+              const pDisp = window.getComputedStyle(progress).display;
+              const lDisp = window.getComputedStyle(lowerThird).display;
+              return cDisp === 'none' && pDisp === 'none' && lDisp === 'none';
+            });
+            expect(isCleanHidden, `Beat ${beatNum}: Clean View should hide controls, progress bar, and lower third`).toBe(true);
+
             const cleanPath = path.join(screenshotsDir, `stage-clean-beat-${beatNum}.png`);
             await page.screenshot({ path: cleanPath });
 
+            // Restore non-clean view
             await page.evaluate(() => {
-              document.querySelector('#stage-lower-third')?.classList.remove('hide-recording');
               document.querySelector('#stage-controls')?.classList.remove('hide-recording');
               document.querySelector('#stage-progress-bar')?.classList.remove('hide-recording');
+              document.querySelector('#stage-lower-third')?.classList.remove('hide-recording');
             });
             await page.waitForTimeout(50);
           }

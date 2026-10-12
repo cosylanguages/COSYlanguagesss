@@ -25,6 +25,8 @@ function parseArgs() {
   let outDir = path.join(REPO_ROOT, 'dist', 'videos');
   let fps = 10;
 
+  let maxDurationSec = null;
+
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     if (arg === '--audio' && i + 1 < args.length) {
@@ -33,6 +35,8 @@ function parseArgs() {
       outDir = path.resolve(process.cwd(), args[++i]);
     } else if (arg === '--fps' && i + 1 < args.length) {
       fps = parseInt(args[++i], 10) || 10;
+    } else if (arg === '--max-duration' && i + 1 < args.length) {
+      maxDurationSec = parseFloat(args[++i]);
     } else if (!arg.startsWith('--') && !slug) {
       slug = arg;
     }
@@ -40,11 +44,11 @@ function parseArgs() {
 
   if (!slug) {
     console.error('❌ Error: Missing required <slug> argument.');
-    console.error('Usage: node scripts/export-stage-video.js <slug> [--audio file] [--out dir] [--fps num]');
+    console.error('Usage: node scripts/export-stage-video.js <slug> [--audio file] [--out dir] [--fps num] [--max-duration sec]');
     process.exit(1);
   }
 
-  return { slug, audioFile, outDir, fps };
+  return { slug, audioFile, outDir, fps, maxDurationSec };
 }
 
 const MIME_TYPES = {
@@ -137,7 +141,7 @@ function findAudioPath(slug, explicitAudio) {
 }
 
 async function exportStageVideo() {
-  const { slug, audioFile, outDir, fps } = parseArgs();
+  const { slug, audioFile, outDir, fps, maxDurationSec } = parseArgs();
 
   console.log(`🎬 Exporting Stage Mode Video for slug: "${slug}"...`);
 
@@ -192,7 +196,10 @@ async function exportStageVideo() {
     const stageDurationMs = await page.evaluate(() => window.__stageTotalDurationMs || 0);
     const audioDurationMs = getAudioDurationMs(resolvedAudio);
 
-    const renderDurationMs = Math.max(stageDurationMs, audioDurationMs);
+    let renderDurationMs = Math.max(stageDurationMs, audioDurationMs);
+    if (maxDurationSec && !isNaN(maxDurationSec) && maxDurationSec > 0) {
+      renderDurationMs = Math.min(renderDurationMs, maxDurationSec * 1000);
+    }
     const totalFrames = Math.ceil((renderDurationMs / 1000) * fps);
 
     console.log(`📊 Presentation Duration: ${(stageDurationMs / 1000).toFixed(2)}s | Audio: ${(audioDurationMs / 1000).toFixed(2)}s | Target Render: ${(renderDurationMs / 1000).toFixed(2)}s (${totalFrames} frames @ ${fps}fps)`);

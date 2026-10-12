@@ -28,12 +28,15 @@ export class StageTimeline {
       if (!str) return '';
       return String(str)
         .replace(/\\([*_`\\])/g, '$1')
+        .replace(/<[^>]*>/g, ' ')
         .replace(/`([^`]+)`/g, '$1')
         .replace(/\*\*([^*]+)\*\*/g, '$1')
         .replace(/__([^_]+)__/g, '$1')
         .replace(/\*([^*]+)\*/g, '$1')
         .replace(/_([^_]+)_/g, '$1')
-        .replace(/[*_`#~]/g, '');
+        .replace(/[*_`#~]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
     };
 
     const calculateWpmDuration = (sayText, minMs = 3000) => {
@@ -115,12 +118,17 @@ export class StageTimeline {
             const groupSize = rows.length > 6 ? 5 : 3;
             const totalGroups = Math.ceil(rows.length / groupSize);
 
+            const h0 = block.headers?.[0] ? stripMarkdown(block.headers[0]).replace(/\.*$/, '').trim() : 'Instead of';
+            const h1 = block.headers?.[1] ? stripMarkdown(block.headers[1]).replace(/\.*$/, '').trim() : 'try';
+
             for (let g = 0; g < totalGroups; g++) {
               const groupRows = rows.slice(g * groupSize, (g + 1) * groupSize);
               const groupSayParts = groupRows.map(r => {
                 const col0 = stripMarkdown(r[0] || '').trim();
                 const col1 = stripMarkdown(r[1] || '').trim();
-                if (col0 && col1) return `Instead of '${col0}', try ${col1}.`;
+                if (col0 && col1) {
+                  return `${h0} '${col0}', ${h1.toLowerCase()} ${col1}.`;
+                }
                 return col0 || col1 || '';
               }).filter(Boolean);
 
