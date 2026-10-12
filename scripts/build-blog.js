@@ -114,6 +114,9 @@ function escapeHtml(value) {
 
 function parseFormattedText(text) {
   if (!text) return '';
+  if (/^\s*<[a-zA-Z][\s\S]*>/i.test(text)) {
+    return text;
+  }
   if (marked && typeof marked.parseInline === 'function') {
     return marked.parseInline(text);
   }
