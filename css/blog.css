@@ -1030,6 +1030,11 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 1px solid var(--border, rgba(74, 107, 80, 0.1));
 }
 
+.post-full-content tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
 .post-full-content tr:nth-child(even) td {
     background: #faf9f5;
 }
