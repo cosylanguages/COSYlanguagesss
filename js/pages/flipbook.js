@@ -109,14 +109,26 @@
                 const child = children[i];
                 const tag = child.tagName.toLowerCase();
 
-                const isHeading = ['h2', 'h3', 'h4'].includes(tag);
+                const isHeading = ['h1', 'h2', 'h3', 'h4', 'h5'].includes(tag);
                 const isHr = tag === 'hr';
-                const isSpreadBlock = child.classList.contains('instead-try-spread') || child.classList.contains('phrase-upgrade-grid');
+                const isSpreadBlock = child.classList.contains('instead-try-spread') || child.classList.contains('phrase-upgrade-grid') || child.classList.contains('gazette-example-box');
 
+                // Determine if adding this item causes page break
                 if ((isHr || isHeading || isSpreadBlock || currentItemCount >= 5) && pagesData[currentPageIndex].length > 0) {
+                    // Check if previous item in current page is a heading. If so, move heading to new page to prevent orphan headings!
+                    const currentPage = pagesData[currentPageIndex];
+                    const lastItemInCurrentPage = currentPage[currentPage.length - 1];
+                    const lastItemTag = lastItemInCurrentPage ? lastItemInCurrentPage.tagName.toLowerCase() : '';
+
                     currentPageIndex++;
                     pagesData[currentPageIndex] = [];
                     currentItemCount = 0;
+
+                    if (lastItemInCurrentPage && ['h1', 'h2', 'h3', 'h4', 'h5'].includes(lastItemTag) && !isHr && !isHeading) {
+                        currentPage.pop();
+                        pagesData[currentPageIndex].push(lastItemInCurrentPage);
+                        currentItemCount++;
+                    }
                 }
 
                 if (!isHr) {

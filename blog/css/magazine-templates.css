@@ -323,6 +323,14 @@
   margin-bottom: 1.35rem;
   overflow-wrap: anywhere;
   word-break: break-word;
+  hyphens: auto;
+}
+
+.gazette-article,
+.flipbook-page,
+.post-full-content {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .editorial-heading {

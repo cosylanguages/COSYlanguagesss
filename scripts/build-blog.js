@@ -185,31 +185,41 @@ function renderBlockToHtml(block, state = { isFirstParagraph: true }) {
       const headers = block.headers || [];
       const rows = block.rows || [];
 
-      // Transform 50-item word tables into a designed two-column "Instead of / Try" spread
+      // Transform tables into designed two-column "Instead of / Try" spreads
+      // Chunk rows into page-sized groups (8 rows per spread) to prevent vertical overflow
+      const CHUNK_SIZE = 8;
+      const rowChunks = [];
+      for (let i = 0; i < rows.length; i += CHUNK_SIZE) {
+        rowChunks.push(rows.slice(i, i + CHUNK_SIZE));
+      }
+      if (rowChunks.length === 0) rowChunks.push([]);
+
       const headersHtml = headers.map((h, idx) => {
         const label = parseFormattedText(h);
         const colClass = idx === 0 ? 'col-instead' : (idx === 1 ? 'col-try' : 'col-context');
         return `<div class="instead-try-header ${colClass}">${label}</div>`;
       }).join('');
 
-      const rowsHtml = rows.map(row => {
-        const cells = row.map((cell, idx) => {
-          const cellContent = parseFormattedText(cell);
-          const colClass = idx === 0 ? 'instead-cell' : (idx === 1 ? 'try-cell' : 'context-cell');
-          const badge = idx === 0 ? '<span class="instead-badge">Instead of</span> ' : (idx === 1 ? '<span class="try-badge">Try</span> ' : '');
-          return `<div class="instead-try-cell ${colClass}">${badge}${cellContent}</div>`;
-        }).join('');
+      return rowChunks.map((chunkRows, chunkIdx) => {
+        const rowsHtml = chunkRows.map(row => {
+          const cells = row.map((cell, idx) => {
+            const cellContent = parseFormattedText(cell);
+            const colClass = idx === 0 ? 'instead-cell' : (idx === 1 ? 'try-cell' : 'context-cell');
+            const badge = idx === 0 ? '<span class="instead-badge">Instead of</span> ' : (idx === 1 ? '<span class="try-badge">Try</span> ' : '');
+            return `<div class="instead-try-cell ${colClass}">${badge}${cellContent}</div>`;
+          }).join('');
 
-        return `<div class="instead-try-row">${cells}</div>`;
-      }).join('\n');
+          return `<div class="instead-try-row">${cells}</div>`;
+        }).join('\n');
 
-      return `
-<section class="instead-try-spread" aria-label="Vocabulary Comparisons Spread">
+        return `
+<section class="instead-try-spread" aria-label="Vocabulary Comparisons Spread Part ${chunkIdx + 1}">
   <div class="instead-try-headers">${headersHtml}</div>
   <div class="instead-try-body">
     ${rowsHtml}
   </div>
 </section>`;
+      }).join('\n');
     }
     case 'example': {
       return `
