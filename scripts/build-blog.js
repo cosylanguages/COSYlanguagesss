@@ -416,6 +416,7 @@ async function buildBlog() {
     postSlugs.add(slug);
 
     if (postData.issue && postData.issue.number) {
+      if (postData.issue.number.includes('August')) postData.issue.number = 'Vol. 2026.08';
       issuesSet.set(postData.issue.number, {
         number: postData.issue.number,
         title: postData.issue.title
@@ -799,7 +800,7 @@ async function buildBlog() {
     format: 'essay',
     level: g.cefr_level || 'A0–A1 / A2',
     issue: {
-      number: g.issue_volume || 'Vol. 2026 — August Issue',
+      number: (g.issue_volume && g.issue_volume.includes('August')) ? 'Vol. 2026.08' : (g.issue_volume || 'Vol. 2026.08'),
       title: g.issue_title || 'Get ready for school'
     },
     date: g.date || '2026-08-01',

@@ -24,6 +24,9 @@
         liveAnnouncerEl: null,
 
         init: function () {
+            // Initialize founder card deck listeners unconditionally (present on both index.html and post pages)
+            this.initFounderCards();
+
             this.container = document.querySelector('.post-full-content');
             if (!this.container) return;
 
@@ -52,7 +55,6 @@
             }
 
             this.renderControls();
-            this.initFounderCards();
             this.bindEvents();
             this.initZoomControls();
 
@@ -89,17 +91,56 @@
 
         chunkContentIntoPages: function () {
             let existingPages = Array.from(this.container.querySelectorAll('.flipbook-page'));
-            let children = [];
+            let rawChildren = [];
 
             if (existingPages.length > 0) {
                 existingPages.forEach(p => {
-                    children.push(...Array.from(p.children));
+                    rawChildren.push(...Array.from(p.children));
                 });
             } else {
-                children = Array.from(this.container.children);
+                rawChildren = Array.from(this.container.children);
             }
 
-            if (children.length === 0) return;
+            if (rawChildren.length === 0) return;
+
+            // Helper to test if an element is a heading
+            const isHeadingElement = (el) => {
+                if (!el) return false;
+                const tag = el.tagName ? el.tagName.toLowerCase() : '';
+                return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tag) ||
+                    el.classList?.contains('editorial-heading') ||
+                    el.classList?.contains('qa-question') ||
+                    el.classList?.contains('podcast-box-title') ||
+                    el.classList?.contains('quiz-question') ||
+                    el.classList?.contains('gazette-marginalia-title');
+            };
+
+            // Explode large vocabulary comparison tables (.instead-try-spread) into sub-spreads of ~6 rows
+            const children = [];
+            rawChildren.forEach(child => {
+                if (child.classList && child.classList.contains('instead-try-spread')) {
+                    const headersEl = child.querySelector('.instead-try-headers');
+                    const rows = Array.from(child.querySelectorAll('.instead-try-row'));
+                    if (rows.length > 6 && headersEl) {
+                        const chunkSize = 6;
+                        for (let r = 0; r < rows.length; r += chunkSize) {
+                            const subSpread = document.createElement('section');
+                            subSpread.className = 'instead-try-spread';
+                            subSpread.setAttribute('aria-label', child.getAttribute('aria-label') || 'Vocabulary Comparisons Spread');
+                            subSpread.appendChild(headersEl.cloneNode(true));
+
+                            const subBody = document.createElement('div');
+                            subBody.className = 'instead-try-body';
+                            rows.slice(r, r + chunkSize).forEach(row => subBody.appendChild(row.cloneNode(true)));
+                            subSpread.appendChild(subBody);
+
+                            children.push(subSpread);
+                        }
+                        return;
+                    }
+                }
+                children.push(child);
+            });
 
             const pagesData = [[]];
             let currentPageIndex = 0;
@@ -107,13 +148,15 @@
 
             for (let i = 0; i < children.length; i++) {
                 const child = children[i];
-                const tag = child.tagName.toLowerCase();
+                const tag = child.tagName ? child.tagName.toLowerCase() : '';
 
-                const isHeading = ['h2', 'h3', 'h4'].includes(tag);
+                const isHeading = isHeadingElement(child);
                 const isHr = tag === 'hr';
-                const isSpreadBlock = child.classList.contains('instead-try-spread') || child.classList.contains('phrase-upgrade-grid');
+                const isSpreadBlock = child.classList?.contains('instead-try-spread') || child.classList?.contains('phrase-upgrade-grid');
 
-                if ((isHr || isHeading || isSpreadBlock || currentItemCount >= 5) && pagesData[currentPageIndex].length > 0) {
+                // If heading or spread block or page limit (>= 4 items when heading is coming, or >= 5 items otherwise)
+                const pageLimit = isHeading ? 3 : 5;
+                if ((isHr || isHeading || isSpreadBlock || currentItemCount >= pageLimit) && pagesData[currentPageIndex].length > 0) {
                     currentPageIndex++;
                     pagesData[currentPageIndex] = [];
                     currentItemCount = 0;
@@ -125,14 +168,31 @@
                 }
             }
 
-            if (pagesData.length <= 1) return;
+            // Post-pass: Prevent Heading Orphans by moving any heading at the END of a page to the START of the next page
+            for (let p = 0; p < pagesData.length; p++) {
+                const pageGroup = pagesData[p];
+                if (pageGroup.length > 1) {
+                    const lastEl = pageGroup[pageGroup.length - 1];
+                    if (isHeadingElement(lastEl)) {
+                        pageGroup.pop();
+                        if (!pagesData[p + 1]) {
+                            pagesData[p + 1] = [];
+                        }
+                        pagesData[p + 1].unshift(lastEl);
+                    }
+                }
+            }
+
+            // Clean up any empty pages
+            const filteredPagesData = pagesData.filter(g => g && g.length > 0);
+            if (filteredPagesData.length <= 1) return;
 
             this.container.innerHTML = '';
-            pagesData.forEach((group, idx) => {
+            filteredPagesData.forEach((group, idx) => {
                 const pageSection = document.createElement('section');
                 pageSection.className = 'flipbook-page';
                 pageSection.setAttribute('data-page', idx + 1);
-                pageSection.setAttribute('aria-label', `Page ${idx + 1} of ${pagesData.length}`);
+                pageSection.setAttribute('aria-label', `Page ${idx + 1} of ${filteredPagesData.length}`);
                 pageSection.setAttribute('tabindex', '-1');
                 group.forEach(el => pageSection.appendChild(el));
                 this.container.appendChild(pageSection);
@@ -154,6 +214,9 @@
         attachMagazineFurnitureToPages: function () {
             this.pages.forEach((pageEl, idx) => {
                 const pageNum = idx + 1;
+                const isEvenPage = pageNum % 2 === 0;
+                const isLastPage = pageNum === this.totalPages;
+                const isBack = (isEvenPage && pageNum > 1) || isLastPage;
 
                 // Add corner turn affordance
                 let dogEar = pageEl.querySelector('.magazine-dog-ear');
@@ -161,10 +224,11 @@
                     dogEar = document.createElement('button');
                     dogEar.type = 'button';
                     dogEar.className = 'magazine-dog-ear';
-                    dogEar.setAttribute('aria-label', pageNum < this.totalPages ? 'Turn the page' : 'Previous page');
+                    dogEar.setAttribute('data-action', isBack ? 'prev' : 'next');
+                    dogEar.setAttribute('aria-label', isBack ? 'Previous page' : 'Turn the page');
                     dogEar.innerHTML = `
                         <span class="dog-ear-fold"></span>
-                        <span class="dog-ear-label">${pageNum < this.totalPages ? 'Turn ↗' : '← Back'}</span>
+                        <span class="dog-ear-label">${isBack ? '← Back' : 'Turn ↗'}</span>
                     `;
                     pageEl.appendChild(dogEar);
                 }
@@ -184,10 +248,34 @@
             });
         },
 
+        getI18n: function () {
+            const lang = (document.documentElement.lang || 'en').toLowerCase().split('-')[0];
+            const dict = {
+                en: { prev: 'PREV', next: 'NEXT', contents: 'CONTENTS', flatScroll: 'FLAT SCROLL', magazineSpread: 'MAGAZINE SPREAD', pageXofY: 'PAGE {current} OF {total}', turn: 'Turn ↗', back: '← Back', prevPage: 'Previous page', nextPage: 'Turn the page', tableOfContents: 'Table of Contents' },
+                fr: { prev: 'PRÉC', next: 'SUIV', contents: 'SOMMAIRE', flatScroll: 'PAGE UNIQUE', magazineSpread: 'MODE MAGAZINE', pageXofY: 'PAGE {current} SUR {total}', turn: 'Tourner ↗', back: '← Retour', prevPage: 'Page précédente', nextPage: 'Tourner la page', tableOfContents: 'Sommaire' },
+                it: { prev: 'PREC', next: 'SUCC', contents: 'INDICE', flatScroll: 'PAGINA SINGOLA', magazineSpread: 'MODALITÀ RIVISTA', pageXofY: 'PAGINA {current} DI {total}', turn: 'Sfoglia ↗', back: '← Indietro', prevPage: 'Pagina precedente', nextPage: 'Sfoglia pagina', tableOfContents: 'Indice' },
+                ru: { prev: 'НАЗАД', next: 'ДАЛЕЕ', contents: 'СОДЕРЖАНИЕ', flatScroll: 'ОДНА СТРАНИЦА', magazineSpread: 'ЖУРНАЛ', pageXofY: 'СТРАНИЦА {current} ИЗ {total}', turn: 'Листать ↗', back: '← Назад', prevPage: 'Предыдущая страница', nextPage: 'Следующая страница', tableOfContents: 'Содержание' },
+                el: { prev: 'ΠΡΟΗΓ', next: 'ΕΠΟΜ', contents: 'ΠΕΡΙΕΧΟΜΕΝΑ', flatScroll: 'ΜΟΝΗ ΣΕΛΙΔΑ', magazineSpread: 'ΠΕΡΙΟΔΙΚΟ', pageXofY: 'ΣΕΛΙΔΑ {current} ΑΠΟ {total}', turn: 'Επόμενο ↗', back: '← Πίσω', prevPage: 'Προηγούμενη σελίδα', nextPage: 'Επόμενη σελίδα', tableOfContents: 'Περιεχόμενα' },
+                es: { prev: 'ANT', next: 'SIG', contents: 'ÍNDICE', flatScroll: 'PÁGINA ÚNICA', magazineSpread: 'MODO REVISTA', pageXofY: 'PÁGINA {current} DE {total}', turn: 'Pasar ↗', back: '← Volver', prevPage: 'Página anterior', nextPage: 'Pasar página', tableOfContents: 'Índice de contenidos' },
+                de: { prev: 'ZURÜCK', next: 'WEITER', contents: 'INHALT', flatScroll: 'EINZELSEITE', magazineSpread: 'MAGAZIN', pageXofY: 'SEITE {current} VON {total}', turn: 'Umblättern ↗', back: '← Zurück', prevPage: 'Vorherige Seite', nextPage: 'Nächste Seite', tableOfContents: 'Inhaltsverzeichnis' },
+                pt: { prev: 'ANT', next: 'PRÓX', contents: 'ÍNDICE', flatScroll: 'PÁGINA ÚNICA', magazineSpread: 'MODO REVISTA', pageXofY: 'PÁGINA {current} DE {total}', turn: 'Virar ↗', back: '← Voltar', prevPage: 'Página anterior', nextPage: 'Próxima página', tableOfContents: 'Índice de conteúdos' },
+                hy: { prev: 'ՆԱԽ', next: 'ՀԱՋ', contents: 'ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ', flatScroll: 'ՄԵԿ ԷՋ', magazineSpread: 'ԱՄՍԱԳԻՐ', pageXofY: 'ԷՋ {current} / {total}', turn: 'Թերթել ↗', back: '← Ետ', prevPage: 'Նախորդ էջ', nextPage: 'Հաջորդ էջ', tableOfContents: 'Բովանդակություն' },
+                ka: { prev: 'წინა', next: 'შემდეგ', contents: 'შინაარსი', flatScroll: 'ერთ გვერდზე', magazineSpread: 'ჟურნალი', pageXofY: 'გვერდი {current} / {total}', turn: 'გადაფურცვლა ↗', back: '← უკან', prevPage: 'წინა გვერდი', nextPage: 'შემდეგი გვერდი', tableOfContents: 'სარჩევი' },
+                tt: { prev: 'АЛДЫНГЫ', next: 'КИЛӘСӘК', contents: 'ЭЧТӘЛЕК', flatScroll: 'БЕР БИТ', magazineSpread: 'ЖУРНАЛ', pageXofY: 'БИТ {current} / {total}', turn: 'Актару ↗', back: '← Иртәгә', prevPage: 'Алдагы бит', nextPage: 'Киләсе бит', tableOfContents: 'Эчтәлек' },
+                ba: { prev: 'АЛДАН', next: 'КИЛӘҺЕ', contents: 'ХӘБӘРҘӘР', flatScroll: 'БЕР БИТ', magazineSpread: 'ЖУРНАЛ', pageXofY: 'БИТ {current} / {total}', turn: 'Аҡтарыу ↗', back: '← Ҡайтыу', prevPage: 'Алдағы бит', nextPage: 'Киләһе бит', tableOfContents: 'Эстәлек' },
+                br: { prev: 'KENT', next: 'GOUDE', contents: 'TAOLENN', flatScroll: 'PAJENN UNAN', magazineSpread: 'KAZETENN', pageXofY: 'PAJENN {current} EUS {total}', turn: 'Treiñ ↗', back: '← En-dro', prevPage: 'Pajenn gent', nextPage: 'Pajenn goude', tableOfContents: 'Taolenn' },
+                cv: { prev: 'АННӐ', next: 'ТЕПРЕ', contents: 'ФОНД', flatScroll: 'ПӖР ПАЖА', magazineSpread: 'ЖУРНАЛ', pageXofY: 'ПАЖА {current} / {total}', turn: 'Ҫавӑр ↗', back: '← Каялла', prevPage: 'Аннӑ пажа', nextPage: 'Тепре пажа', tableOfContents: 'Фонд' }
+            };
+            return dict[lang] || dict.en;
+        },
+
         renderControls: function () {
+            const i18n = this.getI18n();
             const wrapper = document.createElement('div');
             wrapper.className = 'flipbook-toolbar magazine-furniture-bar';
             wrapper.setAttribute('aria-label', 'Magazine Reading Furniture');
+
+            const pageIndicatorText = i18n.pageXofY.replace('{current}', '1').replace('{total}', this.totalPages);
 
             wrapper.innerHTML = `
                 <div class="magazine-furniture-container">
@@ -197,33 +285,33 @@
 
                     <div class="magazine-furniture-row">
                         <div class="magazine-furniture-left">
-                            <button type="button" class="magazine-nav-btn flipbook-prev-btn" aria-label="Previous Page">
+                            <button type="button" class="magazine-nav-btn flipbook-prev-btn" aria-label="${i18n.prevPage}">
                                 <span class="nav-arrow">←</span>
-                                <span class="nav-text">PREV</span>
+                                <span class="nav-text">${i18n.prev}</span>
                             </button>
                             <span class="magazine-folio-counter">
-                                <span class="flipbook-indicator">PAGE 1 OF ${this.totalPages}</span>
+                                <span class="flipbook-indicator">${pageIndicatorText}</span>
                             </span>
-                            <button type="button" class="magazine-nav-btn flipbook-next-btn" aria-label="Next Page">
-                                <span class="nav-text">NEXT</span>
+                            <button type="button" class="magazine-nav-btn flipbook-next-btn" aria-label="${i18n.nextPage}">
+                                <span class="nav-text">${i18n.next}</span>
                                 <span class="nav-arrow">→</span>
                             </button>
                         </div>
 
                         <div class="magazine-furniture-right">
                             <div class="contents-popover-wrapper">
-                                <button type="button" class="magazine-contents-trigger" aria-expanded="false" aria-controls="magazine-contents-menu" aria-label="Table of Contents">
+                                <button type="button" class="magazine-contents-trigger" aria-expanded="false" aria-controls="magazine-contents-menu" aria-label="${i18n.tableOfContents}">
                                     <span class="contents-icon">📖</span>
-                                    <span class="contents-label">CONTENTS</span>
+                                    <span class="contents-label">${i18n.contents}</span>
                                 </button>
                                 <div id="magazine-contents-menu" class="magazine-contents-popover" hidden>
                                     <div class="contents-popover-header">
-                                        <span>CONTENTS</span>
+                                        <span>${i18n.contents}</span>
                                         <button type="button" class="contents-close-btn" aria-label="Close Table of Contents">✕</button>
                                     </div>
                                     <ul class="contents-list">
                                         ${this.pages.map((p, i) => {
-                                            const heading = p.querySelector('h2, h3, h4')?.textContent || `Page ${i + 1}`;
+                                            const heading = p.querySelector('h2, h3, h4, .editorial-heading')?.textContent || `Page ${i + 1}`;
                                             const shortTitle = heading.length > 35 ? heading.substring(0, 35) + '…' : heading;
                                             return `
                                                 <li>
@@ -238,9 +326,9 @@
                                 </div>
                             </div>
 
-                            <select class="flipbook-select sr-only" aria-label="Jump to page">
+                            <select class="flipbook-select sr-only" aria-label="${i18n.tableOfContents}">
                                 ${this.pages.map((p, i) => {
-                                    const heading = p.querySelector('h2, h3, h4')?.textContent || `Page ${i + 1}`;
+                                    const heading = p.querySelector('h2, h3, h4, .editorial-heading')?.textContent || `Page ${i + 1}`;
                                     const shortTitle = heading.length > 30 ? heading.substring(0, 30) + '…' : heading;
                                     return `<option value="${i + 1}">Page ${i + 1}: ${shortTitle}</option>`;
                                 }).join('')}
@@ -248,7 +336,7 @@
 
                             <button type="button" class="magazine-mode-toggle flipbook-mode-toggle" aria-label="Toggle Read as One Page or Flipbook View">
                                 <span class="mode-icon">📜</span>
-                                <span class="mode-label">FLAT SCROLL</span>
+                                <span class="mode-label">${i18n.flatScroll}</span>
                             </button>
                         </div>
                     </div>
@@ -405,10 +493,15 @@
             this.container.querySelectorAll('.magazine-dog-ear').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    if (this.currentPage < this.totalPages) {
-                        this.nextPage();
-                    } else {
+                    const action = btn.getAttribute('data-action');
+                    if (action === 'prev') {
                         this.prevPage();
+                    } else {
+                        if (this.currentPage < this.totalPages) {
+                            this.nextPage();
+                        } else {
+                            this.prevPage();
+                        }
                     }
                 });
             });
@@ -434,6 +527,10 @@
                     const p = parseInt(match[1], 10);
                     if (p >= 1 && p <= this.totalPages && p !== this.currentPage) {
                         this.showPage(p, false);
+                    }
+                } else if (!window.location.hash || window.location.hash === '#') {
+                    if (this.currentPage !== 1) {
+                        this.showPage(1, false);
                     }
                 }
             });
@@ -527,7 +624,10 @@
                 }
 
                 // Update UI elements
-                if (this.indicatorEl) this.indicatorEl.textContent = `PAGE ${pageIndex} OF ${this.totalPages}`;
+                const i18n = this.getI18n();
+                if (this.indicatorEl) {
+                    this.indicatorEl.textContent = i18n.pageXofY.replace('{current}', pageIndex).replace('{total}', this.totalPages);
+                }
                 if (this.selectEl) this.selectEl.value = pageIndex;
                 if (this.prevBtn) this.prevBtn.disabled = pageIndex === 1;
                 if (this.nextBtn) this.nextBtn.disabled = pageIndex === this.totalPages;
@@ -569,6 +669,7 @@
         },
 
         applyMode: function () {
+            const i18n = this.getI18n();
             if (this.mode === 'scroll') {
                 this.container.classList.remove('flipbook-mode');
                 this.container.classList.add('scroll-mode');
@@ -578,7 +679,7 @@
                 });
                 if (this.modeToggleBtn) {
                     const labelSpan = this.modeToggleBtn.querySelector('.mode-label');
-                    if (labelSpan) labelSpan.textContent = 'MAGAZINE SPREAD';
+                    if (labelSpan) labelSpan.textContent = i18n.magazineSpread;
                     this.modeToggleBtn.classList.add('active-scroll');
                 }
                 if (this.prevBtn) this.prevBtn.style.display = 'none';
@@ -589,7 +690,7 @@
                 this.container.classList.add('flipbook-mode');
                 if (this.modeToggleBtn) {
                     const labelSpan = this.modeToggleBtn.querySelector('.mode-label');
-                    if (labelSpan) labelSpan.textContent = 'FLAT SCROLL';
+                    if (labelSpan) labelSpan.textContent = i18n.flatScroll;
                     this.modeToggleBtn.classList.remove('active-scroll');
                 }
                 if (this.prevBtn) this.prevBtn.style.display = 'inline-flex';

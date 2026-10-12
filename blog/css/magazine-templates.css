@@ -468,6 +468,20 @@ h4.editorial-heading { font-size: var(--blog-text-lg, 1.25rem); color: var(--pos
   align-items: start;
   padding: 0.75rem 0.5rem;
   border-bottom: 1px dashed var(--blog-border-delicate, #e7e0d6);
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.phrase-upgrade-card,
+.gazette-quiz-card,
+.gazette-pullquote,
+.gazette-example-box,
+.gazette-marginalia,
+.gazette-figure,
+.quote-tile,
+.podcast-deck-box {
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .instead-try-row:last-child {
