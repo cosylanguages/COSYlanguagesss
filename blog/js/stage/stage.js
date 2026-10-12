@@ -228,7 +228,7 @@ export class StageController {
         const counter = this.container.querySelector('#beat-counter');
         if (lowerThird) {
           const rawText = beat.say || beat.caption || '';
-          lowerThird.innerHTML = this.parseMarkdown(rawText);
+          lowerThird.textContent = this.stripMarkdown(rawText);
         }
         if (counter) counter.textContent = `${idx + 1} / ${total}`;
       },
@@ -407,12 +407,15 @@ export class StageController {
   stripMarkdown(str) {
     if (!str) return '';
     return String(str)
-      .replace(/\\([*_`\\])/g, '$1') // unescape escaped characters like \*
+      .replace(/\\([*_`\\])/g, '$1')
+      .replace(/<[^>]*>/g, ' ')
       .replace(/`([^`]+)`/g, '$1')
       .replace(/\*\*([^*]+)\*\*/g, '$1')
       .replace(/__([^_]+)__/g, '$1')
       .replace(/\*([^*]+)\*/g, '$1')
       .replace(/_([^_]+)_/g, '$1')
-      .replace(/[*_`#~]/g, '');
+      .replace(/[*_`#~]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 }
