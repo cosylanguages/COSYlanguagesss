@@ -157,17 +157,77 @@ export class StageTimeline {
             say: listSay
           });
         } else {
-          const textSay = stripMarkdown(block.text || block.content || block.question || block.title || '');
-          const preset = block.type === 'culture-bite' ? 'push-in' : 'focus';
-          this.beats.push({
-            id: `beat-block-${idx}`,
-            targetSelector: blockId,
-            duration: calculateWpmDuration(textSay, 3000),
-            cameraPreset: preset,
-            reveal: 'fade-in',
-            caption: textSay,
-            say: textSay
-          });
+          const htmlText = block.text || block.content || block.question || block.title || '';
+
+          // Check if this block is a complex guide container (e.g. top-10-verbs or top-100-a0-a1 HTML spreads)
+          const verbSections = Array.from(htmlText.matchAll(/<section class="verb-section" id="([^"]+)"[\s\S]*?<\/section>/g));
+          const listSections = Array.from(htmlText.matchAll(/<section class="list-section"[\s\S]*?<\/section>/g));
+          const chainCards = Array.from(htmlText.matchAll(/<div class="chain-card"[\s\S]*?<\/div>\s*<\/div>/g));
+
+          if (verbSections.length > 0) {
+            verbSections.forEach((m, sIdx) => {
+              const secHtml = m[0];
+              const secId = m[1];
+              const num = secHtml.match(/<div class="verb-num">([^<]+)<\/div>/)?.[1]?.trim() || '';
+              const h2 = secHtml.match(/<h2[^>]*>([\s\S]*?)<\/h2>/)?.[1]?.replace(/<[^>]+>/g, '').trim() || '';
+              const tagline = secHtml.match(/<p class="verb-tagline">([\s\S]*?)<\/p>/)?.[1]?.replace(/<[^>]+>/g, '').trim() || '';
+
+              const verbSay = stripMarkdown(`${num} ${h2}. ${tagline}`);
+              this.beats.push({
+                id: `beat-verb-${secId}`,
+                targetSelector: `#${secId}`,
+                duration: calculateWpmDuration(verbSay, 4000),
+                cameraPreset: 'push-in',
+                reveal: 'fade-in',
+                caption: verbSay,
+                say: verbSay
+              });
+            });
+          } else if (listSections.length > 0) {
+            listSections.forEach((m, lIdx) => {
+              const secHtml = m[0];
+              const headText = secHtml.match(/<div class="sec-head"[\s\S]*?<\/div>/)?.[0]?.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() || `Section ${lIdx + 1}`;
+              const cardCount = (secHtml.match(/<div class="lex-card"/g) || []).length;
+              const secSay = stripMarkdown(`${headText}. ${cardCount} vocabulary entries.`);
+
+              this.beats.push({
+                id: `beat-list-sec-${lIdx}`,
+                targetSelector: blockId,
+                duration: calculateWpmDuration(secSay, 3500),
+                cameraPreset: 'focus',
+                reveal: 'fade-in',
+                caption: secSay,
+                say: secSay
+              });
+            });
+          } else if (chainCards.length > 0) {
+            const groupSize = 10;
+            const totalGroups = Math.ceil(chainCards.length / groupSize);
+            for (let g = 0; g < totalGroups; g++) {
+              const groupSay = `Chains ${g * groupSize + 1} to ${Math.min((g + 1) * groupSize, chainCards.length)} of 100 A0-A1 knowledge chains.`;
+              this.beats.push({
+                id: `beat-chains-group-${g}`,
+                targetSelector: blockId,
+                duration: calculateWpmDuration(groupSay, 3500),
+                cameraPreset: 'focus',
+                reveal: 'fade-in',
+                caption: groupSay,
+                say: groupSay
+              });
+            }
+          } else {
+            const textSay = stripMarkdown(htmlText);
+            const preset = block.type === 'culture-bite' ? 'push-in' : 'focus';
+            this.beats.push({
+              id: `beat-block-${idx}`,
+              targetSelector: blockId,
+              duration: calculateWpmDuration(textSay, 3000),
+              cameraPreset: preset,
+              reveal: 'fade-in',
+              caption: textSay,
+              say: textSay
+            });
+          }
         }
       }
     });
