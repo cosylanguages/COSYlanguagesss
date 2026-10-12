@@ -555,6 +555,13 @@
         }
 
         if (item) {
+            if (item.theme && item.theme.toLowerCase().trim() === sel) return true;
+            if (item.secondary_themes && Array.isArray(item.secondary_themes)) {
+                if (item.secondary_themes.some(st => String(st).toLowerCase().trim() === sel || String(st).toLowerCase().trim().endsWith('/' + sel))) return true;
+            }
+            if (item.themes && Array.isArray(item.themes)) {
+                if (item.themes.some(st => String(st).toLowerCase().trim() === sel || String(st).toLowerCase().trim().endsWith('/' + sel))) return true;
+            }
             if (item.id) {
                 const itemId = String(item.id).toLowerCase().trim();
                 if (itemId === sel || itemId === selHyphen || itemId === selUnderscore) return true;
@@ -576,7 +583,7 @@
         return false;
     };
 
-    function filterVocabulary(entries, { lang, level, theme, subTheme, category, strict }) {
+    function filterVocabulary(entries, { lang, level, theme, subTheme, category, strict, room }) {
         const categoryToForm = {
             'Vocabulary': (strict && category === 'Vocabulary') ? ['noun', 'adjective'] : ['noun', 'adjective', 'other'],
             'Grammar': ['verb', 'preposition', 'conjunction', 'determiner', 'pronoun', 'adverb'],
@@ -594,6 +601,10 @@
             if (category && targetForms && entry.form && !targetForms.includes(entry.form)) return false;
             if (theme && theme !== 'all' && !isThemeMatch(entry.theme, theme, entry)) return false;
             if (subTheme && subTheme !== 'all' && (entry.sub_theme || '') !== subTheme) return false;
+            if (room && room !== 'all') {
+                const itemRooms = (entry.rooms || (entry.room ? [entry.room] : [])).map(r => String(r).toLowerCase().trim());
+                if (!itemRooms.includes(room.toLowerCase().trim())) return false;
+            }
             return true;
         });
     }
@@ -610,6 +621,10 @@
         const levelMatch = normalizedLevel === 'all' || (item.level && window.getLevelCode(item.level) === normalizedLevel);
         const themeMatch = isThemeMatch(item.theme, theme, item);
         const subThemeMatch = !subTheme || subTheme === 'all' || (item.sub_theme && item.sub_theme === subTheme);
+        if (options.room && options.room !== 'all') {
+            const itemRooms = (item.rooms || (item.room ? [item.room] : [])).map(r => String(r).toLowerCase().trim());
+            if (!itemRooms.includes(options.room.toLowerCase().trim())) return false;
+        }
         return levelMatch && themeMatch && subThemeMatch;
       });
     };

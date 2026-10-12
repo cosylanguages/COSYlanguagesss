@@ -99,6 +99,11 @@
                     html += `<div class="pe-card-transcription">${q.item.transcription}</div>`;
                 }
 
+                const regionVal = q.region || q.item.region;
+                if (regionVal) {
+                    html += `<div class="pe-region-tag" style="margin-top:4px;"><span class="region-badge" style="background:var(--warm-white, #fdfbf7); border:1px solid var(--border, #e2d9cc); padding:2px 8px; border-radius:12px; font-size:0.75rem; color:var(--ink-light, #5c5549); font-weight:600;">📍 ${regionVal}</span></div>`;
+                }
+
                 const wordToSpeak = (q.item.word || q.item.text || (typeof q.ans === 'string' ? q.ans : '') || '').replace(/'/g, "\\'");
                 html += `<button class="btn-outline pe-card-speak-btn" onclick="window.cosyPracticeEngine.speakText('${wordToSpeak}', '${lang}')">🔊 Listen <span class="keycap-badge">S</span></button>`;
 
