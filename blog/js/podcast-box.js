@@ -23,6 +23,7 @@ export class PodcastBoxComponent {
     const podcast = this.post.podcast || {};
     const episodeNum = podcast.episode || 1;
     const audioUrl = podcast.audioUrl || (this.post.audio_podcast ? `../audio/blog/${this.post.slug}.mp3` : null);
+    const externalUrl = podcast.externalUrl || null;
     const slug = this.post.slug || '';
     const scriptUrl = `${slug}.html?script=1`;
     const stageUrl = `${slug}.html?stage=1`;
@@ -58,6 +59,7 @@ export class PodcastBoxComponent {
             <span class="podcast-show-name">cosylanguages / такиеязыки</span>
           </div>
           <div class="podcast-quick-links">
+            ${externalUrl ? `<a href="${this.escapeHtml(externalUrl)}" target="_blank" rel="noopener" class="podcast-action-link" style="background: #1db954; color: #ffffff;" title="Listen on Spotify / Anchor">🎧 Spotify</a>` : ''}
             <a href="${stageUrl}" class="podcast-action-link" title="Open in 16:9 Animated Presentation Deck" data-i18n="blog.stage_view">${this.escapeHtml(stageViewText)}</a>
             <a href="${scriptUrl}" class="podcast-action-link" title="Open in Teleprompter Script Mode" data-i18n="blog.script_teleprompter">${this.escapeHtml(scriptPromptText)}</a>
           </div>

@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-12T21:44:08.503Z",
+  "generatedAt": "2026-10-13T11:09:04.226Z",
   "stats": {
     "totalPosts": 41,
     "totalDesks": 9,
@@ -191,7 +191,8 @@
       "readingTime": 12,
       "podcast": {
         "episode": 10,
-        "audioUrl": "../audio/blog/top-5-favourite-grammar-rules.mp3"
+        "audioUrl": "https://anchor.fm/s/f931c12c/podcast/play/127116641/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-8%2F433699518-44100-2-8081bb8b574d1.m4a",
+        "externalUrl": "https://podcasters.spotify.com/pod/show/james-york6/episodes/5-Fun-Grammar-Rules-for-Intermediate-Learners-e3q5pt1"
       },
       "artDirection": {
         "palette": [
@@ -1010,7 +1011,8 @@
       "readingTime": 8,
       "podcast": {
         "episode": 1,
-        "audioUrl": "../audio/blog/stop-translating-10-sentence-frames.mp3"
+        "audioUrl": "https://anchor.fm/s/f931c12c/podcast/play/126745441/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-3%2F644f643e-d8ce-e661-cff4-7b7a435cc60c.mp3",
+        "externalUrl": "https://podcasters.spotify.com/pod/show/james-york6/episodes/Stop-Translating--Top-10-Phrases-To-Actually-Start-Speaking-e3pqfd1"
       },
       "artDirection": {
         "palette": [
@@ -6599,8 +6601,9 @@
       ],
       "readingTime": 12,
       "podcast": {
-        "episode": 10,
-        "audioUrl": "../audio/blog/welcome-podcast.mp3"
+        "episode": 2,
+        "audioUrl": "https://anchor.fm/s/f931c12c/podcast/play/89733577/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-6-27%2F383908675-44100-2-eafbc55432c38.mp3",
+        "externalUrl": "https://podcasters.spotify.com/pod/show/james-york6/episodes/2-TOP-10-verbs-e2mgv09"
       },
       "artDirection": {
         "palette": [
