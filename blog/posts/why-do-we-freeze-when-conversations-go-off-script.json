@@ -85,6 +85,18 @@
       }
     },
     {
+      "type": "links",
+      "destination": "cosydata",
+      "url": "https://www.instagram.com/reel/DeO8Gl7hstU/?obrf=bHlmcjNmdnZhbnU3",
+      "label": "📺 Watch the referenced video: \"When the patient goes off script\" on Instagram",
+      "say": "Watch the referenced video on Instagram: When the patient goes off script.",
+      "beat": {
+        "duration": 4000,
+        "camera": "focus",
+        "target": "#block-3a"
+      }
+    },
+    {
       "type": "paragraph",
       "text": "When I saw it, I knew immediately we had to turn this into both a blog post and a podcast episode. As a language teacher and a lifelong learner, I started wondering: Is this freeze response actually recognized in psychology? It turns out it is, and it brings us right to our core topic for today's Mind Matters session: **Script Theory**.",
       "say": "When I saw it, I knew immediately we had to turn this into both a blog post and a podcast episode. As a language teacher and a lifelong learner, I started wondering: Is this freeze response actually recognized in psychology? It turns out it is, and it brings us right to our core topic for today's Mind Matters session: Script Theory.",
