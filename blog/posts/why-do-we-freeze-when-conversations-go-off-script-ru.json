@@ -23,7 +23,8 @@
   "readingTime": 7,
   "podcast": {
     "episode": 2,
-    "audioUrl": "../audio/blog/why-do-we-freeze-when-conversations-go-off-script-ru.mp3"
+    "iframeUrl": "https://player.mave.digital?podcast=takieyazyki&episode=1&color=rgb(95,128,245)&mute=1&date=1&download=1",
+    "externalUrl": "https://player.mave.digital?podcast=takieyazyki&episode=1&color=rgb(95,128,245)&mute=1&date=1&download=1"
   },
   "artDirection": {
     "palette": [

@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-13T15:10:26.405Z",
+  "generatedAt": "2026-10-13T17:12:47.363Z",
   "stats": {
     "totalPosts": 43,
     "totalDesks": 10,
@@ -112,7 +112,8 @@
       "readingTime": 7,
       "podcast": {
         "episode": 2,
-        "audioUrl": "../audio/blog/why-do-we-freeze-when-conversations-go-off-script-ru.mp3"
+        "iframeUrl": "https://player.mave.digital?podcast=takieyazyki&episode=1&color=rgb(95,128,245)&mute=1&date=1&download=1",
+        "externalUrl": "https://player.mave.digital?podcast=takieyazyki&episode=1&color=rgb(95,128,245)&mute=1&date=1&download=1"
       },
       "artDirection": {
         "palette": [
@@ -549,7 +550,8 @@
       "readingTime": 7,
       "podcast": {
         "episode": 2,
-        "audioUrl": "../audio/blog/why-do-we-freeze-when-conversations-go-off-script.mp3"
+        "audioUrl": "../audio/blog/why-do-we-freeze-when-conversations-go-off-script.mp3",
+        "externalUrl": "https://open.spotify.com/episode/7ac76wmxxU5rjimp1OtX8n?si=-RxBZAORTIq4r_51GeXk-w"
       },
       "artDirection": {
         "palette": [
