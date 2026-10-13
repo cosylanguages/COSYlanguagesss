@@ -17,7 +17,7 @@
 }
 
 .gazette-wrapper {
-  max-width: 1100px;
+  max-width: 1380px;
   margin: 0 auto;
   padding: 1.5rem 1.25rem 4rem;
   box-sizing: border-box;
@@ -310,7 +310,7 @@
 /* 4. Reading View & Article Typography */
 
 .gazette-reading-view {
-  max-width: 860px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
@@ -733,7 +733,7 @@ h4.editorial-heading { font-size: var(--blog-text-lg, 1.25rem); color: var(--pos
 /* Format 6: Long Read */
 .format-essay,
 .format-long-read {
-  max-width: 800px;
+  max-width: 1080px;
   margin: 0 auto;
 }
 
