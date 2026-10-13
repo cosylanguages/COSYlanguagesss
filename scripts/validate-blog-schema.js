@@ -18,7 +18,8 @@ const ALLOWED_DESKS = new Set([
   'Long Reads',
   'Cosy Events',
   'The Podcast',
-  'Back Issues'
+  'Back Issues',
+  'Reflections'
 ]);
 
 const ALLOWED_FORMATS = new Set([
@@ -319,6 +320,7 @@ function runCLI() {
     'desk.cosy_events',
     'desk.the_podcast',
     'desk.back_issues',
+    'desk.reflections',
     'nav.courses',
     'nav.calculator',
     'nav.blog',

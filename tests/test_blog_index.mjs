@@ -14,7 +14,7 @@ test('blog/index.json structure and integrity', () => {
   const indexData = JSON.parse(fs.readFileSync(indexPath, 'utf-8'));
   assert.equal(indexData.version, '2.0.0');
   assert.ok(Array.isArray(indexData.desks), 'desks should be an array');
-  assert.equal(indexData.desks.length, 9, 'should contain exactly 9 desks');
+  assert.equal(indexData.desks.length, 10, 'should contain exactly 10 desks');
   assert.ok(Array.isArray(indexData.issues), 'issues should be an array');
   assert.ok(Array.isArray(indexData.posts), 'posts should be an array');
   assert.ok(indexData.posts.length > 0, 'posts array should not be empty');

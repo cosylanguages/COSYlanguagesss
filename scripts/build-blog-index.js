@@ -21,7 +21,8 @@ const DESKS_CATALOG = [
   { key: 'Long Reads', i18n_key: 'desk_long_reads', icon: '📖', order: 6 },
   { key: 'Cosy Events', i18n_key: 'desk_cosy_events', icon: '🎉', order: 7 },
   { key: 'The Podcast', i18n_key: 'desk_the_podcast', icon: '🎙️', order: 8 },
-  { key: 'Back Issues', i18n_key: 'desk_back_issues', icon: '🗄️', order: 9 }
+  { key: 'Back Issues', i18n_key: 'desk_back_issues', icon: '🗄️', order: 9 },
+  { key: 'Reflections', i18n_key: 'desk_reflections', icon: '💭', order: 10 }
 ];
 
 function buildBlogIndex() {
