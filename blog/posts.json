@@ -1,5 +1,93 @@
 [
   {
+    "slug": "why-do-we-freeze-when-conversations-go-off-script-ru",
+    "title": "Почему мы ступоримся, когда разговор отклоняется от сценария?",
+    "date": "2026-10-19",
+    "updated": null,
+    "category": "Reflections",
+    "summary": "Разбор теории сценариев (Script Theory), когнитивных механизмов речи и того, почему выход за рамки заученных шаблонов — это начало настоящего освоения языка.",
+    "author": "JY DM",
+    "reading_time": 7,
+    "cover_image": "",
+    "tags": [
+      "Reflections",
+      "ScriptTheory",
+      "PsychologyOfLearning",
+      "MindMatters",
+      "SpeakingClub"
+    ],
+    "featured": false,
+    "type": "post",
+    "url": "why-do-we-freeze-when-conversations-go-off-script-ru.html",
+    "issue_volume": "Vol. 2026.10",
+    "issue_title": "JY DM's birthday & His favs",
+    "cefr_level": "B1–B2",
+    "vibe": "Editorial Vibe",
+    "founder_notes": "CELTA-aligned target-language guidance by JY DM for COSYmagazine JY DM's birthday & His favs edition.",
+    "audio_podcast": false,
+    "artDirection": {
+      "palette": [
+        "#0d9488",
+        "#faf7f2",
+        "#1e293b",
+        "#d69e2e"
+      ],
+      "fonts": {
+        "display": "Fraunces",
+        "text": "DM Sans",
+        "accent": "Fraunces Italic"
+      },
+      "layout": "magazine-spread",
+      "motif": "tea-stain",
+      "seed": "off-script-mindset-ru",
+      "coverOverride": null
+    }
+  },
+  {
+    "slug": "why-do-we-freeze-when-conversations-go-off-script",
+    "title": "Why Do We Freeze When Conversations Go Off Script?",
+    "date": "2026-10-19",
+    "updated": null,
+    "category": "Reflections",
+    "summary": "An inquiry into Script Theory, cognitive processing, and why stumbling off script is where real language acquisition begins.",
+    "author": "JY DM",
+    "reading_time": 7,
+    "cover_image": "",
+    "tags": [
+      "Reflections",
+      "ScriptTheory",
+      "PsychologyOfLearning",
+      "MindMatters",
+      "SpeakingClub"
+    ],
+    "featured": false,
+    "type": "post",
+    "url": "why-do-we-freeze-when-conversations-go-off-script.html",
+    "issue_volume": "Vol. 2026.10",
+    "issue_title": "JY DM's birthday & His favs",
+    "cefr_level": "B1–B2",
+    "vibe": "Editorial Vibe",
+    "founder_notes": "CELTA-aligned target-language guidance by JY DM for COSYmagazine JY DM's birthday & His favs edition.",
+    "audio_podcast": true,
+    "artDirection": {
+      "palette": [
+        "#0d9488",
+        "#faf7f2",
+        "#1e293b",
+        "#d69e2e"
+      ],
+      "fonts": {
+        "display": "Fraunces",
+        "text": "DM Sans",
+        "accent": "Fraunces Italic"
+      },
+      "layout": "magazine-spread",
+      "motif": "tea-stain",
+      "seed": "off-script-mindset",
+      "coverOverride": null
+    }
+  },
+  {
     "slug": "stage-demo-podcast",
     "title": "Mastering Conversational Flow: Stage & Podcast Demo",
     "date": "2026-10-18",

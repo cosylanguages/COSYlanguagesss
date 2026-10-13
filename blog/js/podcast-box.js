@@ -23,6 +23,7 @@ export class PodcastBoxComponent {
     const podcast = this.post.podcast || {};
     const episodeNum = podcast.episode || 1;
     const audioUrl = podcast.audioUrl || (this.post.audio_podcast ? `../audio/blog/${this.post.slug}.mp3` : null);
+    const iframeUrl = podcast.iframeUrl || null;
     const externalUrl = podcast.externalUrl || null;
     const slug = this.post.slug || '';
     const scriptUrl = `${slug}.html?script=1`;
@@ -36,20 +37,31 @@ export class PodcastBoxComponent {
     const scriptPromptText = getT('blog.script_teleprompter', '📜 Script Teleprompter');
     const listenReadingText = getT('blog.listen_while_reading', '🎧 Listen While Reading');
 
-    const playerHtml = audioUrl ? `
-      <div class="podcast-audio-player-wrapper">
-        <audio class="podcast-audio-element" controls preload="metadata" src="${this.escapeHtml(audioUrl)}">
-          Your browser does not support the audio element.
-        </audio>
-        <button type="button" class="podcast-readalong-btn" id="btn-readalong-toggle" title="Sync article text highlighting with audio playback">
-          <span data-i18n="blog.listen_while_reading">${this.escapeHtml(listenReadingText)}</span>
-        </button>
-      </div>
-    ` : `
-      <div class="podcast-audio-notice">
-        <span data-i18n="blog.podcast_in_production">${this.escapeHtml(noticeText)}</span>
-      </div>
-    `;
+    let playerHtml = '';
+    if (iframeUrl) {
+      playerHtml = `
+        <div class="podcast-iframe-player-wrapper" style="margin-top: 1rem; border-radius: 8px; overflow: hidden;">
+          <iframe src="${this.escapeHtml(iframeUrl)}" style="width: 100%;" height="235" scrolling="no" frameborder="no" title="Podcast Episode Player"></iframe>
+        </div>
+      `;
+    } else if (audioUrl) {
+      playerHtml = `
+        <div class="podcast-audio-player-wrapper">
+          <audio class="podcast-audio-element" controls preload="metadata" src="${this.escapeHtml(audioUrl)}">
+            Your browser does not support the audio element.
+          </audio>
+          <button type="button" class="podcast-readalong-btn" id="btn-readalong-toggle" title="Sync article text highlighting with audio playback">
+            <span data-i18n="blog.listen_while_reading">${this.escapeHtml(listenReadingText)}</span>
+          </button>
+        </div>
+      `;
+    } else {
+      playerHtml = `
+        <div class="podcast-audio-notice">
+          <span data-i18n="blog.podcast_in_production">${this.escapeHtml(noticeText)}</span>
+        </div>
+      `;
+    }
 
     this.container.innerHTML = `
       <section class="cosy-podcast-box" aria-label="Podcast Episode Controls">
