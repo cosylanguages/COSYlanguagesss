@@ -1,3 +1,6 @@
+import html
+def html_escape(s):
+    return html.escape(str(s), quote=False)
 #!/usr/bin/env python3
 """
 generate_top200_blog.py
@@ -308,7 +311,7 @@ EN_DATA = {
         {"theme": "Senses &amp; Texture", "type": "pair", "items": ["Sharp", "Blunt"], "ex": "Sharp knife, blunt pencil."}
     ],
     'phrases': [
-        # Beginner Survival Phrases & Conversational Patterns
+        # Beginner Survival Phrases &amp; Conversational Patterns
         {"theme": "Greetings &amp; Courtesy", "type": "pair", "items": ["Hello, good morning!", "Goodbye, see you tomorrow!"], "ex": "Hello, good morning! How are you today?"},
         {"theme": "Greetings &amp; Courtesy", "type": "pair", "items": ["Please and thank you.", "You are welcome!"], "ex": "A coffee, please. Thank you! — You are welcome!"},
         {"theme": "Greetings &amp; Courtesy", "type": "pair", "items": ["Excuse me, sorry!", "No problem at all!"], "ex": "Excuse me, where is the hotel? — No problem at all!"},
@@ -436,20 +439,20 @@ def load_lang_vocab_data(lang_code):
 def generate_cards_html_en(items_list):
     cards_html = ""
     for item in items_list:
-        theme = item['theme'].replace("&", "&amp;")
+        theme = item['theme'].replace("&amp;", "&amp;")
         is_seq = (item['type'] == 'seq')
         tokens = item['items']
 
         if is_seq:
-            joined_items = f' <span class="lex-arrow" style="color:var(--teal);">➔</span> '.join([f'<span>{t.replace("&", "&amp;")}</span>' for t in tokens])
+            joined_items = f' <span class="lex-arrow" style="color:var(--teal);">➔</span> '.join([f'<span>{t.replace("&amp;", "&amp;")}</span>' for t in tokens])
         else:
-            joined_items = f' <span class="lex-arrow">↔</span> '.join([f'<span>{t.replace("&", "&amp;")}</span>' for t in tokens])
+            joined_items = f' <span class="lex-arrow">↔</span> '.join([f'<span>{t.replace("&amp;", "&amp;")}</span>' for t in tokens])
 
-        ex = item['ex'].replace("&", "&amp;")
+        ex = item['ex'].replace("&amp;", "&amp;")
 
         card = f"""
                     <div class="lex-card">
-                        <span class="lex-theme">{theme.replace("&", "&amp;")}</span>
+                        <span class="lex-theme">{theme.replace("&amp;", "&amp;")}</span>
                         <div class="lex-pair" style="font-size:1.1rem; flex-wrap:wrap;">
                             {joined_items}
                         </div>
@@ -478,7 +481,7 @@ def generate_cards_html_target(lang_code, items_list):
 
         card = f"""
                     <div class="lex-card">
-                        <span class="lex-theme">{theme.replace('_', ' ').title().replace("&", "&amp;")}</span>
+                        <span class="lex-theme">{theme.replace('_', ' ').title().replace("&amp;", "&amp;")}</span>
                         <div class="lex-pair" style="font-size:1.2rem;">
                             <span>{word}</span>
                         </div>
@@ -547,7 +550,7 @@ def generate_page(lang_code, lang_info):
     <meta name="theme-color" content="#FAF7F2">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/tokens.css">
     <link rel="stylesheet" href="../css/base.css">
