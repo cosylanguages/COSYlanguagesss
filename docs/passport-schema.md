@@ -23,11 +23,6 @@ Every COSY Passport JSON file MUST conform to the following schema:
       "source": "COSYtools",
       "item": "fr-conjugeur.avoir.mastery",
       "value": "proficient"
-    },
-    {
-      "source": "COSYworld",
-      "item": "district.market.vendor_chat",
-      "value": 1
     }
   ],
   "badges": [
@@ -63,13 +58,12 @@ Every COSY Passport JSON file MUST conform to the following schema:
 ## 3. Allowed Source Names & App Isolation Policy
 
 ### Allowed Source Names
-The `source` field MUST strictly be one of the five official ecosystem application repositories:
+The `source` field MUST strictly be one of the official ecosystem application repositories:
 
 1. `COSYlanguages` — Primary textbook portal, CEFR courses, and grammar manuals.
 2. `COSYtools` — Standalone linguistic reference engines (conjugators, gender trainers, prepositional regimes).
-3. `COSYworld` — Interactive 2D/3D direct immersion RPG environments and NPC dialogue scenes.
-4. `COSYgames` — Minigames, card decks, and vocabulary practice engines.
-5. `COSYevents` — Thematic speaking clubs and multimedia event night session records.
+3. `COSYgames` — Minigames, card decks, and vocabulary practice engines.
+4. `COSYevents` — Thematic speaking clubs and multimedia event night session records.
 
 ### Isolation & Non-Destructive Import Policy
 

@@ -1,6 +1,6 @@
 # Skyeng vs COSYlanguages — Competitive Analysis
 
-**Scope:** Skyeng's lessons, courses, curriculum, roadmaps, methodology, platform, and pricing — compared against COSYlanguages' own courses (`data/courses/courses.json`), curricula (`curriculum/en/*`), and ecosystem (`COSYtools`, `COSYgames`, `COSYevents`, `COSYworld`).
+**Scope:** Skyeng's lessons, courses, curriculum, roadmaps, methodology, platform, and pricing — compared against COSYlanguages' own courses (`data/courses/courses.json`), curricula (`curriculum/en/*`), and ecosystem (`COSYtools`, `COSYgames`, `COSYevents`).
 
 **Purpose:** identify what COSY can learn from Skyeng, what COSY already does better or differently, and concrete gap-filling actions that feed back into the curriculum and ecosystem.
 

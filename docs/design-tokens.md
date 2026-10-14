@@ -7,7 +7,7 @@ This document details the master design tokens available in `css/cosy-tokens.css
 ## 1. Consumer Repositories Linking Policy
 
 > **CRITICAL POLICY:**
-> Consumer repositories (including `COSYtools`, `COSYgames`, `COSYevents`, `COSYworld`, `COSYstudio`, `COSYcourses`, etc.) **MUST** import or link `css/cosy-tokens.css` via a `raw.githubusercontent.com` URL **pinned to a specific commit SHA or release tag**.
+> Consumer repositories (including `COSYtools`, `COSYgames`, `COSYevents`, `COSYstudio`, `COSYcourses`, etc.) **MUST** import or link `css/cosy-tokens.css` via a `raw.githubusercontent.com` URL **pinned to a specific commit SHA or release tag**.
 >
 > **NEVER** reference `main` directly in consumer imports.
 

@@ -1,7 +1,7 @@
 # Ecosystem Audit Report: COSY Languages Ecosystem
 
 ## Executive Summary
-This document presents the comprehensive audit of the **COSY Languages** ecosystem conducted on **March 10, 2026**. The audit covers all six component repositories defining the ecosystem architecture: **COSYlanguages** (Central Portal Gateway & Hub), **COSYmanuals** (Restricted Web Textbooks & Curricula), **COSYevents** (Public Speaking Clubs & Multimedia Nights), **COSYworld** (3D RPG Adventure & Spatial Scenes), **COSYgames** (Reusable Minigames Hub), and **COSYtools** (Linguistic Reference & Offline PWA Suite).
+This document presents the comprehensive audit of the **COSY Languages** ecosystem conducted on **March 10, 2026**. The audit covers component repositories defining the ecosystem architecture: **COSYlanguages** (Central Portal Gateway & Hub), **COSYmanuals** (Restricted Web Textbooks & Curricula), **COSYevents** (Public Speaking Clubs & Multimedia Nights), **COSYgames** (Reusable Minigames Hub), and **COSYtools** (Linguistic Reference & Offline PWA Suite).
 
 > **Historical snapshot:** Findings below describe the repository state on March 10, 2026 and are not current issue reports. Referenced paths and workflows must be checked against the live tree before action; see `docs/ECOSYSTEM_ARCHITECTURE.md` for the current migration map.
 
@@ -56,9 +56,6 @@ This document presents the comprehensive audit of the **COSY Languages** ecosyst
 - `/templates/events/index.html`: Events landing page and speaking club index.
 - Speaking club session guides: `wonder-session-template.html` (I Couldn't Help But Wonder), `science-session-template.html` (Keeping Up with Science), `mind-session-template.html` (Mind Matters), `debate-session-template.html` (Debatable & Relatable), `celebrate-session-template.html` (Let's Celebrate), `life-session-template.html` (My Life With/Without), `quotes-session-template.html` (The Greatest Quotes).
 - Event night session guides: `karaoke-session-template.html`, `long-reads-session-template.html`.
-
-### COSYworld (Spatial RPG & Visual Scenes) — External Repo
-- `https://cosylanguages.github.io/COSYworld/`: Standalone WebGL / Canvas spatial exploration app.
 
 ### COSYgames (Interactive Minigames Hub) — 22+ Games (Symlinked via `COSYgames/`)
 - `/games/index.html`: Minigames hub directory.
@@ -120,7 +117,7 @@ This document presents the comprehensive audit of the **COSY Languages** ecosyst
 
 ## 7. External Links and Cross-Repository Links
 
-- Outbound links in `index.html` and `apps/index.html` point to standalone sub-product repositories (`COSYtools`, `COSYworld`, `COSYgames`, `COSYevents`).
+- Outbound links in `index.html` and `apps/index.html` point to standalone sub-product repositories (`COSYtools`, `COSYgames`, `COSYevents`).
 - Cross-app handoff parameters strictly adhere to `docs/url-handoff.md` standard (`?lang=fr&level=B1&topic=travel`).
 - Asset links in standalone tools reference pinned raw GitHub URLs (`https://raw.githubusercontent.com/cosylanguages/COSYlanguages/.../css/cosy-tokens.css`).
 

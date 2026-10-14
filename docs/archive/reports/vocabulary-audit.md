@@ -16,7 +16,7 @@ Key audit conclusions:
 2. **Duplication against COSYdata:** COSYlanguages maintains legacy copies of vocabulary that single-source-of-truth **COSYdata** owns. Structurally, COSYlanguages uses legacy JS window assignments (`window.vocabularyData`) with schema fields like `word`, `phonetic_ipa`, `pos`, `theme`, `sub_theme`, `definition`, `examples` (array of objects with `text`, `translation`), whereas COSYdata uses clean JSON schemas (`word`, `ipa`, `pos`, `theme`, `subtheme`, `definition`, `examples` as simple string arrays, `cefr_level`).
 3. **Practice Page Data Fetching:** The Practice page (`practice/index.html` and `practice/types/vocabulary/vocabulary.js`) employs a **hybrid fetch model**. When initiating a session, `COSY.loadLanguageData(lang, level)` attempts a remote fetch from `https://cosylanguages.github.io/COSYdata/vocabulary/{lang}/index.json` with a 1.5s timeout. If successful, it populates `window.vocabularyData[lang]`. If remote fetching fails or offline mode is active, it falls back to dynamically injecting local `vocabulary/{lang}/{level}/*.js` scripts. Additionally, Cloze/Find-Mistake practice mode loads static standalone local JS datasets (`practice/data/vocabulary/{level}/{topic}.js` or `practice/data/vocabulary/fr/{level}/{topic}.js`).
 4. **Dropdown Value Construction:** Level, Theme, and Sub-theme dropdowns on Practice and Vocabulary pages are built dynamically from loaded entries (`window.vocabularyData[lang]`) or static configuration objects in `js/core/ui.js` (`COMMON_VOCAB_THEMES`) and `js/utils/shared.js`. Theme values are extracted from `item.theme` (or `item.category`), while Sub-theme values are extracted from `item.sub_theme` or `item.subtheme`.
-5. **COSYworld & Teacher Resource References:** Residual references to `COSYworld` exist solely in documentation files (`docs/ECOSYSTEM_ARCHITECTURE.md`, `docs/ecosystem-inventory.json`, `docs/cosy-languages-boundary-audit.md`, `docs/url-handoff.md`). Teacher resources ("Teacher Notes", "Teacher Guidance", "Teacher Manual", "Teacher Utility") exist in `project/planning/notebook/science_parsed_inventory.json`, `project/tests/science_club_mode.spec.ts`, `project/tests/wonder_private_lesson.spec.ts`, and public marketing copy in `index.html` and `courses/*.html`.
+5. **Teacher Resource References:** Teacher resources ("Teacher Notes", "Teacher Guidance", "Teacher Manual", "Teacher Utility") exist in `project/planning/notebook/science_parsed_inventory.json`, `project/tests/science_club_mode.spec.ts`, `project/tests/wonder_private_lesson.spec.ts`, and public marketing copy in `index.html` and `courses/*.html`.
 6. **Language Count Inconsistencies:** The repository states language counts of **14 target languages**, **13 languages**, and **100% / 10 languages** across different UI files, tests, scripts, and documentation files.
 
 ---
@@ -178,19 +178,9 @@ The Level, Theme, and Sub-theme dropdown selectors on Practice (`practice/index.
 
 ---
 
-## 5. References to `COSYworld` and Teacher Resources
+## 5. References to Teacher Resources
 
-To prepare for future decoupling tasks, all references to `COSYworld` and teacher/instructor resources across the repository have been cataloged.
-
-### References to `COSYworld`
-Zero source code files in `js/`, `practice/`, `languages/`, or `apps/` invoke `COSYworld`. All references reside strictly in documentation files:
-1. `docs/ECOSYSTEM_ARCHITECTURE.md`: Lines 19, 81, 102 (describes external RPG repo).
-2. `docs/ecosystem-inventory.json`: Lines 11, 419, 428, 430, 434, 435.
-3. `docs/cosy-languages-boundary-audit.md`: Lines 18, 33, 70, 71, 72, 73, 124, 125.
-4. `docs/url-handoff.md`: Lines 3, 43, 50.
-5. `docs/passport-schema.md`: Lines 28, 70.
-6. `docs/competitive-analysis/skyeng/skyeng-vs-cosy.md`: Line 86.
-7. `docs/proposed-migration-map.json`: Lines 4172, 4181, 4190, 4199, 4208.
+To prepare for future decoupling tasks, all references to teacher/instructor resources across the repository have been cataloged.
 
 ### References to Teacher Resources
 Teacher guidance panels, notes, and marketing copy exist in the following locations:

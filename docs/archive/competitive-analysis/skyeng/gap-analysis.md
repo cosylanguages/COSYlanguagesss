@@ -46,7 +46,7 @@ COSY covers 15+ languages including Bashkir, Breton, Chuvash, Tatar, Armenian, G
 **Action:** this is a unique selling point. Surface it on the landing page and in `data/languages/`; ensure each language has at least one lesson-stage exemplar under `reference-grammar/{lang}/lessons/`.
 
 ### B3. Open content ecosystem (games, print, events)
-`COSYgames` (20+ titles), `COSYevents` (cinema/karaoke/speaking clubs), print studio, and `COSYworld` quests have no Skyeng equivalent.
+`COSYgames` (20+ titles), `COSYevents` (cinema/karaoke/speaking clubs), print studio, and spatial quests have no Skyeng equivalent.
 
 **Action:** cross-link lesson-stage `freerPractice`/`production` fields to specific games/events (the schema already supports this) so every lesson routes into the ecosystem — the "80% talking time" Skyeng markets can become "100% of lessons connect to a real activity."
 

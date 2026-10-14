@@ -8,7 +8,6 @@
       "COSYlanguages",
       "COSYmanuals",
       "COSYevents",
-      "COSYworld",
       "COSYgames",
       "COSYtools"
     ]
@@ -412,58 +411,6 @@
           "paths": [
             "images/logos/speaking clubs/*/*.png",
             "images/logos/speaking clubs/*/*.jpg"
-          ]
-        }
-      ]
-    },
-    "COSYworld": {
-      "role": "Self-Study Open-World RPG Adventure Game & Spatial Scene Environments",
-      "framework_and_tech_stack": {
-        "languages": [
-          "JavaScript (ES6+ / WebGL / Canvas)",
-          "HTML5",
-          "CSS3"
-        ],
-        "framework": "Spatial Canvas Rendering Engine & 3D Scene Viewer",
-        "package_manager": "Extracted to standalone repo (COSYworld)",
-        "build_system": "Standalone repository build process",
-        "deployment": "Standalone GitHub Pages (https://cosylanguages.github.io/COSYworld)"
-      },
-      "routes_and_pages": [
-        {
-          "route": "https://cosylanguages.github.io/COSYworld/",
-          "description": "External COSYworld Standalone Application",
-          "type": "External SPA"
-        }
-      ],
-      "components": [
-        {
-          "name": "Spatial Room / Scene Canvas",
-          "filepath": "images/scenes/*",
-          "description": "Spatial room environment assets and coordinate layers"
-        },
-        {
-          "name": "Passport Handoff Sync",
-          "filepath": "shared/js/passport.js",
-          "description": "COSY Passport progress integration module"
-        }
-      ],
-      "content_and_datasets": [
-        {
-          "path": "docs/gemini_scene_match_image_prompts.md",
-          "description": "16 Scene environment generative background prompts"
-        },
-        {
-          "path": "images/scenes/*.jpg",
-          "description": "Spatial background environments (e.g. cozy_living_room.jpg, kitchen.jpg)"
-        }
-      ],
-      "assets": [
-        {
-          "type": "Scene Background Images",
-          "paths": [
-            "images/scenes/*.jpg",
-            "images/scenes/*.png"
           ]
         }
       ]

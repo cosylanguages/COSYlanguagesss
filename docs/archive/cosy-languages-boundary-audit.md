@@ -15,7 +15,7 @@ As defined by the ecosystem architecture, `COSYlanguages` must contain:
 4. **General learning roadmaps:** Language portals for 13 supported languages (`languages/{iso}/index.html`), level roadmaps, and daily dose idioms/facts (`js/data/daily_dose.js`).
 5. **Public courses:** Public course catalog and open syllabus pathways (`apps/free-portal/`, `apps/premium-courses/general/`).
 6. **Educational Blog:** Pedagogical articles, top 100/200 level vocabulary guides (`blog/`), and generation scripts (`generate_all_blog_pages.py`).
-7. **Ecosystem Navigation Header:** Global multi-product switcher (`#cosy-nav`) routing learners to companion repositories: `COSYmanuals`, `COSYevents`, `COSYworld`, `COSYgames`, and `COSYtools`.
+7. **Ecosystem Navigation Header:** Global multi-product switcher (`#cosy-nav`) routing learners to companion repositories: `COSYmanuals`, `COSYevents`, `COSYgames`, and `COSYtools`.
 
 All items outside this scope are evaluated and categorized into exactly one of nine classification buckets.
 
@@ -30,7 +30,7 @@ Every file, route, dataset, component, and asset in the repository is assigned t
 | **1** | **Keep in COSYlanguages** | Core landing pages, blog, practice hub, placement quiz, price calculator, language hubs, public entry points, and hub scripts. | **169** | 2.42% |
 | **2** | **Move to COSYmanuals** | Restricted web textbooks (`manuals/`), detailed syllabus curricula (`curriculum/`), reference grammar (`reference-grammar/`, `grammar/`), monolingual vocabulary databases (`vocabulary/`), communicative situation manuals (`communication/`), comparative grammar (`comparative/`), and wordlists (`docs/archive/wordlists/`). | **5,604** | 80.26% |
 | **3** | **Move to COSYevents** | Public speaking club session decks, multimedia event night guides, cinema club, karaoke, and event templates (`templates/events/`). | **13** | 0.19% |
-| **4** | **Move to COSYworld** | Open-world RPG adventure game content, WebGL spatial assets, and interactive room/city scenes (hosted externally at `COSYworld`). | **0** *(external)* | 0.00% |
+| **4** | **Move to Spatial Engine** | Open-world RPG adventure game content, WebGL spatial assets, and interactive room/city scenes. | **0** *(external)* | 0.00% |
 | **5** | **Move to COSYgames** | Interactive minigame engines, game templates (`templates/games/`), and game loader drivers (`js/games/`). | **6** | 0.09% |
 | **6** | **Move to COSYtools** | Standalone offline reference tools (12 micro-apps for verb conjugators, gender trainers, case systems, prepositional regimes). | **0** *(extracted)* | 0.00% |
 | **7** | **Shared dependency** | Master design tokens (`css/cosy-tokens.css`), global stylesheets (`css/`), core UI scripts (`js/core/`, `shared/`), UI images (`images/ui/`, `images/flags/`), reaction/music audio (`sounds/`), and JSON schemas (`schema/`). | **621** | 8.90% |
@@ -67,10 +67,10 @@ Every file, route, dataset, component, and asset in the repository is assigned t
 * **Recommendation:** **Move `templates/games/` and `js/games/` to COSYgames**. **Delete broken symlink `games`**.
 
 ### 5. Adventure Content
-* **Location:** `COSYworld` / Spatial Scene Assets
-* **Current State:** `COSYworld` is already maintained as an external repository (`github.com/cosylanguages/COSYworld`). However, residual spatial scene backgrounds exist in `images/scenes/`.
-* **Finding:** `images/scenes/` serves both `COSYworld` and `COSYgames` (Scene Match minigame).
-* **Recommendation:** Classify `images/scenes/` as **Shared dependency** for visual assets, while keeping core adventure engines in `COSYworld`.
+* **Location:** Spatial Scene Assets
+* **Current State:** Spatial scene backgrounds exist in `images/scenes/`.
+* **Finding:** `images/scenes/` serves `COSYgames` (Scene Match minigame).
+* **Recommendation:** Classify `images/scenes/` as **Shared dependency** for visual assets.
 
 ### 6. Grammar Reference
 * **Location:** `reference-grammar/` (297 files), `grammar/` (55 files), `comparative/` (4 files)
@@ -121,8 +121,8 @@ Every file, route, dataset, component, and asset in the repository is assigned t
 ### Category 3: Move to COSYevents (13 Files)
 * **Speaking Club & Event Night Templates:** `templates/events/` (13 files including `wonder-session-template.html`, `science-session-template.html`, `mind-session-template.html`, `debate-session-template.html`, `celebrate-session-template.html`, `life-session-template.html`, `quotes-session-template.html`, `karaoke-session-template.html`, `long-reads-session-template.html`)
 
-### Category 4: Move to COSYworld (0 Files in Repo)
-* Open-world RPG adventure content is maintained in the external `COSYworld` repository (`https://github.com/cosylanguages/COSYworld`).
+### Category 4: Move to Spatial Engine (0 Files in Repo)
+* Open-world RPG adventure content is maintained in external spatial repos.
 
 ### Category 5: Move to COSYgames (6 Files)
 * **Minigame Loader & Templates:** `js/games/*` (3 game driver scripts), `templates/games/*` (3 minigame template files)

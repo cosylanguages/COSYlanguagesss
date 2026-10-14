@@ -83,7 +83,7 @@ COSY: web monorepo (PWA — `manifest.json`, `sw.js`) split into:
 - `COSYtools` — standalone apps (irregular verbs, Italian conjugatore)
 - `COSYgames` — standalone games (20+ titles)
 - `COSYevents` — speaking clubs, cinema club, karaoke, long-reads
-- `COSYworld` — quest-style experiences
+- spatial quest-style experiences
 
 **Takeaway:** Skyeng has a 24/7 speaking bot and AI personalisation COSY lacks. COSY has a far wider content ecosystem (games, print, events, 15+ languages) Skyeng lacks.
 
