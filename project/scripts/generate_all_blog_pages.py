@@ -23,15 +23,15 @@ LANGUAGES = [
 DATA = {
     "en": {
         "nouns": [
-            # People & Family
-            {"theme": "People & Family", "word": "Person", "trans": "Person", "ant": "Crowd", "ex": "I am a person."},
-            {"theme": "People & Family", "word": "Family", "trans": "Family", "ant": "Stranger", "ex": "My family is here."},
-            {"theme": "People & Family", "word": "Mother / Father", "trans": "Mother / Father", "ant": "Child", "ex": "My mother and father are kind."},
-            {"theme": "People & Family", "word": "Son / Daughter", "trans": "Son / Daughter", "ant": "Parent", "ex": "They have one son and one daughter."},
-            {"theme": "People & Family", "word": "Brother / Sister", "trans": "Brother / Sister", "ant": "Only child", "ex": "My brother and sister live in London."},
-            {"theme": "People & Family", "word": "Friend", "trans": "Friend", "ant": "Enemy", "ex": "She is a good friend."},
-            {"theme": "People & Family", "word": "Child / Adult", "trans": "Child / Adult", "ant": "Adult / Child", "ex": "The child is playing."},
-            {"theme": "People & Family", "word": "Man / Woman", "trans": "Man / Woman", "ant": "Woman / Man", "ex": "A man and a woman arrived."},
+            # People &amp; Family
+            {"theme": "People &amp; Family", "word": "Person", "trans": "Person", "ant": "Crowd", "ex": "I am a person."},
+            {"theme": "People &amp; Family", "word": "Family", "trans": "Family", "ant": "Stranger", "ex": "My family is here."},
+            {"theme": "People &amp; Family", "word": "Mother / Father", "trans": "Mother / Father", "ant": "Child", "ex": "My mother and father are kind."},
+            {"theme": "People &amp; Family", "word": "Son / Daughter", "trans": "Son / Daughter", "ant": "Parent", "ex": "They have one son and one daughter."},
+            {"theme": "People &amp; Family", "word": "Brother / Sister", "trans": "Brother / Sister", "ant": "Only child", "ex": "My brother and sister live in London."},
+            {"theme": "People &amp; Family", "word": "Friend", "trans": "Friend", "ant": "Enemy", "ex": "She is a good friend."},
+            {"theme": "People &amp; Family", "word": "Child / Adult", "trans": "Child / Adult", "ant": "Adult / Child", "ex": "The child is playing."},
+            {"theme": "People &amp; Family", "word": "Man / Woman", "trans": "Man / Woman", "ant": "Woman / Man", "ex": "A man and a woman arrived."},
 
             # Home & Objects
             {"theme": "Home & Objects", "word": "House", "trans": "House", "ant": "Street", "ex": "This is my house."},
