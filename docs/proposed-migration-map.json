@@ -4169,7 +4169,7 @@
       "category_id": 9,
       "category_name": "9. Needs human decision",
       "action": "Hold for Decision",
-      "target_repository": "COSYlanguages / COSYworld",
+      "target_repository": "COSYlanguages",
       "rationale": "Experimental hybrid module requiring maintainer direction on retention or extraction.",
       "disposition": "Experimental Module"
     },
@@ -4178,7 +4178,7 @@
       "category_id": 9,
       "category_name": "9. Needs human decision",
       "action": "Hold for Decision",
-      "target_repository": "COSYlanguages / COSYworld",
+      "target_repository": "COSYlanguages",
       "rationale": "Experimental hybrid module requiring maintainer direction on retention or extraction.",
       "disposition": "Experimental Module"
     },
@@ -4187,7 +4187,7 @@
       "category_id": 9,
       "category_name": "9. Needs human decision",
       "action": "Hold for Decision",
-      "target_repository": "COSYlanguages / COSYworld",
+      "target_repository": "COSYlanguages",
       "rationale": "Experimental hybrid module requiring maintainer direction on retention or extraction.",
       "disposition": "Experimental Module"
     },
@@ -4196,7 +4196,7 @@
       "category_id": 9,
       "category_name": "9. Needs human decision",
       "action": "Hold for Decision",
-      "target_repository": "COSYlanguages / COSYworld",
+      "target_repository": "COSYlanguages",
       "rationale": "Experimental hybrid module requiring maintainer direction on retention or extraction.",
       "disposition": "Experimental Module"
     },
@@ -4205,7 +4205,7 @@
       "category_id": 9,
       "category_name": "9. Needs human decision",
       "action": "Hold for Decision",
-      "target_repository": "COSYlanguages / COSYworld",
+      "target_repository": "COSYlanguages",
       "rationale": "Experimental hybrid module requiring maintainer direction on retention or extraction.",
       "disposition": "Experimental Module"
     },
@@ -4876,7 +4876,7 @@
       "disposition": "Shared Ecosystem Asset"
     },
     {
-      "source_path": "images/scenes/Market Sub-Scene \u2014 Fruit & Vegetable Stall",
+      "source_path": "images/scenes/Market Sub-Scene — Fruit & Vegetable Stall",
       "category_id": 7,
       "category_name": "7. Shared dependency",
       "action": "Shared",
@@ -7909,7 +7909,7 @@
       "disposition": "Shared Ecosystem Asset"
     },
     {
-      "source_path": "images/ui/vocabulary/places/caf\u00e9.coffee shop.coffeehouse.png",
+      "source_path": "images/ui/vocabulary/places/café.coffee shop.coffeehouse.png",
       "category_id": 7,
       "category_name": "7. Shared dependency",
       "action": "Shared",
@@ -10006,7 +10006,7 @@
       "disposition": "Textbook / Curriculum Data"
     },
     {
-      "source_path": "manuals/br/vocabulary/a2/topics/beajo\u00f9-ha-treuzdougen.html",
+      "source_path": "manuals/br/vocabulary/a2/topics/beajoù-ha-treuzdougen.html",
       "category_id": 2,
       "category_name": "2. Move to COSYmanuals",
       "action": "Migrate",
@@ -10015,7 +10015,7 @@
       "disposition": "Textbook / Curriculum Data"
     },
     {
-      "source_path": "manuals/br/vocabulary/a2/topics/micherio\u00f9-ha-labour.html",
+      "source_path": "manuals/br/vocabulary/a2/topics/micherioù-ha-labour.html",
       "category_id": 2,
       "category_name": "2. Move to COSYmanuals",
       "action": "Migrate",
@@ -30265,7 +30265,7 @@
       "disposition": "Textbook / Curriculum Data"
     },
     {
-      "source_path": "manuals/gramatica-espanola/topics/pret\u00e9rito-perfecto.html",
+      "source_path": "manuals/gramatica-espanola/topics/pretérito-perfecto.html",
       "category_id": 2,
       "category_name": "2. Move to COSYmanuals",
       "action": "Migrate",

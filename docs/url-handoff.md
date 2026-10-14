@@ -1,6 +1,6 @@
 # COSY Inter-App URL Handoff Specification
 
-This specification defines the standard URL query parameters for seamless cross-application handoffs across all products in the COSYlanguages ecosystem (`COSYlanguages`, `COSYtools`, `COSYworld`, `COSYgames`, `COSYevents`).
+This specification defines the standard URL query parameters for seamless cross-application handoffs across all products in the COSYlanguages ecosystem (`COSYlanguages`, `COSYtools`, `COSYgames`, `COSYevents`).
 
 Every `COSY*` application SHOULD recognize these standard query parameters when present on page load and MUST ignore them gracefully when absent or unrecognized.
 
@@ -40,11 +40,9 @@ Outbound links between ecosystem apps must point to the canonical GitHub Pages l
 
 - **COSYtools:** `https://cosylanguages.github.io/COSYtools/`
 - **COSYgames:** `https://cosylanguages.github.io/COSYgames/`
-- **COSYworld:** `https://cosylanguages.github.io/COSYworld/`
 - **COSYevents:** `https://cosylanguages.github.io/COSYevents/`
 
 ### Example Handoff URLs
 
 - `https://cosylanguages.github.io/COSYtools/fr-conjugeur/?lang=fr&level=A2&topic=verbs_regular`
 - `https://cosylanguages.github.io/COSYgames/?lang=en&level=B1&topic=food`
-- `https://cosylanguages.github.io/COSYworld/?lang=it&level=A1&topic=market`
