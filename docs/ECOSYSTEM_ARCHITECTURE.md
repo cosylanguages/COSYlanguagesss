@@ -16,7 +16,11 @@ The project has already begun extracting specialized sub-products into standalon
    - **Role:** Public speaking clubs, multimedia event nights, cinema club, karaoke, and session guides.
    - **Access:** Public free access.
 
-3. **[COSYgames](https://github.com/cosylanguages/COSYgames):**
+3. **[COSYworld](https://github.com/cosylanguages/COSYworld):**
+   - **Role:** Self-study open-world RPG adventure game and spatial scene environments.
+   - **Features:** High-performance spatial rendering, interactive room/city scenes, and visual exploration.
+
+4. **[COSYgames](https://github.com/cosylanguages/COSYgames):**
    - **Role:** Interactive practice minigames hub (22+ games) for online/offline classroom teaching and self-study.
 
 5. **[COSYtools](https://github.com/cosylanguages/COSYtools):**
@@ -74,6 +78,7 @@ Once standalone sub-products are extracted into their own repositories, **`COSYl
 * **Central Directory & Hub:** Serves as the landing portal introducing the COSY philosophy ("Slow-Tech", privacy-first, zero translation fallback).
 * **Ecosystem Navigator Bar:** A header component providing quick access across all COSY web apps:
   - 🌐 **COSYlanguages:** Core Hub & CEFR Textbooks
+  - 🗺️ **COSYworld:** Interactive 3D Visual Environments
   - 🛠️ **COSYtools:** Conjugators, Gender & Regime Reference
   - 🗣️ **COSYevents:** Speaking Clubs & Multimedia Nights
   - 🎮 **COSYgames:** Practice Minigames Hub
@@ -94,7 +99,7 @@ Once standalone sub-products are extracted into their own repositories, **`COSYl
 
 ## 4. Implementation Roadmap
 
-1. **Phase 1 (Done):** Extracted `COSYtools` into a standalone repository.
+1. **Phase 1 (Done):** Extracted `COSYworld` and `COSYtools` into standalone repositories.
 2. **Phase 2 (Done):** Formulated the ecosystem modularization roadmap in `docs/ECOSYSTEM_ARCHITECTURE.md`.
 3. **Phase 3 (Remaining Decisions):**
    - `COSYevents` and `COSYgames` already exist; verify each local bridge before retiring or relocating it.

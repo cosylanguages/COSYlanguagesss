@@ -1,10 +1,10 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-14T11:27:07.246Z",
+  "generatedAt": "2026-10-13T17:12:47.363Z",
   "stats": {
     "totalPosts": 43,
     "totalDesks": 10,
-    "totalIssues": 3
+    "totalIssues": 4
   },
   "desks": [
     {
@@ -80,6 +80,10 @@
     {
       "number": "Vol. 2026.10",
       "title": "JY DM's birthday & His favs"
+    },
+    {
+      "number": "Vol. 2026 — August Issue",
+      "title": "Get ready for school"
     }
   ],
   "posts": [
@@ -7367,7 +7371,7 @@
       "format": "list",
       "level": "A0–A1 / A2",
       "issue": {
-        "number": "Vol. 2026.08",
+        "number": "Vol. 2026 — August Issue",
         "title": "Get ready for school"
       },
       "date": "2026-09-01",
@@ -7467,7 +7471,7 @@
       "format": "list",
       "level": "A0–A1 / A2",
       "issue": {
-        "number": "Vol. 2026.08",
+        "number": "Vol. 2026 — August Issue",
         "title": "Get ready for school"
       },
       "date": "2026-03-01",

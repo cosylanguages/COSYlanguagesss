@@ -308,7 +308,7 @@ export function renderCover(post, options = {}) {
 
   // 7. Masthead-style label tag
   const desk = post ? (post.desk || 'Front Page') : 'Front Page';
-  const labelText = `COSY GAZETTE &bull; ${desk.toUpperCase()}`;
+  const labelText = `COSY GAZETTE • ${desk.toUpperCase()}`;
   const labelW = Math.min(width - 40, Math.max(220, labelText.length * 8 + 36));
   const labelH = 30;
   const labelX = 20;

@@ -3,7 +3,7 @@
 */
 
 .daily-challenge-page {
-    background-color: var(--warm-white);
+    background-color: #FFFEFB;
 }
 
 .daily-challenge-page .page {
@@ -79,14 +79,14 @@
 }
 
 .streak-pill {
-    background: var(--coral-light);
-    color: var(--coral);
+    background: #FAEEE8;
+    color: #C4522A;
     border: 1px solid rgba(196,82,42,.15);
 }
 
 .today-pill {
-    background: var(--sage-light);
-    color: var(--sage-dark);
+    background: #E6F4F1;
+    color: #2D7D6F;
     border: 1px solid rgba(45,125,111,.15);
 }
 
@@ -284,17 +284,17 @@
 }
 
 .task-tip {
-    background: var(--honey-pale);
-    border-left: 3px solid var(--honey);
+    background: #FDF6E3;
+    border-left: 3px solid #B07D2B;
     padding: 0.8rem 1rem;
     font-size: 0.9rem;
-    color: var(--honey-dark);
+    color: #856404;
     border-radius: 0 8px 8px 0;
 }
 
 /* Micro Block */
 .micro-block {
-    background: var(--plum-light);
+    background: #F2ECF7;
     border-radius: 1.5rem;
     overflow: hidden;
     margin-bottom: 2rem;
@@ -408,8 +408,8 @@
 
 .done-banner {
     display: none;
-    background: var(--sage-light);
-    color: var(--sage-dark);
+    background: #E6F4F1;
+    color: #2D7D6F;
     padding: 1rem;
     border-radius: 1rem;
     text-align: center;

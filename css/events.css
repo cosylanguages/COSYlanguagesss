@@ -479,6 +479,32 @@ vim-choice, vim-instruction, vim-blockquote, vim-image { display: block; }
     border-color: var(--sage);
 }
 
+.teacher-note-panel {
+    background: rgba(63, 43, 150, 0.04);
+    border-top: 1px dashed rgba(63, 43, 150, 0.2);
+    border-bottom: 1px dashed rgba(63, 43, 150, 0.2);
+    padding: 1.25rem 1.5rem;
+    color: var(--ink);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.teacher-note-panel strong {
+    color: #3F2B96;
+}
+
+.teacher-note-panel .tn-badge {
+    background: #3F2B96;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: bold;
+    font-family: monospace;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
 
 /* ── Perspective Mirror Box ──────────────────────── */
 .perspective-mirror-box {
