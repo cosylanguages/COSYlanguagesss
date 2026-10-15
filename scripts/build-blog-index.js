@@ -63,9 +63,13 @@ function buildBlogIndex() {
 
   const allIndexPosts = [...posts, ...guidesForIndex].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+  const existingGeneratedAt = fs.existsSync(INDEX_JSON)
+    ? JSON.parse(fs.readFileSync(INDEX_JSON, 'utf-8')).generatedAt
+    : new Date().toISOString();
+
   const indexOutput = {
     version: '2.0.0',
-    generatedAt: new Date().toISOString(),
+    generatedAt: existingGeneratedAt || new Date().toISOString(),
     stats: {
       totalPosts: allIndexPosts.length,
       totalDesks: DESKS_CATALOG.length,
