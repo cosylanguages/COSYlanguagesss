@@ -41,43 +41,43 @@ section {
 }
 
 #how {
-  background: linear-gradient(180deg, rgba(250, 247, 242, 0.6) 0%, rgba(244, 237, 226, 0.8) 100%);
-  border: 1px solid rgba(65, 107, 73, 0.12);
+  background: linear-gradient(180deg, var(--cosy-color-cream) 0%, var(--cosy-color-cream-dark) 100%);
+  border: 1px solid var(--cosy-color-border);
 }
 
 #languages {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(250, 247, 242, 0.9) 100%);
-  border: 1px solid rgba(65, 107, 73, 0.1);
+  background: linear-gradient(180deg, var(--cosy-color-warm-white) 0%, var(--cosy-color-cream) 100%);
+  border: 1px solid var(--cosy-color-border);
 }
 
 #courses {
-  background: linear-gradient(180deg, rgba(244, 237, 226, 0.5) 0%, rgba(255, 255, 255, 0.9) 100%);
-  border: 1px solid rgba(65, 107, 73, 0.12);
+  background: linear-gradient(180deg, var(--cosy-color-cream-dark) 0%, var(--cosy-color-warm-white) 100%);
+  border: 1px solid var(--cosy-color-border);
 }
 
 #events {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-  border: 1px solid rgba(217, 119, 6, 0.2);
+  background: linear-gradient(135deg, var(--cosy-accent-join-in-light) 0%, var(--cosy-color-honey-pale) 100%);
+  border: 1px solid var(--cosy-color-border);
 }
 
 #tools {
-  background: linear-gradient(180deg, rgba(240, 247, 241, 0.7) 0%, rgba(250, 247, 242, 0.9) 100%);
-  border: 1px solid rgba(65, 107, 73, 0.15);
+  background: linear-gradient(180deg, var(--cosy-color-sage-mist) 0%, var(--cosy-color-cream) 100%);
+  border: 1px solid var(--cosy-color-border);
 }
 
 #calculator {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(244, 237, 226, 0.6) 100%);
-  border: 1px solid rgba(65, 107, 73, 0.12);
+  background: linear-gradient(180deg, var(--cosy-color-warm-white) 0%, var(--cosy-color-cream-dark) 100%);
+  border: 1px solid var(--cosy-color-border);
 }
 
 #reviews {
-  background: linear-gradient(180deg, rgba(244, 237, 226, 0.7) 0%, rgba(240, 247, 241, 0.8) 100%);
-  border: 1px solid rgba(65, 107, 73, 0.12);
+  background: linear-gradient(180deg, var(--cosy-color-cream-dark) 0%, var(--cosy-color-sage-mist) 100%);
+  border: 1px solid var(--cosy-color-border);
 }
 
 #start {
-  background: linear-gradient(135deg, var(--sage-deep, #1a2a1d) 0%, var(--sage-dark, #233827) 100%);
-  border-radius: 32px;
+  background: linear-gradient(135deg, var(--cosy-color-sage-deep) 0%, var(--cosy-color-sage-dark) 100%);
+  border-radius: var(--cosy-radius-xl);
   color: #ffffff;
 }
 
@@ -222,13 +222,13 @@ section {
 
 /* ── Cozy Passion Banner ────────────────────────── */
 .cozy-passion-banner {
-  background: linear-gradient(135deg, #fbf7f0 0%, #f4ede2 100%);
-  border: 1.5px solid rgba(65, 107, 73, 0.18);
-  border-radius: var(--r-xl, 24px);
+  background: linear-gradient(135deg, var(--cosy-color-cream) 0%, var(--cosy-color-cream-dark) 100%);
+  border: 1.5px solid var(--cosy-color-border);
+  border-radius: var(--cosy-radius-xl);
   padding: 2.5rem 2rem;
   margin: 1.5rem auto 3rem;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(65, 107, 73, 0.05);
+  box-shadow: var(--cosy-shadow-sm);
   position: relative;
   overflow: hidden;
 }
@@ -304,15 +304,26 @@ section {
 }
 
 .hero .btn-secondary {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: #ffffff !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
+  color: #ffffff;
 }
 
 .hero .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.3) !important;
-  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.hero .btn-soft {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.hero .btn-soft:hover {
+  background: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
 }
 
 .btn-tertiary-link {

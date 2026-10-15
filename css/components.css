@@ -246,63 +246,94 @@ body.theme-dark #cosy-nav {
 
 
 /* ── Buttons (Unified Cosy Button System) ──────────── */
-.btn-primary, a.btn-primary, button.btn-primary {
+/* Shared base button styling for identical height, radius, padding, font size, and shadow depth */
+.btn-primary, a.btn-primary, button.btn-primary,
+.btn-secondary, a.btn-secondary, button.btn-secondary,
+.btn-soft, a.btn-soft, button.btn-soft {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: var(--btn-primary-bg);
-  color: var(--btn-primary-color);
-  font-weight: var(--btn-primary-weight);
-  padding: var(--btn-primary-padding);
-  border-radius: var(--btn-primary-radius);
-  font-size: 1rem;
-  font-family: var(--btn-font-sans);
-  border: none;
+  height: var(--btn-height, 48px);
+  padding: var(--btn-padding, 0 28px);
+  border-radius: var(--btn-radius, 100px);
+  font-size: var(--btn-font-size, 1rem);
+  font-weight: var(--btn-weight, 800);
+  font-family: var(--btn-font-sans, var(--cosy-font-sans));
   cursor: pointer;
   text-decoration: none;
+  box-sizing: border-box;
+  line-height: 1;
+  transition: transform var(--cosy-transition-fast, 0.15s ease),
+              box-shadow var(--cosy-transition-fast, 0.15s ease),
+              background-color var(--cosy-transition-fast, 0.15s ease),
+              color var(--cosy-transition-fast, 0.15s ease),
+              border-color var(--cosy-transition-fast, 0.15s ease);
+}
+
+/* 3D Pressed State on :active */
+.btn-primary:active, a.btn-primary:active, button.btn-primary:active,
+.btn-secondary:active, a.btn-secondary:active, button.btn-secondary:active,
+.btn-soft:active, a.btn-soft:active, button.btn-soft:active {
+  transform: translateY(3px);
+  box-shadow: var(--cosy-shadow-pressed) !important;
+}
+
+/* Focus Visible Styles */
+.btn-primary:focus-visible, a.btn-primary:focus-visible, button.btn-primary:focus-visible,
+.btn-secondary:focus-visible, a.btn-secondary:focus-visible, button.btn-secondary:focus-visible,
+.btn-soft:focus-visible, a.btn-soft:focus-visible, button.btn-soft:focus-visible,
+.btn-tertiary:focus-visible, a.btn-tertiary:focus-visible, button.btn-tertiary:focus-visible,
+.fpill:focus-visible, .styled-sel:focus-visible, .search-input:focus-visible {
+  outline: 3px solid var(--cosy-semantic-focus, #416B49);
+  outline-offset: 3px;
+  box-shadow: var(--focus-ring, 0 0 0 3px rgba(65, 107, 73, 0.4));
+}
+
+/* 1. Primary Button (Filled) */
+.btn-primary, a.btn-primary, button.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  border: none;
   box-shadow: var(--btn-primary-shadow);
-  transition: all var(--transition-speed, 0.3s) ease;
 }
 .btn-primary:hover, a.btn-primary:hover, button.btn-primary:hover {
   background: var(--btn-primary-hover-bg);
   color: var(--btn-primary-hover-color);
   transform: translateY(-2px);
   box-shadow: var(--btn-primary-hover-shadow);
-  opacity: 0.95;
-}
-.btn-primary:active, a.btn-primary:active, button.btn-primary:active {
-  transform: translateY(0);
 }
 
+/* 2. Secondary Button (Outlined Strong) */
 .btn-secondary, a.btn-secondary, button.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   background: var(--btn-secondary-bg);
   border: var(--btn-secondary-border);
   color: var(--btn-secondary-color);
-  font-weight: var(--btn-secondary-weight);
-  padding: var(--btn-secondary-padding);
-  border-radius: var(--btn-secondary-radius);
-  font-size: 0.95rem;
-  font-family: var(--btn-font-sans);
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: none;
-  transition: all var(--transition-speed, 0.3s) ease;
+  box-shadow: var(--btn-secondary-shadow);
 }
 .btn-secondary:hover, a.btn-secondary:hover, button.btn-secondary:hover {
   background: var(--btn-secondary-hover-bg);
   color: var(--btn-secondary-hover-color);
   border-color: var(--btn-secondary-hover-color);
-  transform: translateY(-1px);
-}
-.btn-secondary:active, a.btn-secondary:active, button.btn-secondary:active {
-  transform: translateY(0);
+  transform: translateY(-2px);
+  box-shadow: var(--btn-secondary-hover-shadow);
 }
 
+/* 3. Soft Button (Soft Fill) */
+.btn-soft, a.btn-soft, button.btn-soft {
+  background: var(--btn-soft-bg);
+  border: var(--btn-soft-border);
+  color: var(--btn-soft-color);
+  box-shadow: var(--btn-soft-shadow);
+}
+.btn-soft:hover, a.btn-soft:hover, button.btn-soft:hover {
+  background: var(--btn-soft-hover-bg);
+  color: var(--btn-soft-hover-color);
+  transform: translateY(-2px);
+  box-shadow: var(--btn-soft-hover-shadow);
+}
+
+/* 4. Tertiary Link Button */
 .btn-tertiary, a.btn-tertiary, button.btn-tertiary {
   display: inline-flex;
   align-items: center;
@@ -313,31 +344,26 @@ body.theme-dark #cosy-nav {
   font-weight: var(--btn-tertiary-weight);
   padding: 4px 8px;
   font-size: 0.9rem;
-  font-family: var(--btn-font-sans);
+  font-family: var(--btn-font-sans, var(--cosy-font-sans));
   cursor: pointer;
   text-decoration: underline;
-  transition: color var(--transition-speed, 0.3s) ease;
+  transition: color var(--cosy-transition-fast, 0.15s ease);
 }
 .btn-tertiary:hover, a.btn-tertiary:hover, button.btn-tertiary:hover {
   color: var(--btn-tertiary-hover-color);
   text-decoration: underline;
 }
 
-/* On dark hero backgrounds, tertiary links use a high-contrast warm cream */
+/* On dark hero backgrounds, tertiary links use high-contrast warm cream */
 .hero .btn-tertiary,
 .hero-ctas .btn-tertiary,
 .hero-ctas-wrap .btn-tertiary {
-  color: #f3e7c9;
+  color: #F3E7C9;
 }
 .hero .btn-tertiary:hover,
 .hero-ctas .btn-tertiary:hover,
 .hero-ctas-wrap .btn-tertiary:hover {
-  color: #ffe09a;
-}
-
-.btn-tertiary:focus-visible, .fpill:focus-visible, .styled-sel:focus-visible, .search-input:focus-visible {
-  outline: 3px solid var(--teal, #416b49);
-  outline-offset: 2px;
+  color: #FFE09A;
 }
 
 .cc-btn { display: block; width: 100%; padding: 14px 24px; border-radius: 100px; font-size: .9rem; font-weight: 800; text-align: center; transition: all .2s; cursor: pointer; border: none; background: var(--btn-accent-color, var(--sage)); color: #fff; }
