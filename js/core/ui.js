@@ -367,6 +367,157 @@
     };
 
     /* ─── SCROLL & VISUAL EFFECTS ───────────────────────────────── */
+    /* ─── SCROLL PROGRESS LINE & SIDE DOTS ─────────────────────── */
+    const setupScrollProgress = () => {
+        let bar = document.querySelector('.cosy-scroll-progress-bar');
+        if (!bar) {
+            bar = document.createElement('div');
+            bar.className = 'cosy-scroll-progress-bar';
+            bar.setAttribute('aria-hidden', 'true');
+            const nav = document.getElementById('cosy-nav') || document.querySelector('.cosy-navbar') || document.body;
+            if (nav && nav.nextSibling) {
+                nav.parentNode.insertBefore(bar, nav.nextSibling);
+            } else {
+                document.body.prepend(bar);
+            }
+        }
+
+        const updateProgress = () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight = Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight,
+                document.body.clientHeight, document.documentElement.clientHeight
+            );
+            const winHeight = window.innerHeight || document.documentElement.clientHeight;
+            const scrollable = docHeight - winHeight;
+
+            if (scrollable > 0) {
+                const pct = Math.min(100, Math.max(0, (scrollTop / scrollable) * 100));
+                bar.style.width = pct + '%';
+            } else {
+                bar.style.width = '0%';
+            }
+        };
+
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress, { passive: true });
+        updateProgress();
+    };
+
+    const setupSideSectionDots = () => {
+        const existingDots = document.querySelector('.cosy-side-dots');
+        if (existingDots) existingDots.remove();
+
+        // Target main sections with explicit IDs
+        const main = document.querySelector('main.page, main.content-container, main, article, #main-content') || document.body;
+        if (!main) return;
+
+        const candidateElements = main.querySelectorAll('section[id], div[id].sec-block, #how, #languages, #courses, #events, #tools, #calculator, #reviews, #start');
+        const sections = [];
+        const seen = new Set();
+
+        const cleanLabelText = (rawText) => {
+            if (!rawText) return '';
+            let t = rawText.replace(/[▲▼]/g, '').replace(/\s*\d+\s*(games|sessions|words|items)\s*$/gi, '').trim();
+            if (t.length > 28) {
+                const shortText = t.split(/\s*[\u2014\-–:]\s*/)[0].trim();
+                if (shortText && shortText.length <= 28) {
+                    return shortText;
+                }
+                return t.substring(0, 25) + '...';
+            }
+            return t;
+        };
+
+        candidateElements.forEach(el => {
+            const id = el.id;
+            if (!id || seen.has(id)) return;
+            if (el.closest('#cosy-nav, #cosy-nav-drawer, footer, header, #pin-modal, #back-to-top')) return;
+
+            const headerEl = el.querySelector('.sec-h2, .section-title, h2, h3, .sec-tag') || (el.matches('h2, h3') ? el : null);
+            let rawTitle = headerEl ? headerEl.textContent.trim() : '';
+
+            if (!rawTitle) {
+                const cleanId = id.replace(/^[smp]-/, '').replace(/-/g, ' ').trim();
+                rawTitle = cleanId.charAt(0).toUpperCase() + cleanId.slice(1);
+            }
+
+            const label = cleanLabelText(rawTitle);
+            if (!label) return;
+
+            seen.add(id);
+            sections.push({ id, label, el });
+        });
+
+        if (sections.length < 2) return;
+
+        const dotsContainer = document.createElement('nav');
+        dotsContainer.className = 'cosy-side-dots';
+        dotsContainer.setAttribute('aria-label', 'Section navigation dots');
+
+        const dotButtons = [];
+
+        sections.forEach((sec, idx) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'cosy-side-dot' + (idx === 0 ? ' active' : '');
+            btn.setAttribute('aria-label', `Navigate to ${sec.label}`);
+            btn.setAttribute('data-target-id', sec.id);
+
+            const tooltip = document.createElement('span');
+            tooltip.className = 'cosy-dot-tooltip';
+            tooltip.textContent = sec.label;
+            btn.appendChild(tooltip);
+
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                const targetEl = document.getElementById(sec.id);
+                if (targetEl) {
+                    const offset = 80;
+                    const elementPosition = targetEl.getBoundingClientRect().top + window.scrollY;
+                    const offsetPosition = elementPosition - offset;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                    });
+                }
+            });
+
+            dotsContainer.appendChild(btn);
+            dotButtons.push({ id: sec.id, btn, el: sec.el });
+        });
+
+        document.body.appendChild(dotsContainer);
+
+        // IntersectionObserver for tracking active section
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeId = entry.target.id;
+                    dotButtons.forEach(item => {
+                        if (item.id === activeId) {
+                            item.btn.classList.add('active');
+                            item.btn.setAttribute('aria-current', 'true');
+                        } else {
+                            item.btn.classList.remove('active');
+                            item.btn.removeAttribute('aria-current');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(sec => observer.observe(sec.el));
+    };
+
     const setupHeaderShrink = () => {
         const nav = document.getElementById('cosy-nav') || document.getElementById('main-nav');
         if (!nav) return;
@@ -394,261 +545,6 @@
         btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     };
 
-    const setupSessionMiniNav = () => {
-        // Clean up any existing dynamic session nav (if not static inside sticky header)
-        const existingDynamicNav = document.querySelector('#session-mini-nav:not(.sd-sticky-header *)');
-        if (existingDynamicNav) existingDynamicNav.remove();
-
-        // Check if page already has static jump links (e.g. in sticky header)
-        const staticNav = document.querySelector('.sd-sticky-header .sd-jump-links, .sd-jump-links:not(#session-mini-nav)');
-        if (staticNav) {
-            if (!staticNav.id) {
-                staticNav.id = 'session-mini-nav';
-            }
-            const staticLinks = staticNav.querySelectorAll('.sd-jump-link');
-            if (staticLinks.length > 0) {
-                const staticCandidates = [];
-                staticLinks.forEach(link => {
-                    const href = link.getAttribute('href');
-                    if (href && href.startsWith('#')) {
-                        const targetEl = document.querySelector(href);
-                        if (targetEl) {
-                            staticCandidates.push({ id: href.substring(1), link: link, el: targetEl });
-                        }
-                    }
-
-                    if (!link.dataset.jumpBound) {
-                        link.dataset.jumpBound = 'true';
-                        link.addEventListener('click', (e) => {
-                            const href = link.getAttribute('href');
-                            if (href && href.startsWith('#')) {
-                                e.preventDefault();
-                                const targetEl = document.querySelector(href);
-                                if (targetEl) {
-                                    const offset = 125;
-                                    const elementPosition = targetEl.getBoundingClientRect().top + window.scrollY;
-                                    const offsetPosition = elementPosition - offset;
-                                    window.scrollTo({
-                                        top: offsetPosition,
-                                        behavior: 'smooth'
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-
-                if (staticCandidates.length > 0) {
-                    const onStaticScroll = () => {
-                        let currentId = '';
-                        const scrollPosition = window.scrollY + 140;
-
-                        staticCandidates.forEach(sec => {
-                            const top = sec.el.offsetTop;
-                            const height = sec.el.offsetHeight;
-                            if (scrollPosition >= top && scrollPosition < top + height) {
-                                currentId = sec.id;
-                            }
-                        });
-
-                        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && staticCandidates.length > 0) {
-                            currentId = staticCandidates[staticCandidates.length - 1].id;
-                        }
-
-                        staticCandidates.forEach(sec => {
-                            if (sec.id === currentId) {
-                                sec.link.classList.add('active');
-                            } else {
-                                sec.link.classList.remove('active');
-                            }
-                        });
-                    };
-
-                    window.addEventListener('scroll', onStaticScroll, { passive: true });
-                    onStaticScroll();
-                    return;
-                }
-            }
-        }
-
-        const main = document.querySelector('main.content-container, main.practice-container, main.page, main#main-content, main#notebook-container, main, article, .page, #hub') || document.body;
-        if (!main) return;
-
-        const cleanLabelText = (rawText) => {
-            if (!rawText) return '';
-            let t = rawText.replace(/[▲▼]/g, '').replace(/\s*\d+\s*(games|sessions|words|items)\s*$/gi, '').trim();
-            if (t.length > 25) {
-                const shortText = t.split(/\s*[\u2014\-–:]\s*/)[0].trim();
-                if (shortText && shortText.length <= 25) {
-                    return shortText;
-                }
-                return t.substring(0, 22) + '...';
-            }
-            return t;
-        };
-
-        const candidates = [];
-        const seenIds = new Set();
-        let sectionCounter = 0;
-
-        // Select major section elements and headers dynamically
-        const selectors = [
-            'section[id]',
-            'section',
-            '#vocabulary',
-            '#listening-exercise',
-            '#discussion',
-            '#lang-focus',
-            '#final-challenge',
-            '.round-block',
-            '.mistake-block',
-            '.private-step',
-            '.sec-title',
-            'h2.section-title',
-            'h2.sec-h2',
-            'h2'
-        ];
-
-        const elements = main.querySelectorAll(selectors.join(', '));
-
-        elements.forEach(el => {
-            // Avoid selecting internal elements like modals, FABs, form fields, footer
-            if (el.closest('#cosy-nav, #pin-modal, #back-to-top, .mobile-nav, footer, header, #sd-drawer, .summary-modal')) {
-                return;
-            }
-
-            // Find target section container
-            let targetEl = el;
-            if (el.classList.contains('round-header') || el.classList.contains('mistake-header') || el.classList.contains('section-title') || el.classList.contains('sec-title') || el.classList.contains('sec-h2') || el.tagName === 'H2') {
-                targetEl = el.closest('.round-block, .mistake-block, section, article') || el;
-            }
-
-            // Skip hidden mode containers or invisible blocks
-            if (targetEl.closest('[data-session-mode][style*="display: none"], [data-session-mode][style*="display:none"], [style*="display: none"]')) {
-                return;
-            }
-
-            // Generate ID if missing
-            if (!targetEl.id) {
-                sectionCounter++;
-                targetEl.id = 'sec-node-' + sectionCounter;
-            }
-
-            const sid = targetEl.id;
-            if (seenIds.has(sid)) return;
-
-            const blacklistedIds = [
-                'cosy-nav', 'description', 'structure', 'wonder-passcode-gate',
-                'kus-dynamic-switcher-placeholder', 'session-mini-nav', 'back-to-top',
-                'go-deeper', 'pin-modal', 'main-content', 'main', 'notebook-container'
-            ];
-            if (blacklistedIds.includes(sid)) return;
-
-            // Extract title
-            const headerEl = targetEl.querySelector('.section-title, .sec-title, .sec-h2, .round-header, .mistake-header, h2, h3, summary') || (targetEl.matches('h2, h3, .sec-title, .sec-h2') ? targetEl : null);
-            let rawTitle = headerEl ? headerEl.textContent.trim() : '';
-
-            if (!rawTitle) {
-                const cleanSid = sid.replace(/^[smp]-/, '').replace(/-/g, ' ').trim();
-                rawTitle = cleanSid.charAt(0).toUpperCase() + cleanSid.slice(1);
-            }
-
-            const label = cleanLabelText(rawTitle);
-            if (!label) return;
-
-            seenIds.add(sid);
-            candidates.push({ id: sid, label: label, el: targetEl });
-        });
-
-        if (candidates.length < 2) return;
-
-        const navContainer = document.createElement('nav');
-        navContainer.id = 'session-mini-nav';
-        navContainer.className = 'session-mini-nav sd-jump-links';
-        navContainer.setAttribute('aria-label', 'Page section jump links');
-
-        let linksHtml = '';
-        candidates.forEach(sec => {
-            linksHtml += `<a href="#${sec.id}" class="sd-jump-link">${sec.label}</a>`;
-        });
-        navContainer.innerHTML = linksHtml;
-
-        // Insert position
-        const targetAnchor = main.querySelector('.science-session-info-box') ||
-                             main.querySelector('.session-meta-grid') ||
-                             main.querySelector('.cosy-session-switcher-placeholder') ||
-                             main.querySelector('.back-link') ||
-                             main.querySelector('.cosy-breadcrumbs') ||
-                             main.querySelector('.filter-bar') ||
-                             main.querySelector('.hero-ctas') ||
-                             main.firstElementChild;
-
-        if (targetAnchor && targetAnchor.nextSibling) {
-            targetAnchor.parentNode.insertBefore(navContainer, targetAnchor.nextSibling);
-        } else if (targetAnchor) {
-            targetAnchor.parentNode.appendChild(navContainer);
-        } else {
-            main.prepend(navContainer);
-        }
-
-        const jumpLinks = navContainer.querySelectorAll('.sd-jump-link');
-        jumpLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                if (href && href.startsWith('#')) {
-                    e.preventDefault();
-                    const targetEl = document.querySelector(href);
-                    if (targetEl) {
-                        const offset = 125;
-                        const elementPosition = targetEl.getBoundingClientRect().top + window.scrollY;
-                        const offsetPosition = elementPosition - offset;
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
-
-        const onScroll = () => {
-            let currentId = '';
-            const scrollPosition = window.scrollY + 140;
-
-            candidates.forEach(sec => {
-                const top = sec.el.offsetTop;
-                const height = sec.el.offsetHeight;
-                if (scrollPosition >= top && scrollPosition < top + height) {
-                    currentId = sec.id;
-                }
-            });
-
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && candidates.length > 0) {
-                currentId = candidates[candidates.length - 1].id;
-            }
-
-            jumpLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                if (href === '#' + currentId) {
-                    link.classList.add('active');
-                    if (navContainer.scrollWidth > navContainer.clientWidth) {
-                        const linkLeft = link.offsetLeft;
-                        const linkWidth = link.offsetWidth;
-                        const navWidth = navContainer.clientWidth;
-                        navContainer.scrollTo({
-                            left: linkLeft - (navWidth / 2) + (linkWidth / 2),
-                            behavior: 'smooth'
-                        });
-                    }
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-        };
-
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-    };
 
     const setupScrollReveal = () => {
         const io = new IntersectionObserver(entries => {
@@ -4847,6 +4743,8 @@
             });
         }
 
+        setupScrollProgress();
+        setupSideSectionDots();
         setupHeaderShrink();
         setupBackToTop();
         setupScrollReveal();
@@ -4858,7 +4756,6 @@
         setupWonderSessionAudio();
         setupScienceSessionAudio();
         setupWonderModeRouter();
-        setupSessionMiniNav();
         if (window.COSY && window.COSY.updateNavActiveState) window.COSY.updateNavActiveState();
 
         // FAQ Toggle & ARIA Initialization

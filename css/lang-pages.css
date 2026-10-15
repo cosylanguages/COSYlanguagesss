@@ -337,51 +337,6 @@ footer{background:var(--sage-deep);color:rgba(255,255,255,.82);padding:3.5rem 2r
   margin-bottom: 1rem;
 }
 
-/* Sticky session mini nav / jump links */
-.sd-jump-links, .session-mini-nav {
-  display: flex;
-  gap: .5rem;
-  overflow-x: auto;
-  max-width: 100%;
-  white-space: nowrap;
-  padding: .6rem .8rem;
-  margin: 1rem 0 2rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  box-shadow: var(--shadow-sm);
-  scrollbar-width: none;
-  box-sizing: border-box;
-}
-.sd-jump-links::-webkit-scrollbar { display: none; }
-.sd-jump-link {
-  font-size: .78rem;
-  font-weight: 800;
-  padding: 6px 14px;
-  min-height: 32px;
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  color: var(--ink-soft);
-  transition: all .18s;
-  box-sizing: border-box;
-}
-
-@media(max-width:768px){
-  .sd-jump-link {
-    min-height: 44px;
-    padding: 10px 16px;
-  }
-}
-.sd-jump-link:hover, .sd-jump-link.active {
-  background: var(--sage-pale);
-  color: var(--sage-dark);
-}
-html[data-theme="dark"] .sd-jump-link:hover, html[data-theme="dark"] .sd-jump-link.active,
-body.theme-dark .sd-jump-link:hover, body.theme-dark .sd-jump-link.active {
-  background: var(--sage-pale);
-  color: #86efac;
-}
 
 /* Responsive */
 @media(max-width:860px){
