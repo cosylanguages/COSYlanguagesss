@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      (function() {
+        try {
+          var t = localStorage.getItem('cosy.theme') || localStorage.getItem('cosy_theme');
+          if (!t) {
+            t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') document.documentElement.classList.add('theme-dark');
+        } catch(e) {}
+      })();
+    </script>
     <title data-translate-key="site_title_redesign">COSYlanguages: Speak from lesson one</title>
     <meta name="description" data-translate-key="site_desc" content="1-to-1 online language lessons in English, French, Italian, Russian and Greek. Speaking first, always. Levels A1 to C2 in English, French and Russian, and A1 in Italian and Greek.">
     <meta property="og:title" data-translate-key="site_title_redesign" content="COSYlanguages: Learn a language with teachers who love what they teach">

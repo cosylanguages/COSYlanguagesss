@@ -132,6 +132,85 @@ const NAV_CONFIG = {
     ]
 };
 
+const COSY_ECOSYSTEM_MENU = [
+    {
+        group: 'Learn for free',
+        accentKey: 'learn-free',
+        items: [
+            {
+                key: 'practice',
+                title: 'Practice',
+                icon: '💡',
+                promise: 'Interactive drills & instant feedback',
+                hrefKey: 'practice'
+            },
+            {
+                key: 'dictionary',
+                title: 'Dictionary',
+                icon: '📖',
+                promise: 'Rich vocabulary & example sentences',
+                href: 'https://cosylanguages.github.io/COSYdata/'
+            },
+            {
+                key: 'tools',
+                title: 'Verb & Preposition Library',
+                icon: '🔎',
+                promise: 'Master conjugation & preposition patterns',
+                href: 'https://cosylanguages.github.io/COSYtools/'
+            },
+            {
+                key: 'games',
+                title: 'Games',
+                icon: '🎮',
+                promise: 'Fun, immersive language practice',
+                href: 'https://cosylanguages.github.io/COSYgames/'
+            },
+            {
+                key: 'blog',
+                title: 'Blog',
+                icon: '📰',
+                promise: 'Articles, Top 100 lists & podcasts',
+                hrefKey: 'blog'
+            }
+        ]
+    },
+    {
+        group: 'Your classes (members)',
+        accentKey: 'your-classes',
+        items: [
+            {
+                key: 'platform',
+                title: 'Student Platform',
+                icon: '🎓',
+                promise: 'Your personal course dashboard',
+                href: 'login.html?redirect=https://cosylanguages.github.io/COSYplatform/&note=This%20area%20is%20for%20enrolled%20students.',
+                isGated: true
+            },
+            {
+                key: 'manuals',
+                title: 'Manuals',
+                icon: '📚',
+                promise: 'Full lesson materials & guides',
+                href: 'login.html?redirect=https://cosylanguages.github.io/COSYmanuals/&note=This%20area%20is%20for%20enrolled%20students.',
+                isGated: true
+            }
+        ]
+    },
+    {
+        group: 'Join in',
+        accentKey: 'join-in',
+        items: [
+            {
+                key: 'events',
+                title: 'Live Events',
+                icon: '🎉',
+                promise: 'Speaking clubs & live workshops',
+                hrefKey: 'events'
+            }
+        ]
+    }
+];
+
 const BASE_URL = (typeof window !== 'undefined' && (window.location.pathname.startsWith('/COSYlanguages/') || window.location.pathname === '/COSYlanguages'))
     ? '/COSYlanguages/'
     : '/';
@@ -269,35 +348,60 @@ function renderNavLinks(mode) {
     }).join('');
 }
 
+function renderLangPanelHTML() {
+    const currentPinned = (typeof localStorage !== 'undefined' && (localStorage.getItem('cosy.pinnedLang') || localStorage.getItem('cosy_ui_lang'))) || 'en';
+    const languages = (typeof window !== 'undefined' && window.COSY_LANGUAGES && window.COSY_LANGUAGES.length)
+        ? window.COSY_LANGUAGES
+        : [
+            { code: 'en', name: 'English', native: 'English', icon: '🇬🇧' },
+            { code: 'fr', name: 'French', native: 'Français', icon: '🇫🇷' },
+            { code: 'it', name: 'Italian', native: 'Italiano', icon: '🇮🇹' },
+            { code: 'ru', name: 'Russian', native: 'Русский', icon: '🇷🇺' },
+            { code: 'el', name: 'Greek', native: 'Ελληνικά', icon: '🇬🇷' },
+            { code: 'es', name: 'Spanish', native: 'Español', icon: '🇪🇸' },
+            { code: 'de', name: 'German', native: 'Deutsch', icon: '🇩🇪' },
+            { code: 'pt', name: 'Portuguese', native: 'Português', icon: '🇵🇹' },
+            { code: 'hy', name: 'Armenian', native: 'Հայերեն', icon: '🇦🇲' },
+            { code: 'ka', name: 'Georgian', native: 'ქართული', icon: '🇬🇪' },
+            { code: 'tt', name: 'Tatar', native: 'Татарча', icon: '🌐' },
+            { code: 'ba', name: 'Bashkir', native: 'Башҡортса', icon: '🌐' },
+            { code: 'br', name: 'Breton', native: 'Brezhoneg', icon: '🌐' },
+            { code: 'cv', name: 'Chuvash', native: 'Чӑвашла', icon: '🌐' }
+        ];
+
+    const rows = languages.map(l => {
+        const isPinned = (l.code === currentPinned);
+        const iconDisplay = (l.icon && !l.icon.includes('<')) ? l.icon : (l.flag && !l.flag.includes('<') ? l.flag : '🌐');
+        return `
+          <div class="cosy-lang-row ${isPinned ? 'is-pinned' : ''}" data-lang="${l.code}" onclick="COSY.pinLanguage('${l.code}', event)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){COSY.pinLanguage('${l.code}', event);}">
+            <span class="cosy-lang-flag">${iconDisplay}</span>
+            <span class="cosy-lang-info">
+              <span class="cosy-lang-name">${l.name}</span>
+              <span class="cosy-lang-native">(${l.native})</span>
+            </span>
+            <button type="button" class="cosy-lang-pin-btn ${isPinned ? 'pinned' : ''}" aria-pressed="${isPinned ? 'true' : 'false'}" aria-label="Pin ${l.name}" onclick="COSY.pinLanguage('${l.code}', event)" title="Pin ${l.name}">📌</button>
+          </div>`;
+    }).join('');
+
+    return `
+      <div id="cosy-lang-panel" class="cosy-lang-panel" role="dialog" aria-label="Languages We Teach" hidden>
+        <div class="cosy-lang-panel-header">
+          <span class="cosy-lang-panel-title">Languages We Teach</span>
+          <button type="button" class="cosy-lang-panel-close" aria-label="Close language menu" onclick="COSY.closeLangPanel()">✕</button>
+        </div>
+        <div class="cosy-lang-list">
+          ${rows}
+        </div>
+      </div>`;
+}
+
 function navFree () {
     const t = getNavLabel;
     const homeHref = getNavHref('home');
     const loginHref = getNavHref('login');
-    const isDark = (typeof localStorage !== 'undefined' && (localStorage.getItem('cosy_theme') || 'light') === 'dark');
-
-    const isLocked = (typeof localStorage !== 'undefined' && localStorage.getItem('cosy_ui_lang_locked') === 'true');
-    const currentLang = getActiveNavLang();
-    const langOptions = [
-        { code: 'en', flag: '🇬🇧', label: 'EN' },
-        { code: 'fr', flag: '🇫🇷', label: 'FR' },
-        { code: 'it', flag: '🇮🇹', label: 'IT' },
-        { code: 'es', flag: '🇪🇸', label: 'ES' },
-        { code: 'de', flag: '🇩🇪', label: 'DE' },
-        { code: 'pt', flag: '🇵🇹', label: 'PT' },
-        { code: 'ru', flag: '🇷🇺', label: 'RU' },
-        { code: 'el', flag: '🇬🇷', label: 'EL' },
-        { code: 'hy', flag: '🇦🇲', label: 'HY' },
-        { code: 'ka', flag: '🇬🇪', label: 'KA' },
-        { code: 'br', flag: '🌐', label: 'BR' },
-        { code: 'cv', flag: '🌐', label: 'CV' },
-        { code: 'ba', flag: '🌐', label: 'BA' },
-        { code: 'tt', flag: '🌐', label: 'TT' }
-    ].map(l => `<option value="${l.code}" ${l.code === currentLang ? 'selected' : ''}>${l.flag} ${l.label}</option>`).join('');
-
+    const isDark = (typeof localStorage !== 'undefined' && (localStorage.getItem('cosy.theme') || localStorage.getItem('cosy_theme') || 'light') === 'dark');
+    const pinnedLang = (typeof localStorage !== 'undefined' && (localStorage.getItem('cosy.pinnedLang') || localStorage.getItem('cosy_ui_lang'))) || getActiveNavLang() || 'en';
     const logoPrefix = getPrefix();
-    const lockTitle = isLocked
-        ? 'Interface language is locked on this device. Click to unlock.'
-        : 'Pin interface language on this device.';
 
     return `
       <a class="nav-logo" href="${homeHref}" aria-label="${t('home_aria', 'COSYlanguages Home')}">
@@ -309,19 +413,17 @@ function navFree () {
       </ul>
       <div id="cosy-nav-context" class="nav-context"></div>
       <div class="nav-right" style="display:flex; align-items:center; gap:8px;">
-        <div class="cosy-lang-lock-wrap" style="display:inline-flex; align-items:center; gap:4px;">
-          <select id="cosy-language-switcher" onchange="setLanguage(this.value)" class="styled-sel" ${isLocked ? 'disabled' : ''} style="width: auto; min-width: 68px; padding: 4px 6px; font-size: 0.8rem; border-radius: var(--r-sm); height: 32px; background: var(--warm-white); border: 1px solid var(--border); color: var(--ink); cursor: pointer;" aria-label="Select Interface Language">
-            ${langOptions}
-          </select>
-          <button id="cosy-lang-lock-btn" type="button" onclick="if(window.toggleLanguageLock)window.toggleLanguageLock()" class="cosy-lang-lock-btn ${isLocked ? 'locked' : ''}" title="${lockTitle}" aria-label="${lockTitle}" style="background:none; border:1px solid var(--border); border-radius:var(--r-sm); padding:2px 4px; font-size:0.75rem; height:28px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">
-            📌
+        <a href="${loginHref}" class="nav-login" data-translate-key="nav_login" data-i18n="nav.login">${t('login', '🔐 Log in')}</a>
+        <a class="nav-cta" href="https://wa.me/330766784195?text=Hi!" target="_blank" rel="noopener" data-translate-key="nav_contact" data-i18n="nav.contact">${t('contact', '💬 Contact us')}</a>
+        <div class="cosy-lang-dropdown-wrap" style="position:relative;">
+          <button id="cosy-lang-menu-btn" type="button" class="cosy-lang-menu-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cosy-lang-panel" aria-label="Select Language" onclick="COSY.toggleLangPanel()" style="background:none; border:1px solid var(--border); border-radius:var(--r-sm); padding:4px 8px; font-size:0.85rem; height:36px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; color:var(--ink);">
+            🌐 <span class="cosy-pinned-lang-label" id="cosy-pinned-lang-badge">${pinnedLang.toUpperCase()}</span>
           </button>
+          ${renderLangPanelHTML()}
         </div>
-        <button class="theme-toggle-btn" onclick="COSY.toggleTheme()" aria-label="Toggle Theme" style="background:none; border:none; font-size:1.2rem; cursor:pointer; padding:6px; display:inline-flex; align-items:center;">
+        <button type="button" class="theme-toggle-btn cosy-theme-btn" onclick="COSY.toggleTheme()" aria-label="Toggle Theme" style="background:none; border:none; font-size:1.2rem; cursor:pointer; padding:6px; display:inline-flex; align-items:center;">
             ${isDark ? '☀️' : '🌙'}
         </button>
-        <a href="${loginHref}" class="nav-login" data-translate-key="nav_login" data-i18n="nav.login">${t('login', '🔐 Log in')}</a>
-        <a class="nav-cta" href="https://wa.me/330766784195?text=Hi!" target="_blank" data-translate-key="nav_contact" data-i18n="nav.contact">${t('contact', '💬 Contact us')}</a>
         <button class="nav-menu-btn" onclick="COSY.toggleMobileMenu()" aria-label="Toggle Menu" aria-expanded="false" aria-controls="cosy-mobile-menu">☰</button>
       </div>`
 }
@@ -365,6 +467,13 @@ function bindNavKeyboardHandlers() {
         window.cosyNavOutsideHandlerSetup = true;
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                const langPanel = document.getElementById('cosy-lang-panel');
+                if (langPanel && !langPanel.hasAttribute('hidden')) {
+                    if (window.COSY && typeof window.COSY.closeLangPanel === 'function') {
+                        window.COSY.closeLangPanel();
+                    }
+                }
+
                 const moreDropdown = document.querySelector('.cosy-nav-more-wrap.open');
                 if (moreDropdown) {
                     moreDropdown.classList.remove('open');
@@ -388,6 +497,13 @@ function bindNavKeyboardHandlers() {
         });
 
         document.addEventListener('click', (e) => {
+            const langWrap = document.querySelector('.cosy-lang-dropdown-wrap');
+            if (langWrap && !langWrap.contains(e.target)) {
+                if (window.COSY && typeof window.COSY.closeLangPanel === 'function') {
+                    window.COSY.closeLangPanel();
+                }
+            }
+
             const moreDropdown = document.querySelector('.cosy-nav-more-wrap.open');
             if (moreDropdown && !moreDropdown.contains(e.target)) {
                 moreDropdown.classList.remove('open');
@@ -466,6 +582,15 @@ function applyMode () {
         nav.innerHTML = navFree();
         bindNavKeyboardHandlers();
 
+        if (!document.getElementById('cosy-eco-mega-menu')) {
+            const container = document.createElement('div');
+            container.innerHTML = window.COSY.renderEcosystemMegaMenuHTML();
+            if (container.firstElementChild) {
+                document.body.appendChild(container.firstElementChild);
+            }
+        }
+        window.COSY.bindEcosystemLogoTriggers();
+
         const activeNavLang = getActiveNavLang();
         const desktopSw = document.getElementById('cosy-language-switcher');
         if (desktopSw) desktopSw.value = activeNavLang;
@@ -500,26 +625,9 @@ function applyMode () {
 
 function mobileMenuHTML (mode) {
     const t = getNavLabel;
+    const homeUrl = getNavHref('home');
     const loginHref = getNavHref('login');
-
-    const isLocked = (typeof localStorage !== 'undefined' && localStorage.getItem('cosy_ui_lang_locked') === 'true');
-    const currentLang = getActiveNavLang();
-    const langOptions = [
-        { code: 'en', flag: '🇬🇧', label: 'EN' },
-        { code: 'fr', flag: '🇫🇷', label: 'FR' },
-        { code: 'it', flag: '🇮🇹', label: 'IT' },
-        { code: 'es', flag: '🇪🇸', label: 'ES' },
-        { code: 'de', flag: '🇩🇪', label: 'DE' },
-        { code: 'pt', flag: '🇵🇹', label: 'PT' },
-        { code: 'ru', flag: '🇷🇺', label: 'RU' },
-        { code: 'el', flag: '🇬🇷', label: 'EL' },
-        { code: 'hy', flag: '🇦🇲', label: 'HY' },
-        { code: 'ka', flag: '🇬🇪', label: 'KA' },
-        { code: 'br', flag: '🌐', label: 'BR' },
-        { code: 'cv', flag: '🌐', label: 'CV' },
-        { code: 'ba', flag: '🌐', label: 'BA' },
-        { code: 'tt', flag: '🌐', label: 'TT' }
-    ].map(l => `<option value="${l.code}" ${l.code === currentLang ? 'selected' : ''}>${l.flag} ${l.label}</option>`).join('');
+    const pinnedLang = (typeof localStorage !== 'undefined' && (localStorage.getItem('cosy.pinnedLang') || localStorage.getItem('cosy_ui_lang'))) || 'en';
 
     const freeItems = NAV_CONFIG.free || [];
 
@@ -532,11 +640,15 @@ function mobileMenuHTML (mode) {
         return `<a href="${href}" ${targetAttr} class="cosy-mobile-nav-link" data-translate-key="nav_${item.key}" data-i18n="nav.${item.key}">${item.icon ? item.icon + ' ' : ''}${label}</a>`;
     }).join('\n      ');
 
-    const lockTitle = isLocked
-        ? 'Interface language is locked on this device. Click to unlock.'
-        : 'Pin interface language on this device.';
-
-    const homeUrl = getNavHref('home');
+    const langs = (typeof window !== 'undefined' && window.COSY_LANGUAGES && window.COSY_LANGUAGES.length)
+        ? window.COSY_LANGUAGES
+        : [
+            { code: 'en', name: 'English', native: 'English', icon: '🇬🇧' },
+            { code: 'fr', name: 'French', native: 'Français', icon: '🇫🇷' },
+            { code: 'it', name: 'Italian', native: 'Italiano', icon: '🇮🇹' },
+            { code: 'ru', name: 'Russian', native: 'Русский', icon: '🇷🇺' },
+            { code: 'el', name: 'Greek', native: 'Ελληνικά', icon: '🇬🇷' }
+        ];
 
     return `
       <a href="${homeUrl}" class="cosy-mobile-nav-link" data-translate-key="nav_home" data-i18n="nav.home">🏡 ${t('home', 'Home')}</a>
@@ -559,17 +671,24 @@ function mobileMenuHTML (mode) {
       <div class="mm-divider" style="height: 1px; background: var(--border, rgba(74, 107, 80, 0.12)); margin: 8px 0;"></div>
 
       <a href="#" onclick="event.preventDefault(); COSY.toggleTheme();" class="cosy-mobile-nav-link mobile-theme-toggle-a" style="display: flex; align-items: center; gap: 8px;" data-translate-key="nav_toggle_dark_mode" data-i18n="nav.toggle_dark_mode">${t('toggle_dark_mode', '🌓 Toggle Dark Mode')}</a>
-      <div style="padding: 8px 12px; display: flex; align-items: center; gap: 8px; min-height: 44px;">
-         <span style="font-size: 0.9rem; color: var(--ink-soft);" data-i18n="label.language">Language 🌍</span>
-         <select id="cosy-language-switcher-mobile" onchange="setLanguage(this.value)" class="styled-sel" ${isLocked ? 'disabled' : ''} style="width: auto; min-width: 68px; padding: 4px 6px; font-size: 0.8rem; border-radius: var(--r-sm); height: 36px; background: var(--warm-white); border: 1px solid var(--border); color: var(--ink); cursor: pointer;" aria-label="Select Interface Language">
-            ${langOptions}
-         </select>
-         <button id="cosy-lang-lock-btn-mobile" type="button" onclick="if(window.toggleLanguageLock)window.toggleLanguageLock()" class="cosy-lang-lock-btn ${isLocked ? 'locked' : ''}" title="${lockTitle}" aria-label="${lockTitle}" style="background:none; border:1px solid var(--border); border-radius:var(--r-sm); padding:2px 4px; font-size:0.75rem; height:28px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">
-            📌
-         </button>
+
+      <div class="cosy-mobile-lang-section" style="padding: 8px 12px;">
+         <span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft, #666); display: block; margin-bottom: 6px;" data-i18n="label.language">Languages We Teach 🌍</span>
+         <div class="cosy-mobile-lang-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 6px;">
+           ${langs.map(l => {
+              const isPinned = (l.code === pinnedLang);
+              const iconDisplay = (l.icon && !l.icon.includes('<')) ? l.icon : (l.flag && !l.flag.includes('<') ? l.flag : '🌐');
+              return `
+              <button type="button" class="cosy-mobile-lang-btn ${isPinned ? 'pinned' : ''}" onclick="COSY.pinLanguage('${l.code}', event)" style="display:flex; align-items:center; justify-content:space-between; padding:8px 10px; border:1px solid var(--border, rgba(74, 107, 80, 0.12)); border-radius:6px; background:${isPinned ? 'var(--sage-mist, #e0eee2)' : 'var(--warm-white, #fff)'}; color:var(--ink, #2a2a2a); font-size:0.82rem; font-weight:600; cursor:pointer; min-height:44px;">
+                <span>${iconDisplay} ${l.code.toUpperCase()}</span>
+                <span>📌</span>
+              </button>`;
+           }).join('')}
+         </div>
       </div>
+
       <div class="mm-divider" style="height: 1px; background: var(--border, rgba(74, 107, 80, 0.12)); margin: 8px 0;"></div>
-      <a href="https://wa.me/330766784195" target="_blank" class="mm-cta cosy-mobile-nav-link" style="background: var(--sage, #416b49); color: #fff; font-weight: 700; border-radius: 100px; text-align: center; justify-content: center;" data-translate-key="nav_whatsapp_contact" data-i18n="nav.whatsapp_contact">${t('whatsapp_contact', '💬 Contact us on WhatsApp')}</a>`
+      <a href="https://wa.me/330766784195" target="_blank" rel="noopener" class="mm-cta cosy-mobile-nav-link" style="background: var(--sage, #416b49); color: #fff; font-weight: 700; border-radius: 100px; text-align: center; justify-content: center;" data-translate-key="nav_whatsapp_contact" data-i18n="nav.whatsapp_contact">${t('whatsapp_contact', '💬 Contact us on WhatsApp')}</a>`
 }
 
 function updateMobileNavTranslated() {
@@ -752,6 +871,14 @@ async function loadVocabFile(path) {
 
 let STATE = readState();
 
+if (typeof window !== 'undefined') {
+    window.toggleTheme = function() {
+        if (window.COSY && typeof window.COSY.toggleTheme === 'function') {
+            window.COSY.toggleTheme();
+        }
+    };
+}
+
 window.COSY = {
     renderNav,
     get mode() { return STATE.mode },
@@ -760,31 +887,150 @@ window.COSY = {
     getPrefix,
 
     initTheme() {
-        const theme = localStorage.getItem('cosy_theme') || 'light';
-        document.documentElement.setAttribute('data-theme', theme);
-        if (theme === 'dark') {
-            document.body.classList.add('theme-dark');
-        } else {
-            document.body.classList.remove('theme-dark');
+        let theme = null;
+        try {
+            theme = localStorage.getItem('cosy.theme') || localStorage.getItem('cosy_theme');
+        } catch (e) {}
+        if (!theme) {
+            theme = (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
         }
+        document.documentElement.setAttribute('data-theme', theme);
+        if (typeof document !== 'undefined' && document.body) {
+            if (theme === 'dark') {
+                document.body.classList.add('theme-dark');
+            } else {
+                document.body.classList.remove('theme-dark');
+            }
+        }
+        this.updateThemeIcons(theme);
+    },
+
+    updateThemeIcons(theme) {
+        if (typeof document === 'undefined') return;
+        const currentTheme = theme || document.documentElement.getAttribute('data-theme') || 'light';
+        const toggles = document.querySelectorAll('.theme-toggle-btn, .cosy-theme-btn');
+        toggles.forEach(btn => {
+            btn.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
+            btn.setAttribute('aria-label', currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        });
     },
 
     toggleTheme() {
-        const currentTheme = localStorage.getItem('cosy_theme') || 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('cosy_theme', newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
-        if (newTheme === 'dark') {
-            document.body.classList.add('theme-dark');
-        } else {
-            document.body.classList.remove('theme-dark');
+        let currentTheme = null;
+        try {
+            currentTheme = localStorage.getItem('cosy.theme') || localStorage.getItem('cosy_theme');
+        } catch (e) {}
+        if (!currentTheme) {
+            currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
         }
-        const toggles = document.querySelectorAll('.theme-toggle-btn');
-        toggles.forEach(btn => {
-            btn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
-        });
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        try {
+            localStorage.setItem('cosy.theme', newTheme);
+            localStorage.setItem('cosy_theme', newTheme);
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', newTheme);
+        if (typeof document !== 'undefined' && document.body) {
+            if (newTheme === 'dark') {
+                document.body.classList.add('theme-dark');
+            } else {
+                document.body.classList.remove('theme-dark');
+            }
+        }
+        this.updateThemeIcons(newTheme);
         if (window.COSY && typeof window.COSY.showToast === 'function') {
             window.COSY.showToast(`Theme switched to ${newTheme}!`);
+        }
+    },
+
+    getPinnedLanguage() {
+        try {
+            return localStorage.getItem('cosy.pinnedLang') || localStorage.getItem('cosy_ui_lang') || 'en';
+        } catch (e) {
+            return 'en';
+        }
+    },
+
+    pinLanguage(langCode, event) {
+        if (event) {
+            event.stopPropagation();
+            if (event.preventDefault) event.preventDefault();
+        }
+        try {
+            localStorage.setItem('cosy.pinnedLang', langCode);
+            localStorage.setItem('cosy_ui_lang', langCode);
+            localStorage.setItem('cosy_last_language', langCode);
+        } catch (e) {}
+
+        const evt = new CustomEvent('cosy:langchange', {
+            detail: { lang: langCode, pinned: true },
+            bubbles: true
+        });
+        document.dispatchEvent(evt);
+
+        if (typeof window !== 'undefined' && typeof window.setLanguage === 'function') {
+            window.setLanguage(langCode);
+        }
+
+        this.updateLangPanelUI(langCode);
+    },
+
+    updateLangPanelUI(pinnedLang) {
+        if (typeof document === 'undefined') return;
+        const currentLang = pinnedLang || this.getPinnedLanguage();
+        const badge = document.getElementById('cosy-pinned-lang-badge');
+        if (badge) {
+            badge.textContent = currentLang.toUpperCase();
+        }
+
+        const rows = document.querySelectorAll('.cosy-lang-row');
+        rows.forEach(row => {
+            const code = row.getAttribute('data-lang');
+            const isPinned = (code === currentLang);
+            if (isPinned) {
+                row.classList.add('is-pinned');
+            } else {
+                row.classList.remove('is-pinned');
+            }
+            const pinBtn = row.querySelector('.cosy-lang-pin-btn');
+            if (pinBtn) {
+                pinBtn.classList.toggle('pinned', isPinned);
+                pinBtn.setAttribute('aria-pressed', isPinned ? 'true' : 'false');
+            }
+        });
+    },
+
+    toggleLangPanel() {
+        const panel = document.getElementById('cosy-lang-panel');
+        if (!panel) return;
+        const isHidden = panel.hasAttribute('hidden') || !panel.classList.contains('open');
+        if (isHidden) {
+            this.openLangPanel();
+        } else {
+            this.closeLangPanel();
+        }
+    },
+
+    openLangPanel() {
+        const panel = document.getElementById('cosy-lang-panel');
+        const btn = document.getElementById('cosy-lang-menu-btn');
+        if (!panel) return;
+        panel.removeAttribute('hidden');
+        panel.classList.add('open');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        this.updateLangPanelUI();
+        const firstBtn = panel.querySelector('button, a, [tabindex="0"]');
+        if (firstBtn) firstBtn.focus();
+    },
+
+    closeLangPanel() {
+        const panel = document.getElementById('cosy-lang-panel');
+        const btn = document.getElementById('cosy-lang-menu-btn');
+        if (!panel) return;
+        panel.setAttribute('hidden', '');
+        panel.classList.remove('open');
+        if (btn) {
+            btn.setAttribute('aria-expanded', 'false');
+            btn.focus();
         }
     },
 
@@ -819,6 +1065,166 @@ window.COSY = {
     DEFAULT_ECOSYSTEM_URLS,
     NAV_CONFIG,
     NAV_FALLBACKS,
+    COSY_ECOSYSTEM_MENU,
+
+    renderEcosystemMegaMenuHTML() {
+        const groupsHtml = COSY_ECOSYSTEM_MENU.map(grp => {
+            const cardsHtml = grp.items.map(item => {
+                const href = item.href ? item.href : (item.hrefKey ? getNavHref(item.hrefKey) : '#');
+                const lockBadge = item.isGated ? '<span class="cosy-eco-card-lock" title="Enrolled students area">🔒</span>' : '';
+                const externalAttr = (href.startsWith('http://') || href.startsWith('https://')) ? ' target="_blank" rel="noopener"' : '';
+                return `
+                  <a href="${href}" class="cosy-eco-card" data-accent="${grp.accentKey}" ${externalAttr}>
+                    <div class="cosy-eco-card-header">
+                      <span class="cosy-eco-card-icon">${item.icon}</span>
+                      <span class="cosy-eco-card-title">${item.title}</span>
+                      ${lockBadge}
+                    </div>
+                    <div class="cosy-eco-card-promise">${item.promise}</div>
+                  </a>`;
+            }).join('');
+
+            return `
+              <div class="cosy-eco-group" data-accent="${grp.accentKey}">
+                <div class="cosy-eco-group-title">${grp.group}</div>
+                <div class="cosy-eco-group-grid">
+                  ${cardsHtml}
+                </div>
+              </div>`;
+        }).join('');
+
+        return `
+          <div id="cosy-eco-mega-menu" class="cosy-eco-mega-menu" role="dialog" aria-label="COSY Ecosystem Navigation" hidden>
+            <div class="cosy-eco-menu-header">
+              <span class="cosy-eco-menu-title">🌐 COSY Ecosystem</span>
+              <button type="button" class="cosy-eco-menu-close" aria-label="Close ecosystem menu" onclick="COSY.closeEcosystemMenu()">✕</button>
+            </div>
+            <div class="cosy-eco-menu-body">
+              ${groupsHtml}
+            </div>
+          </div>`;
+    },
+
+    openEcosystemMenu() {
+        const menu = document.getElementById('cosy-eco-mega-menu');
+        const trigger = document.querySelector('.nav-logo, .cosy-nav-logo');
+        if (!menu) return;
+        menu.removeAttribute('hidden');
+        menu.classList.add('open');
+        if (trigger) {
+            trigger.setAttribute('aria-expanded', 'true');
+            trigger.classList.add('cosy-logo-sparkle');
+        }
+        this._ecoPreviousFocus = document.activeElement;
+        const firstCard = menu.querySelector('.cosy-eco-card, button');
+        if (firstCard) firstCard.focus();
+    },
+
+    closeEcosystemMenu() {
+        const menu = document.getElementById('cosy-eco-mega-menu');
+        const trigger = document.querySelector('.nav-logo, .cosy-nav-logo');
+        if (!menu) return;
+        menu.setAttribute('hidden', '');
+        menu.classList.remove('open');
+        if (trigger) {
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.classList.remove('cosy-logo-sparkle');
+            if (this._ecoPreviousFocus) {
+                this._ecoPreviousFocus.focus();
+            }
+        }
+    },
+
+    toggleEcosystemMenu() {
+        const menu = document.getElementById('cosy-eco-mega-menu');
+        if (!menu) return;
+        const isOpen = !menu.hasAttribute('hidden') && menu.classList.contains('open');
+        if (isOpen) {
+            this.closeEcosystemMenu();
+        } else {
+            this.openEcosystemMenu();
+        }
+    },
+
+    bindEcosystemLogoTriggers() {
+        const triggers = document.querySelectorAll('.nav-logo, .cosy-nav-logo');
+        triggers.forEach(trig => {
+            if (trig.dataset.ecoBound) return;
+            trig.dataset.ecoBound = 'true';
+            trig.setAttribute('aria-haspopup', 'dialog');
+            trig.setAttribute('aria-expanded', 'false');
+
+            let hoverTimer = null;
+            trig.addEventListener('mouseenter', () => {
+                if (window.innerWidth >= 768) {
+                    hoverTimer = setTimeout(() => {
+                        COSY.openEcosystemMenu();
+                    }, 150);
+                }
+            });
+            trig.addEventListener('mouseleave', () => {
+                if (hoverTimer) clearTimeout(hoverTimer);
+            });
+
+            trig.addEventListener('click', (e) => {
+                // On mobile or keyboard click, prevent default link navigation if menu closed, or toggle
+                e.preventDefault();
+                COSY.toggleEcosystemMenu();
+            });
+
+            trig.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    COSY.toggleEcosystemMenu();
+                }
+            });
+        });
+
+        // Setup global escape / focus trap / click outside handler for ecosystem menu
+        if (!window._ecoGlobalHandlerBound) {
+            window._ecoGlobalHandlerBound = true;
+
+            document.addEventListener('keydown', (e) => {
+                const menu = document.getElementById('cosy-eco-mega-menu');
+                if (!menu || menu.hasAttribute('hidden') || !menu.classList.contains('open')) return;
+
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    COSY.closeEcosystemMenu();
+                    return;
+                }
+
+                if (e.key === 'Tab') {
+                    const focusables = Array.from(menu.querySelectorAll('a[href], button, [tabindex="0"]')).filter(el => !el.hasAttribute('disabled'));
+                    if (focusables.length === 0) return;
+                    const firstEl = focusables[0];
+                    const lastEl = focusables[focusables.length - 1];
+
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstEl) {
+                            e.preventDefault();
+                            lastEl.focus();
+                        }
+                    } else {
+                        if (document.activeElement === lastEl) {
+                            e.preventDefault();
+                            firstEl.focus();
+                        }
+                    }
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                const menu = document.getElementById('cosy-eco-mega-menu');
+                const logo = e.target.closest('.nav-logo, .cosy-nav-logo');
+                if (!menu || menu.hasAttribute('hidden') || !menu.classList.contains('open')) return;
+
+                if (!menu.contains(e.target) && !logo) {
+                    COSY.closeEcosystemMenu();
+                }
+            });
+        }
+    },
 
 
     async loadLanguageData(lang, levelId) {
@@ -1069,6 +1475,7 @@ if (typeof module !== 'undefined' && module.exports) {
         getNavHref,
         DEFAULT_ECOSYSTEM_URLS,
         NAV_CONFIG,
-        NAV_FALLBACKS
+        NAV_FALLBACKS,
+        COSY_ECOSYSTEM_MENU
     };
 }
