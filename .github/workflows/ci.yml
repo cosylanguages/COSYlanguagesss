@@ -63,6 +63,15 @@ jobs:
         run: |
           npx html-validate "*.html" "practice/*.html" "games/*.html" "vocabulary/*.html" "hybrid/*.html"
 
+      - name: Check for Stale Generated Blog Files
+        run: |
+          npm run build:blog
+          if [ -n "$(git status --porcelain blog/*.html blog/posts.json blog/index.json blog/podcast.xml blog/og/*.svg)" ]; then
+            echo "::error::generated files are stale, run npm run build:blog"
+            git status --porcelain blog/*.html blog/posts.json blog/index.json blog/podcast.xml blog/og/*.svg
+            exit 1
+          fi
+
       - name: Validate Generated Blog Pages
         run: >-
           npx html-validate
