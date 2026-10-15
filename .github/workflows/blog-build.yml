@@ -6,18 +6,7 @@ on:
     paths:
       - 'blog/posts/**'
       - 'blog/guides.json'
-      - 'blog/js/art/**'
-      - 'blog/js/stage/**'
-      - 'blog/js/podcast-box.js'
-      - 'blog/css/**'
-      - 'templates/blog-*.html'
-      - 'js/i18n/**'
-      - 'js/core/i18n.js'
-      - 'js/core/i18n/**'
       - 'scripts/build-blog.js'
-      - 'scripts/validate-blog-schema.js'
-      - 'scripts/generate-podcast-rss.js'
-      - 'scripts/generate-blog-art.js'
   workflow_dispatch:
 
 jobs:
