@@ -80,14 +80,16 @@ img{display:block;}
 .hero h1 em{font-style:italic;color:#fde047;}
 .hero-sub{font-size:1.02rem;color:rgba(255,255,255,.94);max-width:540px;margin:0 auto 1.8rem;line-height:1.7;}
 .hero-ctas{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;}
-.btn-primary{display:inline-flex;align-items:center;gap:.4rem;background:#ffffff;color:#1e3a29;
-  font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;padding:.65rem 1.5rem;
-  border-radius:999px;box-shadow:0 4px 20px rgba(0,0,0,.15);transition:transform .18s,box-shadow .18s;border:none;cursor:pointer;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,0,0,.22);}
-.btn-ghost{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.15);color:#ffffff;
-  font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;padding:.65rem 1.5rem;
-  border-radius:999px;border:1.5px solid rgba(255,255,255,.45);transition:background .18s;cursor:pointer;}
-.btn-ghost:hover{background:rgba(255,255,255,.28);}
+.hero .btn-primary {
+  background: #ffffff;
+  color: #1e3a29;
+  box-shadow: 0 4px 20px rgba(0,0,0,.15);
+}
+.hero .btn-primary:hover {
+  background: #f8fafc;
+  color: #162a1e;
+  box-shadow: 0 6px 28px rgba(0,0,0,.22);
+}
 /* why this language */
 .hero-why{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
 .hw-pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
