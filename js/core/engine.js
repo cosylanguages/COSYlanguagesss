@@ -132,6 +132,85 @@ const NAV_CONFIG = {
     ]
 };
 
+const COSY_ECOSYSTEM_MENU = [
+    {
+        group: 'Learn for free',
+        accentKey: 'learn-free',
+        items: [
+            {
+                key: 'practice',
+                title: 'Practice',
+                icon: '💡',
+                promise: 'Interactive drills & instant feedback',
+                hrefKey: 'practice'
+            },
+            {
+                key: 'dictionary',
+                title: 'Dictionary',
+                icon: '📖',
+                promise: 'Rich vocabulary & example sentences',
+                href: 'https://cosylanguages.github.io/COSYdata/'
+            },
+            {
+                key: 'tools',
+                title: 'Verb & Preposition Library',
+                icon: '🔎',
+                promise: 'Master conjugation & preposition patterns',
+                href: 'https://cosylanguages.github.io/COSYtools/'
+            },
+            {
+                key: 'games',
+                title: 'Games',
+                icon: '🎮',
+                promise: 'Fun, immersive language practice',
+                href: 'https://cosylanguages.github.io/COSYgames/'
+            },
+            {
+                key: 'blog',
+                title: 'Blog',
+                icon: '📰',
+                promise: 'Articles, Top 100 lists & podcasts',
+                hrefKey: 'blog'
+            }
+        ]
+    },
+    {
+        group: 'Your classes (members)',
+        accentKey: 'your-classes',
+        items: [
+            {
+                key: 'platform',
+                title: 'Student Platform',
+                icon: '🎓',
+                promise: 'Your personal course dashboard',
+                href: 'login.html?redirect=https://cosylanguages.github.io/COSYplatform/&note=This%20area%20is%20for%20enrolled%20students.',
+                isGated: true
+            },
+            {
+                key: 'manuals',
+                title: 'Manuals',
+                icon: '📚',
+                promise: 'Full lesson materials & guides',
+                href: 'login.html?redirect=https://cosylanguages.github.io/COSYmanuals/&note=This%20area%20is%20for%20enrolled%20students.',
+                isGated: true
+            }
+        ]
+    },
+    {
+        group: 'Join in',
+        accentKey: 'join-in',
+        items: [
+            {
+                key: 'events',
+                title: 'Live Events',
+                icon: '🎉',
+                promise: 'Speaking clubs & live workshops',
+                hrefKey: 'events'
+            }
+        ]
+    }
+];
+
 const BASE_URL = (typeof window !== 'undefined' && (window.location.pathname.startsWith('/COSYlanguages/') || window.location.pathname === '/COSYlanguages'))
     ? '/COSYlanguages/'
     : '/';
@@ -502,6 +581,15 @@ function applyMode () {
         nav.setAttribute('aria-label', t('main_aria', 'Main Navigation'));
         nav.innerHTML = navFree();
         bindNavKeyboardHandlers();
+
+        if (!document.getElementById('cosy-eco-mega-menu')) {
+            const container = document.createElement('div');
+            container.innerHTML = window.COSY.renderEcosystemMegaMenuHTML();
+            if (container.firstElementChild) {
+                document.body.appendChild(container.firstElementChild);
+            }
+        }
+        window.COSY.bindEcosystemLogoTriggers();
 
         const activeNavLang = getActiveNavLang();
         const desktopSw = document.getElementById('cosy-language-switcher');
@@ -977,6 +1065,166 @@ window.COSY = {
     DEFAULT_ECOSYSTEM_URLS,
     NAV_CONFIG,
     NAV_FALLBACKS,
+    COSY_ECOSYSTEM_MENU,
+
+    renderEcosystemMegaMenuHTML() {
+        const groupsHtml = COSY_ECOSYSTEM_MENU.map(grp => {
+            const cardsHtml = grp.items.map(item => {
+                const href = item.href ? item.href : (item.hrefKey ? getNavHref(item.hrefKey) : '#');
+                const lockBadge = item.isGated ? '<span class="cosy-eco-card-lock" title="Enrolled students area">🔒</span>' : '';
+                const externalAttr = (href.startsWith('http://') || href.startsWith('https://')) ? ' target="_blank" rel="noopener"' : '';
+                return `
+                  <a href="${href}" class="cosy-eco-card" data-accent="${grp.accentKey}" ${externalAttr}>
+                    <div class="cosy-eco-card-header">
+                      <span class="cosy-eco-card-icon">${item.icon}</span>
+                      <span class="cosy-eco-card-title">${item.title}</span>
+                      ${lockBadge}
+                    </div>
+                    <div class="cosy-eco-card-promise">${item.promise}</div>
+                  </a>`;
+            }).join('');
+
+            return `
+              <div class="cosy-eco-group" data-accent="${grp.accentKey}">
+                <div class="cosy-eco-group-title">${grp.group}</div>
+                <div class="cosy-eco-group-grid">
+                  ${cardsHtml}
+                </div>
+              </div>`;
+        }).join('');
+
+        return `
+          <div id="cosy-eco-mega-menu" class="cosy-eco-mega-menu" role="dialog" aria-label="COSY Ecosystem Navigation" hidden>
+            <div class="cosy-eco-menu-header">
+              <span class="cosy-eco-menu-title">🌐 COSY Ecosystem</span>
+              <button type="button" class="cosy-eco-menu-close" aria-label="Close ecosystem menu" onclick="COSY.closeEcosystemMenu()">✕</button>
+            </div>
+            <div class="cosy-eco-menu-body">
+              ${groupsHtml}
+            </div>
+          </div>`;
+    },
+
+    openEcosystemMenu() {
+        const menu = document.getElementById('cosy-eco-mega-menu');
+        const trigger = document.querySelector('.nav-logo, .cosy-nav-logo');
+        if (!menu) return;
+        menu.removeAttribute('hidden');
+        menu.classList.add('open');
+        if (trigger) {
+            trigger.setAttribute('aria-expanded', 'true');
+            trigger.classList.add('cosy-logo-sparkle');
+        }
+        this._ecoPreviousFocus = document.activeElement;
+        const firstCard = menu.querySelector('.cosy-eco-card, button');
+        if (firstCard) firstCard.focus();
+    },
+
+    closeEcosystemMenu() {
+        const menu = document.getElementById('cosy-eco-mega-menu');
+        const trigger = document.querySelector('.nav-logo, .cosy-nav-logo');
+        if (!menu) return;
+        menu.setAttribute('hidden', '');
+        menu.classList.remove('open');
+        if (trigger) {
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.classList.remove('cosy-logo-sparkle');
+            if (this._ecoPreviousFocus) {
+                this._ecoPreviousFocus.focus();
+            }
+        }
+    },
+
+    toggleEcosystemMenu() {
+        const menu = document.getElementById('cosy-eco-mega-menu');
+        if (!menu) return;
+        const isOpen = !menu.hasAttribute('hidden') && menu.classList.contains('open');
+        if (isOpen) {
+            this.closeEcosystemMenu();
+        } else {
+            this.openEcosystemMenu();
+        }
+    },
+
+    bindEcosystemLogoTriggers() {
+        const triggers = document.querySelectorAll('.nav-logo, .cosy-nav-logo');
+        triggers.forEach(trig => {
+            if (trig.dataset.ecoBound) return;
+            trig.dataset.ecoBound = 'true';
+            trig.setAttribute('aria-haspopup', 'dialog');
+            trig.setAttribute('aria-expanded', 'false');
+
+            let hoverTimer = null;
+            trig.addEventListener('mouseenter', () => {
+                if (window.innerWidth >= 768) {
+                    hoverTimer = setTimeout(() => {
+                        COSY.openEcosystemMenu();
+                    }, 150);
+                }
+            });
+            trig.addEventListener('mouseleave', () => {
+                if (hoverTimer) clearTimeout(hoverTimer);
+            });
+
+            trig.addEventListener('click', (e) => {
+                // On mobile or keyboard click, prevent default link navigation if menu closed, or toggle
+                e.preventDefault();
+                COSY.toggleEcosystemMenu();
+            });
+
+            trig.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    COSY.toggleEcosystemMenu();
+                }
+            });
+        });
+
+        // Setup global escape / focus trap / click outside handler for ecosystem menu
+        if (!window._ecoGlobalHandlerBound) {
+            window._ecoGlobalHandlerBound = true;
+
+            document.addEventListener('keydown', (e) => {
+                const menu = document.getElementById('cosy-eco-mega-menu');
+                if (!menu || menu.hasAttribute('hidden') || !menu.classList.contains('open')) return;
+
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    COSY.closeEcosystemMenu();
+                    return;
+                }
+
+                if (e.key === 'Tab') {
+                    const focusables = Array.from(menu.querySelectorAll('a[href], button, [tabindex="0"]')).filter(el => !el.hasAttribute('disabled'));
+                    if (focusables.length === 0) return;
+                    const firstEl = focusables[0];
+                    const lastEl = focusables[focusables.length - 1];
+
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstEl) {
+                            e.preventDefault();
+                            lastEl.focus();
+                        }
+                    } else {
+                        if (document.activeElement === lastEl) {
+                            e.preventDefault();
+                            firstEl.focus();
+                        }
+                    }
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                const menu = document.getElementById('cosy-eco-mega-menu');
+                const logo = e.target.closest('.nav-logo, .cosy-nav-logo');
+                if (!menu || menu.hasAttribute('hidden') || !menu.classList.contains('open')) return;
+
+                if (!menu.contains(e.target) && !logo) {
+                    COSY.closeEcosystemMenu();
+                }
+            });
+        }
+    },
 
 
     async loadLanguageData(lang, levelId) {
@@ -1227,6 +1475,7 @@ if (typeof module !== 'undefined' && module.exports) {
         getNavHref,
         DEFAULT_ECOSYSTEM_URLS,
         NAV_CONFIG,
-        NAV_FALLBACKS
+        NAV_FALLBACKS,
+        COSY_ECOSYSTEM_MENU
     };
 }
