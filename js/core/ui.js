@@ -434,6 +434,8 @@
             const id = el.id;
             if (!id || seen.has(id)) return;
             if (el.closest('#cosy-nav, #cosy-nav-drawer, footer, header, #pin-modal, #back-to-top')) return;
+            // Skip inner anchor divs without standalone content (such as <div id="courses"></div>)
+            if (el.tagName === 'DIV' && !el.textContent.trim() && el.parentElement && el.parentElement.tagName === 'SECTION') return;
 
             const headerEl = el.querySelector('.sec-h2, .section-title, h2, h3, .sec-tag') || (el.matches('h2, h3') ? el : null);
             let rawTitle = headerEl ? headerEl.textContent.trim() : '';

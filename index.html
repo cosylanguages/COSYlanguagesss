@@ -99,6 +99,13 @@
         <a href="placement-quiz.html" class="btn-secondary">📝 Placement Quiz</a>
         <button type="button" onclick="const url = window.location.origin + window.location.pathname + '?embed=true'; showPinModal((window.t ? window.t('pin_title') : 'Add to Home Screen'), (window.t ? window.t('pin_home_desc') : 'Add COSYlanguages for instant access.'), url)" class="btn-tertiary btn-tertiary-pin" aria-label="Pin to Home Screen" data-i18n="button.pinToHome">📲 Pin to Home</button>
       </div>
+
+      <!-- Short reviews highlight strip near first CTA -->
+      <div class="hero-review-strip">
+        <span class="hrs-stars">⭐⭐⭐⭐⭐</span>
+        <span class="hrs-quote">“James very clearly shows how grammar works. I strongly advise you to study with COSYlanguages.”</span>
+        <a href="#reviews" class="hrs-link">— Elena, COSYenglish student (Read reviews ↓)</a>
+      </div>
     </div>
 
     <div class="hero-right">
@@ -125,6 +132,7 @@
   </svg>
 </div>
 
+<!-- SECTION 1: STORY -->
 <section id="story" class="home-section cozy-passion-banner reveal">
   <div class="cpb-inner">
     <span class="sec-tag">🌿 Teaching with love &amp; human connection</span>
@@ -147,6 +155,7 @@
   <span class="milestone-badge"><span class="m-icon">☕</span> Discovery</span>
 </div>
 
+<!-- SECTION 2: HOW IT WORKS -->
 <section id="how" class="home-section">
   <span class="sec-tag" data-translate-key="sec_tag_how">Simple process</span>
   <h2 class="sec-h2" data-translate-key="sec_h2_how">How your journey unfolds</h2>
@@ -180,99 +189,150 @@
   <span class="milestone-badge"><span class="m-icon">🌐</span> Exploration</span>
 </div>
 
-<section id="languages" class="home-section">
-  <span class="sec-tag" data-translate-key="sec_tag_languages">Languages</span>
-  <h2 class="sec-h2" data-translate-key="sec_h2_languages">Languages we teach</h2>
-  <p class="sec-p" data-translate-key="sec_p_languages">Click any language to explore free visual resources, manuals, and interactive tools.</p>
+<!-- SECTION 3: MERGED LANGUAGES + COURSES HUB -->
+<section id="languages" class="home-section lang-course-hub">
+  <div id="courses"></div>
+  <span class="sec-tag" data-translate-key="sec_tag_languages">Languages &amp; Courses</span>
+  <h2 class="sec-h2" data-translate-key="sec_h2_languages">Choose your language, discover your course</h2>
+  <p class="sec-p" data-translate-key="sec_p_languages">Select a language to see available levels and course tracks. Every course puts speaking first.</p>
 
-  <div id="lang-grid-active" class="lang-grid reveal">
-    <!-- Dynamically populated from COSY_ACTIVE_LANGUAGES -->
+  <!-- Interactive Language Selector Tabs -->
+  <div class="lang-selector-tabs" role="tablist" aria-label="Select Target Language">
+    <button type="button" class="lang-tab-btn active" data-lang="en" role="tab" aria-selected="true" id="tab-lang-en" onclick="switchLangCourseTab('en')">
+      <span class="lt-flag">🇬🇧</span>
+      <span class="lt-name">English</span>
+      <span class="lt-level">A1 → C2</span>
+    </button>
+    <button type="button" class="lang-tab-btn" data-lang="fr" role="tab" aria-selected="false" id="tab-lang-fr" onclick="switchLangCourseTab('fr')">
+      <span class="lt-flag">🇫🇷</span>
+      <span class="lt-name">Français</span>
+      <span class="lt-level">A1 → C2</span>
+    </button>
+    <button type="button" class="lang-tab-btn" data-lang="ru" role="tab" aria-selected="false" id="tab-lang-ru" onclick="switchLangCourseTab('ru')">
+      <span class="lt-flag">🇷🇺</span>
+      <span class="lt-name">Русский</span>
+      <span class="lt-level">A1 → C2</span>
+    </button>
+    <button type="button" class="lang-tab-btn" data-lang="it" role="tab" aria-selected="false" id="tab-lang-it" onclick="switchLangCourseTab('it')">
+      <span class="lt-flag">🇮🇹</span>
+      <span class="lt-name">Italiano</span>
+      <span class="lt-level">Level A1</span>
+    </button>
+    <button type="button" class="lang-tab-btn" data-lang="el" role="tab" aria-selected="false" id="tab-lang-el" onclick="switchLangCourseTab('el')">
+      <span class="lt-flag">🇬🇷</span>
+      <span class="lt-name">Ελληνικά</span>
+      <span class="lt-level">Level A1</span>
+    </button>
   </div>
 
-  <div class="home-lang-cta">
-      <p class="lang-coming-label reveal" data-translate-key="lang_coming_soon">More languages coming soon 🌱</p>
-      <a href="languages/coming-soon.html" class="btn-secondary" data-i18n="button.seeUpcomingLanguages">See upcoming languages →</a>
+  <!-- Dynamic Active Language Overview Banner -->
+  <div class="lang-hub-banner" id="lang-hub-banner">
+    <div class="lhb-info">
+      <span class="lhb-flag" id="lhb-flag">🇬🇧</span>
+      <div>
+        <div class="lhb-title" id="lhb-title">English Courses</div>
+        <div class="lhb-subtitle" id="lhb-subtitle">Levels A1 to C2. Available in all 6 course formats (1-to-1 &amp; Groups).</div>
+      </div>
+    </div>
+    <a href="languages/en/" id="lhb-link" class="lhb-cta">Explore English visual resources &amp; manuals →</a>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const activeGrid = document.getElementById('lang-grid-active');
-      if (activeGrid && window.COSY_ACTIVE_LANGUAGES) {
-        activeGrid.innerHTML = window.COSY_ACTIVE_LANGUAGES.map(l => `
-          <a href="languages/${l.code}/" class="lang-card">
-            ${l.img && l.img !== 'cosylanguages.png' ? `<img src="images/languages/${l.img}" alt="" loading="lazy" decoding="async" width="56" height="56">` : `<div class="sc-badge" style="margin: 0 auto 0.5rem;">${(l.code || '').toUpperCase().slice(0, 2)}</div>`}
-            <div class="lang-name" data-translate-key="${l.name.toLowerCase()}">${l.native}</div>
-            <div class="lang-resource-teaser">Resources →</div>
-          </a>
-        `).join('');
-      }
-      const heroCount = document.querySelector('.hs-num');
-      if (heroCount && window.COSY_ACTIVE_LANGUAGES) {
-        heroCount.textContent = window.COSY_ACTIVE_LANGUAGES.length;
-      }
-    });
-  </script>
-</section>
-
-<div class="sec-divider" aria-hidden="true">
-  <svg viewBox="0 0 1200 32" preserveAspectRatio="none">
-    <path d="M0,0 C350,28 850,4 1200,32 L1200,32 L0,32 Z" fill="var(--cosy-color-warm-white)"></path>
-  </svg>
-</div>
-<div class="sec-milestone-divider" aria-hidden="true">
-  <span class="milestone-badge"><span class="m-icon">📖</span> Learning Tracks</span>
-</div>
-
-<section id="courses" class="home-section">
-  <span class="sec-tag" data-translate-key="sec_tag_courses">What we offer</span>
-  <h2 class="sec-h2" data-translate-key="sec_h2_courses">Six courses, one promise</h2>
-  <p class="sec-p" data-translate-key="sec_p_courses">Every course puts speaking first. Choose the natural track that matches your life and dreams.</p>
-
-  <div class="courses-grid summary-grid">
-    <div class="course-card course-card-general dark reveal">
-      <div class="cc-icon">📖</div>
-      <h3 class="cc-title" data-translate-key="course_general">General Course</h3>
-      <p class="cc-desc" data-translate-key="course_general_desc">The complete journey: all four skills growing together. Structured, progressive, built around your real adult life.</p>
-      <a href="courses/general.html" class="btn-secondary btn-card-on-dark" data-translate-key="actions.continue" data-i18n="button.learnMore">Learn more →</a>
-    </div>
-    <div class="course-card course-card-spoken reveal">
-      <div class="cc-icon">🗣️</div>
-      <h3 class="cc-title" data-translate-key="course_spoken">Spoken Course</h3>
-      <p class="cc-desc" data-translate-key="course_spoken_desc">Experience real conversation with your teacher in 15 or 30 minute focused sessions, free from rigid grammar tables and repetitive worksheets.</p>
-      <a href="courses/spoken.html" class="btn-secondary btn-card-on-dark" data-translate-key="actions.continue" data-i18n="button.learnMore">Learn more →</a>
-    </div>
-    <div class="course-card course-card-exam reveal">
-      <div class="cc-icon">📝</div>
-      <h3 class="cc-title" data-translate-key="course_exam">Exam Preparation</h3>
-      <p class="cc-desc" data-translate-key="course_exam_desc">Authentic tasks, exact exam conditions. Focus on the oral component where it matters most.</p>
-      <a href="courses/exam-preparation.html" class="btn-secondary btn-card-on-dark" data-translate-key="actions.continue" data-i18n="button.learnMore">Learn more →</a>
-    </div>
-    <div class="course-card course-card-travelling reveal">
-      <div class="cc-icon">✈️</div>
-      <h3 class="cc-title" data-translate-key="course_travelling">Travelling Course</h3>
-      <p class="cc-desc" data-translate-key="course_travelling_desc">Master essential real-world communication for travel: booking, directions, emergencies, and local culture.</p>
-      <a href="courses/travelling.html" class="btn-secondary btn-card-on-dark" data-translate-key="actions.continue" data-i18n="button.learnMore">Learn more →</a>
-    </div>
-    <div class="course-card course-card-professional reveal">
-      <div class="cc-icon">💼</div>
-      <h3 class="cc-title" data-translate-key="course_professional">Professional Course</h3>
-      <p class="cc-desc" data-translate-key="course_professional_desc">Elevate your career with targeted language skills for interviews, negotiations, business presentations, and networking.</p>
-      <a href="courses/professional.html" class="btn-secondary btn-card-on-dark" data-translate-key="actions.continue" data-i18n="button.learnMore">Learn more →</a>
-    </div>
-    <div class="course-card course-card-relocation reveal">
-      <div class="cc-icon">🏡</div>
-      <h3 class="cc-title" data-translate-key="course_relocation">Relocation Course</h3>
-      <p class="cc-desc" data-translate-key="course_relocation_desc">Navigate housing, administration, healthcare, local services, and social integration in your new home country.</p>
-      <a href="courses/relocation.html" class="btn-secondary btn-card-on-dark" data-translate-key="actions.continue" data-i18n="button.learnMore">Learn more →</a>
-    </div>
+  <!-- Dynamic Courses Grid for Selected Language -->
+  <div class="courses-grid summary-grid" id="lang-courses-grid">
+    <!-- Populated dynamically via JS -->
   </div>
 
   <div class="home-section-cta">
-      <a href="courses/index.html" class="btn-secondary" data-translate-key="hero_cta_courses" data-i18n="button.exploreTypes">View all 6 course types →</a>
+    <a href="courses/index.html" class="btn-secondary" data-translate-key="hero_cta_courses" data-i18n="button.exploreTypes">View all 6 course types →</a>
+    <a href="languages/coming-soon.html" class="btn-ghost" style="margin-left: 0.5rem;" data-i18n="button.seeUpcomingLanguages">Upcoming languages 🌱 →</a>
   </div>
 
   <div class="group-note reveal">
     <p><strong data-translate-key="group_note_title">Group lessons also available</strong> <span data-translate-key="group_note_desc">in English, French, Italian and Russian. Share the cost and learn together.</span> <a href="https://wa.me/330766784195" data-translate-key="group_note_cta">Ask about groups →</a></p>
+  </div>
+</section>
+
+<div class="sec-divider" aria-hidden="true">
+  <svg viewBox="0 0 1200 32" preserveAspectRatio="none">
+    <path d="M0,0 C350,28 850,4 1200,32 L1200,32 L0,32 Z" fill="var(--cosy-color-sage-mist)"></path>
+  </svg>
+</div>
+<div class="sec-milestone-divider" aria-hidden="true">
+  <span class="milestone-badge"><span class="m-icon">💡</span> Habit Building</span>
+</div>
+
+<!-- SECTION 4: LEARN FREE HUB (PRACTICE + BLOG) -->
+<section id="tools" class="home-section learn-free-section">
+  <span class="sec-tag" data-translate-key="sec_tag_tools">100% Free Resources</span>
+  <h2 class="sec-h2" data-translate-key="sec_h2_tools">Learn free between lessons</h2>
+  <p class="sec-p" data-translate-key="sec_p_tools">Interactive practice, reference engines, games, and Vogue Gazette editorial articles — no account needed.</p>
+
+  <div class="learn-free-hub-grid">
+    <!-- Card 1: Language Practice -->
+    <div class="tool-card learn-free-card reveal">
+      <div class="tool-free-badge">💡 Interactive Practice</div>
+      <h3 data-translate-key="tool_practice_title">Language Practice</h3>
+      <p data-translate-key="tool_practice_desc">Bite-sized vocabulary, grammar, and speaking exercises with daily streaks and COSY points.</p>
+      <div class="tool-pills">
+        <span class="tool-pill" data-translate-key="english">🇬🇧 English</span>
+        <span class="tool-pill" data-translate-key="french">🇫🇷 Français</span>
+        <span class="tool-pill" data-translate-key="italian">🇮🇹 Italiano</span>
+        <span class="tool-pill" data-translate-key="russian">🇷🇺 Русский</span>
+        <span class="tool-pill" data-translate-key="greek">🇬🇷 Ελληνικά</span>
+      </div>
+      <div class="tool-card-actions">
+        <a href="practice/index.html" class="btn-secondary btn-sm" data-translate-key="tool_practice_cta" data-i18n="button.tryFreePractice">Try free practice →</a>
+        <a href="practice/cognitive-immersion.html" class="tool-link tool-link-accelerator" data-i18n="button.tryAccelerator">🧠 Cognitive immersion →</a>
+      </div>
+    </div>
+
+    <!-- Card 2: Dictionary & Reference Engines -->
+    <div class="tool-card learn-free-card reveal">
+      <div class="tool-free-badge">🔎 Reference &amp; Atlas</div>
+      <h3>Dictionary &amp; Verbs</h3>
+      <p>Comparative Grammar Atlas, verb conjugation tables, and multi-language vocabulary lookup engine.</p>
+      <div class="tool-pills">
+        <span class="tool-pill">Grammar Atlas</span>
+        <span class="tool-pill">Verb Conjugator</span>
+        <span class="tool-pill">CEFR A1–C2</span>
+      </div>
+      <div class="tool-card-actions">
+        <a href="comparative/index.html" class="btn-secondary btn-sm">Grammar Atlas →</a>
+        <a href="apps/index.html" class="tool-link tool-link-accelerator">📚 All Reference Engines →</a>
+      </div>
+    </div>
+
+    <!-- Card 3: Language Games -->
+    <div class="tool-card learn-free-card reveal">
+      <div class="tool-free-badge">🎮 COSYgames</div>
+      <h3 data-translate-key="tool_games_title">Language Games</h3>
+      <p data-translate-key="tool_games_desc">Interactive games: play solo or with friends. Action Hero, Fluency Flow and more.</p>
+      <div class="tool-pills">
+        <span class="tool-pill"><span class="cosy-icon icon-sparkle tool-pill-icon" aria-hidden="true"></span>Action Hero</span>
+        <span class="tool-pill"><span class="cosy-icon icon-speech tool-pill-icon" aria-hidden="true"></span>Fluency Flow</span>
+        <span class="tool-pill"><span class="cosy-icon icon-scale tool-pill-icon" aria-hidden="true"></span>Battle of Wits</span>
+        <span class="tool-pill">Solo &amp; Group</span>
+      </div>
+      <div class="tool-card-actions">
+        <a href="https://cosylanguages.github.io/COSYgames/" class="btn-secondary btn-sm" data-translate-key="tool_games_cta" data-i18n="button.playFreeGames">Play free games →</a>
+      </div>
+    </div>
+
+    <!-- Card 4: Editorial & Blog -->
+    <div class="tool-card learn-free-card reveal">
+      <div class="tool-free-badge">📝 Vogue Gazette &amp; Podcast</div>
+      <h3>Blog &amp; Vogue Gazette</h3>
+      <p>Magazine articles, Top 100 knowledge guides, audio podcast episodes, and 3D flipbook magazine spreads.</p>
+      <div class="tool-pills">
+        <span class="tool-pill">Top 100 Guides</span>
+        <span class="tool-pill">Audio Podcast</span>
+        <span class="tool-pill">Stage Mode</span>
+      </div>
+      <div class="tool-card-actions">
+        <a href="blog/index.html" class="btn-secondary btn-sm">Read Blog &amp; Guides →</a>
+        <a href="blog/podcast.html" class="tool-link tool-link-accelerator">🎙️ Listen to Podcast →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -285,6 +345,7 @@
   <span class="milestone-badge"><span class="m-icon">🎉</span> Community</span>
 </div>
 
+<!-- SECTION 5: LIVE EVENTS -->
 <section id="events" class="home-section">
   <span class="sec-tag">Premium</span>
   <h2 class="sec-h2">Live events</h2>
@@ -302,59 +363,14 @@
 
 <div class="sec-divider" aria-hidden="true">
   <svg viewBox="0 0 1200 32" preserveAspectRatio="none">
-    <path d="M0,0 C450,32 750,0 1200,26 L1200,32 L0,32 Z" fill="var(--cosy-color-sage-mist)"></path>
-  </svg>
-</div>
-<div class="sec-milestone-divider" aria-hidden="true">
-  <span class="milestone-badge"><span class="m-icon">💡</span> Habit Building</span>
-</div>
-
-<section id="tools" class="home-section">
-  <span class="sec-tag" data-translate-key="sec_tag_tools">Free to use</span>
-  <h2 class="sec-h2" data-translate-key="sec_h2_tools">Practice between lessons</h2>
-  <p class="sec-p" data-translate-key="sec_p_tools">Free tools: no account needed.</p>
-
-  <div class="tools-grid">
-    <div class="tool-card reveal">
-      <div class="tool-free-label" data-translate-key="tool_free_label">✅ Always free</div>
-      <h3 data-translate-key="tool_practice_title">Language Practice 💡</h3>
-      <p data-translate-key="tool_practice_desc">Vocabulary, grammar and speaking exercises. COSY points and daily streaks, the perfect habit.</p>
-      <div class="tool-pills">
-        <span class="tool-pill" data-translate-key="english">🇬🇧 English</span>
-        <span class="tool-pill" data-translate-key="french">🇫🇷 Français</span>
-        <span class="tool-pill" data-translate-key="italian">🇮🇹 Italiano</span>
-        <span class="tool-pill" data-translate-key="russian">🇷🇺 Русский</span>
-        <span class="tool-pill" data-translate-key="greek">🇬🇷 Ελληνικά</span>
-      </div>
-      <div class="tool-card-actions">
-        <a href="practice/index.html" class="tool-link" data-translate-key="tool_practice_cta" data-i18n="button.tryFreePractice">Try free practice →</a>
-        <a href="practice/cognitive-immersion.html" class="tool-link tool-link-accelerator" data-i18n="button.tryAccelerator">🧠 Explore immersion tools →</a>
-      </div>
-    </div>
-    <div class="tool-card reveal">
-      <div class="tool-free-label" data-translate-key="tool_free_label">✅ Always free</div>
-      <h3 data-translate-key="tool_games_title"><span class="cosy-icon icon-dice sec-title-icon" aria-hidden="true"></span>Language Games</h3>
-      <p data-translate-key="tool_games_desc">Interactive games: play solo or with friends. Action Hero, Fluency Flow and more.</p>
-      <div class="tool-pills">
-        <span class="tool-pill"><span class="cosy-icon icon-sparkle tool-pill-icon" aria-hidden="true"></span>Action Hero</span>
-        <span class="tool-pill"><span class="cosy-icon icon-speech tool-pill-icon" aria-hidden="true"></span>Fluency Flow</span>
-        <span class="tool-pill"><span class="cosy-icon icon-scale tool-pill-icon" aria-hidden="true"></span>Battle of Wits</span>
-        <span class="tool-pill">Solo &amp; multiplayer</span>
-      </div>
-      <a href="https://cosylanguages.github.io/COSYgames/" class="tool-link" data-translate-key="tool_games_cta" data-i18n="button.playFreeGames">Play free games →</a>
-    </div>
-  </div>
-</section>
-
-<div class="sec-divider" aria-hidden="true">
-  <svg viewBox="0 0 1200 32" preserveAspectRatio="none">
-    <path d="M0,14 C300,32 900,0 1200,18 L1200,32 L0,32 Z" fill="var(--cosy-color-warm-white)"></path>
+    <path d="M0,0 C450,32 750,0 1200,26 L1200,32 L0,32 Z" fill="var(--cosy-color-warm-white)"></path>
   </svg>
 </div>
 <div class="sec-milestone-divider" aria-hidden="true">
   <span class="milestone-badge"><span class="m-icon">🧮</span> Investment</span>
 </div>
 
+<!-- SECTION 6: COST CALCULATOR -->
 <section id="calculator" class="home-section">
   <span class="sec-tag" data-translate-key="sec_tag_pricing">Transparent pricing</span>
   <h2 class="sec-h2" data-translate-key="sec_h2_pricing">What does it cost?</h2>
@@ -448,6 +464,7 @@
   <span class="milestone-badge"><span class="m-icon">💬</span> Student Stories</span>
 </div>
 
+<!-- SECTION 7: REVIEWS -->
 <section id="reviews" class="home-section">
   <span class="sec-tag">Student Stories</span>
   <h2 class="sec-h2">What our students say</h2>
@@ -562,6 +579,7 @@
   <span class="milestone-badge"><span class="m-icon">✨</span> Your Turn</span>
 </div>
 
+<!-- SECTION 8: START / FINAL CTA -->
 <section id="start" class="home-section cta-section reveal">
   <span class="sec-tag sec-tag-light">Get Started</span>
   <h2 class="sec-h2" data-translate-key="final_cta_h2">Ready to start?</h2>
@@ -628,6 +646,132 @@
 <script src="js/core/cms-editor.js"></script>
 <script src="js/core/ui.js"></script>
 <script src="js/data/pricing.js"></script>
+
+<script>
+  // Interactive Language & Course Hub Controller
+  const LANG_COURSES_DATA = {
+    en: {
+      name: 'English',
+      flag: '🇬🇧',
+      levels: 'Levels A1 → C2',
+      pageUrl: 'languages/en/',
+      desc: 'Levels A1 to C2. Available across all 6 course formats (1-to-1 & Groups).',
+      courses: [
+        { type: 'general', title: 'General Course', icon: '📖', desc: 'The complete journey: all four skills growing together. Structured, progressive, built around your real adult life.', url: 'courses/general.html' },
+        { type: 'spoken', title: 'Spoken Course', icon: '🗣️', desc: 'Experience real conversation with your teacher in 15 or 30 minute focused sessions.', url: 'courses/spoken.html' },
+        { type: 'exam', title: 'Exam Preparation', icon: '📝', desc: 'Authentic tasks, exact exam conditions. Focus on oral component for IELTS & Cambridge.', url: 'courses/exam-preparation.html' },
+        { type: 'travelling', title: 'Travelling Course', icon: '✈️', desc: 'Master essential real-world communication for travel: booking, directions, emergencies, and local culture.', url: 'courses/travelling.html' },
+        { type: 'professional', title: 'Professional Course', icon: '💼', desc: 'Elevate your career with targeted language skills for interviews, negotiations, business presentations, and networking.', url: 'courses/professional.html' },
+        { type: 'relocation', title: 'Relocation Course', icon: '🏡', desc: 'Navigate housing, administration, healthcare, local services, and social integration in your new home country.', url: 'courses/relocation.html' }
+      ]
+    },
+    fr: {
+      name: 'Français',
+      flag: '🇫🇷',
+      levels: 'Levels A1 → C2',
+      pageUrl: 'languages/fr/',
+      desc: 'Levels A1 to C2. Available across all 6 course formats (1-to-1 & Groups).',
+      courses: [
+        { type: 'general', title: 'General Course', icon: '📖', desc: 'Master French syntax, grammar and conversational ease across levels A1 to C2.', url: 'courses/general.html' },
+        { type: 'spoken', title: 'Spoken Course', icon: '🗣️', desc: 'Focused 15/30-minute oral fluency workouts with experienced Francophone teachers.', url: 'courses/spoken.html' },
+        { type: 'exam', title: 'Exam Preparation', icon: '📝', desc: 'DELF & DALF (A1–C2) exam prep under authentic trial conditions.', url: 'courses/exam-preparation.html' },
+        { type: 'travelling', title: 'Travelling Course', icon: '✈️', desc: 'Practical French for travel: cafes, transport, navigation and cultural etiquette.', url: 'courses/travelling.html' },
+        { type: 'professional', title: 'Professional Course', icon: '💼', desc: 'Business French for corporate, diplomatic, and international work environments.', url: 'courses/professional.html' },
+        { type: 'relocation', title: 'Relocation Course', icon: '🏡', desc: 'Settling in France, Belgium, Canada or Switzerland: prefecture, administrative tasks and daily living.', url: 'courses/relocation.html' }
+      ]
+    },
+    ru: {
+      name: 'Русский',
+      flag: '🇷🇺',
+      levels: 'Levels A1 → C2',
+      pageUrl: 'languages/ru/',
+      desc: 'Levels A1 to C2. Available across all 6 course formats (1-to-1 & Groups).',
+      courses: [
+        { type: 'general', title: 'General Course', icon: '📖', desc: 'Comprehensive Russian language course: grammar system, cases, reading & speaking.', url: 'courses/general.html' },
+        { type: 'spoken', title: 'Spoken Course', icon: '🗣️', desc: 'Natural spoken Russian dialogue training free from rigid worksheets.', url: 'courses/spoken.html' },
+        { type: 'exam', title: 'Exam Preparation', icon: '📝', desc: 'TORFL (ТРКИ) A1–C2 preparation for university admission and certification.', url: 'courses/exam-preparation.html' },
+        { type: 'travelling', title: 'Travelling Course', icon: '✈️', desc: 'Essential Russian for travel across Eastern Europe and Central Asia.', url: 'courses/travelling.html' },
+        { type: 'professional', title: 'Professional Course', icon: '💼', desc: 'Professional Russian for business communication, tech, trade and negotiations.', url: 'courses/professional.html' },
+        { type: 'relocation', title: 'Relocation Course', icon: '🏡', desc: 'Practical guidance for housing, registration, banking and local daily life.', url: 'courses/relocation.html' }
+      ]
+    },
+    it: {
+      name: 'Italiano',
+      flag: '🇮🇹',
+      levels: 'Level A1 (Starter)',
+      pageUrl: 'languages/it/',
+      desc: 'Level A1 (Starter). Speak Italian from your very first session.',
+      courses: [
+        { type: 'general', title: 'General Course', icon: '📖', desc: 'A1 Italian fundamentals: core vocabulary, essential grammar & sentence structure.', url: 'courses/general.html' },
+        { type: 'spoken', title: 'Spoken Course', icon: '🗣️', desc: '15 or 30-minute spoken Italian dialogue workouts from day one.', url: 'courses/spoken.html' },
+        { type: 'travelling', title: 'Travelling Course', icon: '✈️', desc: 'Italian for travel: ordering espresso, asking directions, hotels & local culture.', url: 'courses/travelling.html' }
+      ]
+    },
+    el: {
+      name: 'Ελληνικά',
+      flag: '🇬🇷',
+      levels: 'Level A1 (Starter)',
+      pageUrl: 'languages/el/',
+      desc: 'Level A1 (Starter). Master the Greek alphabet and basic conversation.',
+      courses: [
+        { type: 'general', title: 'General Course', icon: '📖', desc: 'A1 Greek starter track: reading the alphabet, daily vocabulary & basic grammar.', url: 'courses/general.html' },
+        { type: 'spoken', title: 'Spoken Course', icon: '🗣️', desc: '15/30-min conversation sessions to speak Greek with confidence.', url: 'courses/spoken.html' },
+        { type: 'travelling', title: 'Travelling Course', icon: '✈️', desc: 'Greek for holidays & travel across Greece and Cyprus.', url: 'courses/travelling.html' }
+      ]
+    }
+  };
+
+  function switchLangCourseTab(langCode) {
+    const data = LANG_COURSES_DATA[langCode];
+    if (!data) return;
+
+    // Update tab UI
+    document.querySelectorAll('.lang-tab-btn').forEach(btn => {
+      const isMatch = btn.getAttribute('data-lang') === langCode;
+      btn.classList.toggle('active', isMatch);
+      btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+    });
+
+    // Update Banner
+    const flagEl = document.getElementById('lhb-flag');
+    const titleEl = document.getElementById('lhb-title');
+    const subEl = document.getElementById('lhb-subtitle');
+    const linkEl = document.getElementById('lhb-link');
+
+    if (flagEl) flagEl.textContent = data.flag;
+    if (titleEl) titleEl.textContent = `${data.name} Courses (${data.levels})`;
+    if (subEl) subEl.textContent = data.desc;
+    if (linkEl) {
+      linkEl.href = data.pageUrl;
+      linkEl.textContent = `Explore ${data.name} visual resources & manuals →`;
+    }
+
+    // Update Courses Grid
+    const grid = document.getElementById('lang-courses-grid');
+    if (grid) {
+      grid.innerHTML = data.courses.map(c => `
+        <div class="course-card course-card-${c.type} dark reveal visible">
+          <div class="cc-icon">${c.icon}</div>
+          <h3 class="cc-title">${c.title}</h3>
+          <p class="cc-desc">${c.desc}</p>
+          <a href="${c.url}" class="btn-secondary btn-card-on-dark" data-i18n="button.learnMore">Learn more →</a>
+        </div>
+      `).join('');
+    }
+
+    // Optionally sync Calculator language select
+    const calcLang = document.getElementById('calc-lang');
+    if (calcLang && calcLang.value !== langCode) {
+      calcLang.value = langCode;
+      if (typeof window.calcPrice === 'function') window.calcPrice();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    switchLangCourseTab('en');
+  });
+</script>
+
 <div id="toast"></div>
 
 </body>
