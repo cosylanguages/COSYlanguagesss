@@ -70,3 +70,30 @@ When adding or updating grammar content, follow this guide:
 | **Editing explanatory text, visual diagrams, or CCQs** | **HTML Manuals Only** | Edit the relevant topic file in `manuals/{lang}/grammar/{level}/topics/*.html`. |
 | **Editing vocabulary examples or practice drill items** | **JSON Layer Only** | Update the corresponding dataset file under `reference-grammar/{lang}/...`. |
 | **Creating new practice engine features or indexes** | **JSON Layer & Core JS** | Ensure new JSON fields conform to schema and update `js/core/engine.js` or `scripts/build_unified_index.py`. |
+
+---
+
+## 4. Header Language Panel Event & Persistence (`cosy:langchange`)
+
+The application header (`js/core/engine.js`) manages global language selection via the pinned language panel.
+
+### Persistence & Storage Key
+- Pinned language selection is saved to `localStorage` under key `"cosy.pinnedLang"` (with compatibility mirrors in `"cosy_ui_lang"` and `"cosy_last_language"`).
+- To retrieve the active pinned language at any time:
+  ```javascript
+  const lang = localStorage.getItem('cosy.pinnedLang') || 'en';
+  ```
+
+### Event Payload & Listening Guide
+Whenever a user pins a language in the header language panel, or when the core engine initializes on page load, a custom event `"cosy:langchange"` is dispatched on `window` (and `document`).
+
+- **Event Name:** `"cosy:langchange"`
+- **Detail Structure:** `{ lang: string, pinned: boolean, initial?: boolean }`
+- **Listening Code Snippet for UI Components:**
+  ```javascript
+  window.addEventListener('cosy:langchange', (event) => {
+      const { lang } = event.detail;
+      console.log(`Pinned language changed to: ${lang}`);
+      // Re-render language-dependent components, update labels, or refresh UI state
+  });
+  ```
