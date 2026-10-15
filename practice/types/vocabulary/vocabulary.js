@@ -68,7 +68,7 @@
 
                 // Interactive Scramble, Cloze & Typing Exercises
                 { type:'sc', q:'🧩 Reorder the sentence:', ans:'She does not like coffee in the morning.', level:'starter', theme:'syntax_word_order', item:{ word:'Sentence Order' }, practice_links:['manuals/en/grammar/a1/topics/word-order.html'] },
-                { type:'cloze', q:'Fill in the blank: She is interested [ ___ ] modern art.', sentence:'She is interested [ ___ ] modern art.', opts:['in','at','on','for'], ans:0, level:'elementary', theme:'prepositions_place', ruleHint:'Use "in" with the adjective interested.', practice_links:['manuals/en/grammar/a1/topics/prepositions-place.html'] },
+                { type:'cloze', q:'✍️ She is interested [ ___ ] modern art.', sentence:'She is interested [ ___ ] modern art.', opts:['in','at','on','for'], ans:0, level:'elementary', theme:'prepositions_place', ruleHint:'in + interested', practice_links:['manuals/en/grammar/a1/topics/prepositions-place.html'] },
                 { type:'type', q:'"Past simple of verb: go" = ?', ans:'went', level:'starter', theme:'tenses_aspect', ruleHint:'Irregular verb: go ➔ went.', item:{ word:'went' }, practice_links:['manuals/en/grammar/a1/topics/past-simple-irregular.html'] },
 
                 // Tenses & Conditionals
@@ -801,13 +801,13 @@
                         });
 
                         if (selectedMode === 'emoji') {
-                            qText = "🧩 Match the words with their images";
+                            qText = "🧩 🖼️";
                         } else if (selectedMode === 'transcription') {
-                            qText = "🧩 Match the words with their pronunciation symbols";
+                            qText = "🧩 🔊";
                         } else if (selectedMode === 'antonym') {
-                            qText = "🧩 Match the words with their opposites (antonyms)";
+                            qText = "🧩 ↔️";
                         } else {
-                            qText = "🧩 Match the words with their definitions";
+                            qText = "🧩 📖";
                         }
 
                         ans = pairs;
@@ -900,16 +900,16 @@
                         const verbParadigm = window.COSY.getVerbParadigm(l, item.word);
                         if (verbParadigm) {
                             if (verbParadigm.usage_hint) {
-                                morphologicalHint = `Usage: ${verbParadigm.usage_hint}`;
+                                morphologicalHint = verbParadigm.usage_hint;
                             } else if (verbParadigm.group) {
-                                morphologicalHint = `Group: ${verbParadigm.group}`;
+                                morphologicalHint = verbParadigm.group;
                             }
                         }
                     }
                     if (!morphologicalHint && window.COSY && window.COSY.getNounDeclension) {
                         const nounDecl = window.COSY.getNounDeclension(l, item.word);
                         if (nounDecl && nounDecl.gender) {
-                            morphologicalHint = `Gender: ${nounDecl.gender}`;
+                            morphologicalHint = nounDecl.gender;
                         }
                     }
 
@@ -923,7 +923,7 @@
                         theme: item.theme,
                         sub_theme: item.sub_theme || null,
                         practice_links: item.practice_links,
-                        ruleHint: item.usage_hint || item.collocation || (item.preposition ? `Collocation / Preposition: ${item.word} ${item.preposition}` : morphologicalHint)
+                        ruleHint: item.usage_hint || item.collocation || (item.preposition ? `${item.word} ${item.preposition}` : morphologicalHint)
                     };
                 } else if (cat === 'Speaking' || cat === 'speaking') {
                     return { form: 'conv', q: item.topic || item.text || item.q, level: LEVEL_MAP[item.level] || item.level || 'a1', theme: item.theme };
