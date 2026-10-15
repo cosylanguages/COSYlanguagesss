@@ -578,6 +578,60 @@ body.theme-dark #cosy-mobile-menu {
   line-height: 1.35;
 }
 
+/* Dark mode overrides for Mega-Menus */
+html[data-theme="dark"] .cosy-eco-mega-menu,
+body.theme-dark .cosy-eco-mega-menu {
+  background: var(--card-bg, #1a241c);
+  border-color: var(--border, rgba(255, 255, 255, 0.14));
+  box-shadow: var(--shadow, 0 6px 28px rgba(0, 0, 0, 0.45));
+}
+
+html[data-theme="dark"] .cosy-eco-menu-title,
+body.theme-dark .cosy-eco-menu-title {
+  color: var(--sec-title, #a7f3d0);
+}
+
+html[data-theme="dark"] .cosy-eco-menu-close,
+body.theme-dark .cosy-eco-menu-close {
+  color: var(--ink-soft, #cbd5e1);
+}
+
+html[data-theme="dark"] .cosy-eco-menu-close:hover,
+body.theme-dark .cosy-eco-menu-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .cosy-eco-card,
+body.theme-dark .cosy-eco-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--card-text, #f8fafc);
+}
+
+html[data-theme="dark"] .cosy-eco-card-promise,
+body.theme-dark .cosy-eco-card-promise {
+  color: var(--card-sub, #cbd5e1);
+}
+
+html[data-theme="dark"] .cosy-eco-card[data-accent="learn-free"]:hover,
+body.theme-dark .cosy-eco-card[data-accent="learn-free"]:hover {
+  background: rgba(65, 107, 73, 0.25);
+  border-color: #86efac;
+}
+
+html[data-theme="dark"] .cosy-eco-card[data-accent="your-classes"]:hover,
+body.theme-dark .cosy-eco-card[data-accent="your-classes"]:hover {
+  background: rgba(184, 67, 24, 0.25);
+  border-color: #fca5a5;
+}
+
+html[data-theme="dark"] .cosy-eco-card[data-accent="join-in"]:hover,
+body.theme-dark .cosy-eco-card[data-accent="join-in"]:hover {
+  background: rgba(148, 94, 5, 0.25);
+  border-color: #fde047;
+}
+
 /* Mobile Responsive Sheet */
 @media (max-width: 767px) {
   .cosy-eco-mega-menu {
