@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../../css/lang-accents.css">
 
     <link rel="stylesheet" href="../../css/mobile.css">
+    <link rel="stylesheet" href="../../css/daily-strip.css">
     <link rel="canonical" href="https://cosylanguages.github.io/COSYlanguages/languages/en/index.html">
 </head>
 <body data-lang-theme="en">
@@ -131,18 +132,9 @@
 <section id="daily-dose">
   <div class="sec-head reveal">
     <span class="sec-tag" data-translate-key="daily_dose_tag">💊 Daily Dose &amp; Cultural Insights</span>
-    <h2 data-translate-key="daily_dose_title">Fact &amp; Idiom of the Day 💡</h2>
+    <h2 data-translate-key="daily_dose_title">Daily Dose of English 💡</h2>
   </div>
-  <div class="daily-grid">
-    <div class="daily-card reveal" data-bg="🤣">
-      <h3 data-translate-key="fun_fact_title">Fact of the Day 🤣</h3>
-      <div class="daily-content" id="fun-fact-of-the-day">Loading...</div>
-    </div>
-    <div class="daily-card reveal" data-bg="💡">
-      <h3 data-translate-key="idiom_title">Idiom of the Day 💬</h3>
-      <div class="daily-content" id="idiom-of-the-day">Loading...</div>
-    </div>
-  </div>
+  <div data-daily-strip data-lang="en"></div>
 </section>
 
 <!-- Learning resources -->
@@ -648,6 +640,7 @@
 <script src="../../js/core/i18n.js"></script>
 <script src="../../js/data/daily_dose.js"></script>
 <script src="../../js/core/ui.js"></script>
+<script src="../../js/daily-strip.js" defer></script>
 <script src="../../js/data/pricing.js"></script>
 </body>
 </html>

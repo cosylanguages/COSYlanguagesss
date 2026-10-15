@@ -1,0 +1,273 @@
+/**
+ * COSYlanguages Daily Strip Component Styles
+ * File: css/daily-strip.css
+ */
+
+.daily-strip-container {
+    max-width: 1120px;
+    margin: 1.5rem auto;
+    padding: 1.5rem;
+    background: var(--cosy-color-warm-white, #FFFEFB);
+    border: 1px solid var(--cosy-color-border, rgba(74, 107, 80, 0.12));
+    border-radius: var(--cosy-radius-lg, 22px);
+    box-shadow: var(--cosy-shadow-sm, 0 2px 8px rgba(46, 74, 51, 0.08));
+    font-family: var(--cosy-font-sans, 'Nunito', sans-serif);
+    color: var(--cosy-color-ink, #1C1917);
+    box-sizing: border-box;
+    transition: background-color var(--cosy-transition-fast, 0.15s ease), border-color var(--cosy-transition-fast, 0.15s ease);
+}
+
+/* Header strip */
+.daily-strip-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px dashed var(--cosy-color-border, rgba(74, 107, 80, 0.15));
+}
+
+.daily-strip-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.daily-strip-title-icon {
+    font-size: 1.35rem;
+    line-height: 1;
+}
+
+.daily-strip-title {
+    font-family: var(--cosy-font-serif, 'Fraunces', serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--cosy-color-sage-dark, #375742);
+    margin: 0;
+}
+
+.daily-strip-lang-badge {
+    background: var(--cosy-color-sage-light, #E8F0E9);
+    color: var(--cosy-color-sage-deep, #233827);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--cosy-radius-full, 100px);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.daily-strip-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.daily-strip-streak {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--cosy-color-honey-pale, #FFF8E7);
+    color: var(--cosy-color-honey-dark, #7D4D03);
+    border: 1px solid var(--cosy-color-honey-mid, #FEF0C7);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--cosy-radius-full, 100px);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.daily-strip-done-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--cosy-color-sage-light, #E8F0E9);
+    color: var(--cosy-color-sage-deep, #233827);
+    border: 1.5px solid var(--cosy-color-sage, #416B49);
+    border-radius: var(--cosy-radius-full, 100px);
+    padding: 0.4rem 0.9rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all var(--cosy-transition-fast, 0.15s ease);
+}
+
+.daily-strip-done-btn:hover {
+    background: var(--cosy-color-sage, #416B49);
+    color: #FFFFFF;
+}
+
+.daily-strip-done-btn.completed {
+    background: var(--cosy-color-sage, #416B49);
+    color: #FFFFFF;
+    border-color: var(--cosy-color-sage-dark, #375742);
+}
+
+.daily-strip-done-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring, 0 0 0 3px rgba(65, 107, 73, 0.4));
+}
+
+/* Tabs */
+.daily-strip-tabs {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--cosy-color-border, rgba(74, 107, 80, 0.12));
+    scrollbar-width: thin;
+}
+
+.daily-strip-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.55rem 0.95rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--cosy-color-ink-muted, #5C5957);
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: var(--cosy-radius-sm, 8px) var(--cosy-radius-sm, 8px) 0 0;
+    transition: color var(--cosy-transition-fast, 0.15s ease), border-color var(--cosy-transition-fast, 0.15s ease), background-color var(--cosy-transition-fast, 0.15s ease);
+}
+
+.daily-strip-tab:hover {
+    color: var(--cosy-color-sage, #416B49);
+    background: var(--cosy-color-sage-pale, #E8F0E9);
+}
+
+.daily-strip-tab[aria-selected="true"] {
+    color: var(--cosy-color-sage-dark, #375742);
+    border-bottom-color: var(--cosy-color-sage, #416B49);
+    background: var(--cosy-color-sage-mist, #F0F5F1);
+}
+
+.daily-strip-tab:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring, 0 0 0 3px rgba(65, 107, 73, 0.4));
+}
+
+/* Panels */
+.daily-strip-panel {
+    background: var(--cosy-color-cream, #FAF7F2);
+    border: 1px solid var(--cosy-color-border, rgba(74, 107, 80, 0.12));
+    border-radius: var(--cosy-radius-md, 14px);
+    padding: 1.25rem 1.5rem;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.daily-strip-panel[hidden] {
+    display: none !important;
+}
+
+.daily-strip-content-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.daily-strip-prompt {
+    font-family: var(--cosy-font-serif, 'Lora', serif);
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--cosy-color-ink, #1C1917);
+    margin: 0;
+}
+
+.daily-strip-translation {
+    font-size: 0.98rem;
+    color: var(--cosy-color-ink-soft, #4A4A4A);
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0.5rem 0.85rem;
+    border-left: 3px solid var(--cosy-color-sage, #416B49);
+    border-radius: var(--cosy-radius-xs, 4px);
+    margin-top: 0.25rem;
+}
+
+.daily-strip-meta {
+    font-size: 0.88rem;
+    color: var(--cosy-color-ink-muted, #5C5957);
+}
+
+.daily-strip-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--cosy-color-border, rgba(74, 107, 80, 0.12));
+}
+
+.daily-strip-audio-btn,
+.daily-strip-toggle-translation-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--cosy-color-warm-white, #FFFEFB);
+    border: 1px solid var(--cosy-color-border, rgba(74, 107, 80, 0.2));
+    border-radius: var(--cosy-radius-full, 100px);
+    padding: 0.35rem 0.75rem;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--cosy-color-sage-dark, #375742);
+    cursor: pointer;
+    transition: all var(--cosy-transition-fast, 0.15s ease);
+}
+
+.daily-strip-audio-btn:hover,
+.daily-strip-toggle-translation-btn:hover {
+    background: var(--cosy-color-sage-light, #E8F0E9);
+    border-color: var(--cosy-color-sage, #416B49);
+}
+
+.daily-strip-audio-btn:focus-visible,
+.daily-strip-toggle-translation-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring, 0 0 0 3px rgba(65, 107, 73, 0.4));
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .daily-strip-container,
+    .daily-strip-done-btn,
+    .daily-strip-tab,
+    .daily-strip-audio-btn,
+    .daily-strip-toggle-translation-btn {
+        transition: none !important;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .daily-strip-container {
+        padding: 1rem;
+        margin: 1rem 0.5rem;
+    }
+    .daily-strip-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .daily-strip-header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .daily-strip-tab {
+        padding: 0.45rem 0.75rem;
+        font-size: 0.88rem;
+    }
+}
