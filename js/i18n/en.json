@@ -177,5 +177,8 @@
     "issue_october_title": "JY DM's birthday & His favs",
     "page_x_of_y": "Page {current} of {total}",
     "script_teleprompter": "📜 Script Teleprompter"
+  },
+  "tag": {
+    "top10top100": "Top 10 / Top 100"
   }
 }

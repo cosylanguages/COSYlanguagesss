@@ -172,5 +172,8 @@
     "issue_october_title": "Τα γενέθλια του JY DM & τα αγαπημένα του",
     "page_x_of_y": "Σελίδα {current} από {total}",
     "script_teleprompter": "📜 Τηλεσυφλέρ"
+  },
+  "tag": {
+    "top10top100": "Top 10 / Top 100"
   }
 }

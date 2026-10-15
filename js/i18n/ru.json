@@ -175,5 +175,8 @@
     "issue_october_title": "День рождения JY DM и его фавориты",
     "page_x_of_y": "Страница {current} из {total}",
     "script_teleprompter": "📜 Сценарий суфлёра"
+  },
+  "tag": {
+    "top10top100": "Топ-10 / Топ-100"
   }
 }

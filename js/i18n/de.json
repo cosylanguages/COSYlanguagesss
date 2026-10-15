@@ -105,6 +105,10 @@
     "long_reads": "Long Reads",
     "cosy_events": "Cosy Events",
     "the_podcast": "The Podcast",
-    "back_issues": "Back Issues"
+    "back_issues": "Back Issues",
+    "reflections": "Reflexionen"
+  },
+  "tag": {
+    "top10top100": "Top 10 / Top 100"
   }
 }

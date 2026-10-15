@@ -22,20 +22,21 @@ This document outlines the master strategy and operational plan for the COSYlang
 
 ## 2. "Top 10 / Top 100" Category / Label Specification
 
-To highlight high-volume foundational vocabulary and verb list resources, the blog index (`blog/index.html` & `blog/index.json`) incorporates a dedicated **"Top 10 / Top 100"** topic category filter tag.
+To highlight high-volume foundational vocabulary and verb list resources, the blog index (`blog/index.html` & `blog/index.json`) incorporates a dedicated **"Top 10 / Top 100"** topic category filter tag (`Top10Top100`).
 
 ### 2.1 Filter Integration
-- **Tag Label**: `"Top 10 / Top 100"`
-- **Desk Association**: Primarily mapped under the `"Words"` desk and `"Resource List"` category.
-- **Index Data**: Mapped in `blog/index.json` and `blog/posts.json` under `tags: ["Top 10 / Top 100"]`.
+- **Tag Identifier**: `"Top10Top100"`
+- **Display Label**: `"Top 10 / Top 100"` (localized natively via `tag.top10top100` across all 13 supported languages).
+- **Placement**: Positioned as the **FIRST** topic tag filter in the newsstand category bar.
+- **Index Data**: Mapped in `blog/index.json` and `blog/posts.json` under `tags: ["Top10Top100", ...]`.
 
 ### 2.2 Inventory of Top 10 / Top 100 Posts
-The following existing canonical JSON post resources are categorized under "Top 10 / Top 100":
+The following existing canonical JSON post resources carry the `Top10Top100` tag:
 
 1. **Top 10 Verbs Master Guide**:
    - `blog/posts/top-10-verbs.json` (`top-10-verbs.html`): *Top 10 Essential English Verbs Master Guide*.
-2. **Top 100 A0–A1 Vocabulary Series** (13 Language Variants):
-   - `blog/posts/top-100-a0-a1.json` (`top-100-a0-a1.html`) – Base English
+2. **Top 100 A0–A1 Vocabulary Series** (14 Language Variant Files):
+   - `blog/posts/top-100-a0-a1.json` (`top-100-a0-a1.html`) – Base 14-Language Master
    - `blog/posts/top-100-a0-a1-english.json` (`top-100-a0-a1-english.html`)
    - `blog/posts/top-100-a0-a1-french.json` (`top-100-a0-a1-french.html`)
    - `blog/posts/top-100-a0-a1-italian.json` (`top-100-a0-a1-italian.html`)
@@ -49,7 +50,7 @@ The following existing canonical JSON post resources are categorized under "Top 
    - `blog/posts/top-100-a0-a1-tatar.json` (`top-100-a0-a1-tatar.html`)
    - `blog/posts/top-100-a0-a1-bashkir.json` (`top-100-a0-a1-bashkir.html`)
    - `blog/posts/top-100-a0-a1-breton.json` (`top-100-a0-a1-breton.html`)
-3. **Top 10 Verb Synonyms (Intermediate Plateau Series)** (5 Language Variants):
+3. **Top 10 Verb Synonyms (Intermediate Plateau Series)** (5 Language Variant Files):
    - `blog/posts/top-10-verb-synonyms-intermediate-plateau.json` (`top-10-verb-synonyms-intermediate-plateau.html`) – English
    - `blog/posts/top-10-verb-synonyms-intermediate-plateau-fr.json` (`top-10-verb-synonyms-intermediate-plateau-fr.html`) – French
    - `blog/posts/top-10-verb-synonyms-intermediate-plateau-it.json` (`top-10-verb-synonyms-intermediate-plateau-it.html`) – Italian
@@ -58,24 +59,9 @@ The following existing canonical JSON post resources are categorized under "Top 
 
 ---
 
-## 3. PR Triage & Merge Order Analysis
+## 3. Open Pull Request Triage
 
-In accordance with project rules, **no open PRs will be merged, rebased, or closed** during this task. Below is the technical triage analysis of PRs #1477, #1508, #1510, #1526, #1528, #1540, #1554, and #1559 based on remote branch tracking:
-
-| PR # | Remote Branch Name | Status / Decision | Conflict & Rebase Analysis |
-| :--- | :--- | :--- | :--- |
-| **#1508** | `origin/feat/blog-index-redesign-broadsheet-blogger-3356564148501542403` | **SUPERSEDED / DO NOT MERGE** | Attempted Blogger/broadsheet restyle. Superseded by magazine newsstand architecture on `main`. |
-| **#1510** | `origin/feat/classic-blogger-restyle-13473923240625020648` | **SUPERSEDED / DO NOT MERGE** | Attempted classic Blogger restyle. Superseded by Vogue Gazette magazine architecture on `main`. |
-| **#1526** | `origin/feat/blog-blogger-vogue-redesign-4927632515806823024` | **SUPERSEDED / DO NOT MERGE** | Attempted hybrid Blogger-Vogue layout. Superseded by single-source JSON magazine layout on `main`. |
-| **#1528** | `origin/feat/blog-magazine-flipbook-newsstand-2961654914032171879` | **ALIGNED / INTEGRATED ON MAIN** | Core 3D flipbook newsstand and magazine issue spreads are already merged into `main`. No action needed. |
-| **#1540** | `origin/feature/blog-cosymagazine-redesign-15012565829454879171` | **ALIGNED / INTEGRATED ON MAIN** | COSYmagazine design system tokens and Vogue templates are integrated into `main`. No action needed. |
-| **#1554** | `origin/feature/blog-cover-hero-redesign-15046963742816532331` | **ALIGNED / INTEGRATED ON MAIN** | Cover hero redesign and procedural SVG covers are active on `main`. No action needed. |
-| **#1559** | `origin/feature/blog-newspaper-vogue-styling-7977824811727220811` | **ALIGNED / INTEGRATED ON MAIN** | Broadsheet font hierarchy and Gazette grid layout integrated into `main`. No action needed. |
-| **#1477** | `origin/feat/top-100-english-blog-page-15674311753884324214` | **REBASE FIRST (Content Branch)** | Contains English Top 100 article updates. Must be rebased against `main` to convert any legacy raw HTML/Markdown into single-source JSON (`blog/posts/top-100-a0-a1-english.json`). |
-
-### Overlapping Feature Flags
-- **Flipbook & Newsstand**: PRs #1528, #1540, and #1559 overlap in flipbook CSS (`blog/css/magazine-templates.css`) and newsstand filtering (`blog/index.html`). `main` holds the consolidated implementation.
-- **Stage Mode & Script Mode**: Stage Mode camera positioning (`blog/js/stage/camera.js`) and Teleprompter script mode (`blog/js/stage/script.js`) are fully integrated on `main`.
+See docs/PR_TRIAGE.md (current).
 
 ---
 
@@ -105,14 +91,16 @@ An audit was performed across the `blog/` directory to evaluate assets that migh
 
 In accordance with the **Strict No-Translation Fallback Principle**, UI strings and content MUST be authored natively in the target language without falling back to English.
 
-### 5.1 UI Dictionary Key Completeness (`js/i18n/*.json` & `data/ui/*.json`)
-All 48 blog UI translation keys (`desk_front_page`, `desk_words`, `desk_grammar_made_cosy`, `desk_say_it`, `desk_culture_quotes`, `desk_long_reads`, `desk_cosy_events`, `desk_the_podcast`, `desk_back_issues`, `desk_reflections`, `filter_all_issues`, `filter_all_desks`, `magazine_read_article`, `magazine_stage_deck`, `magazine_listen_podcast`, etc.) were audited across supported languages:
+### 5.1 UI Dictionary Key Audit (`js/i18n/*.json`)
+An exact key comparison was performed across all 13 supported language dictionaries (`ba`, `br`, `de`, `el`, `en`, `es`, `fr`, `hy`, `it`, `ka`, `pt`, `ru`, `tt`) against `en.json`.
 
-- **Fully Complete Languages**: `en`, `fr`, `it`, `ru`, `el`, `es`.
-- **Missing Blog UI Keys**: `de`, `pt`, `hy`, `ka`, `tt`, `ba`, `br`.
-  - *Requirement*: To support native UI switching for these languages, their respective `js/i18n/{lang}.json` and `data/ui/{lang}.json` files must be updated with native translations for the 48 `desk_*` and `magazine_*` keys rather than inheriting English defaults.
+- **Fully Complete Core Blog Dictionaries**: All 42 `blog.*` UI keys (`auto_scroll`, `script_mode`, `stage_mode`, `read_in`, `celta_focus_title`, etc.) are 100% complete across all 13 language files.
+- **Editorial Desk Keys (`desk.*`) Audit**:
+  - `en`, `fr`, `it`, `ru`, `el`, `es`: 10/10 keys present.
+  - `ba`, `br`, `de`, `hy`, `ka`, `pt`, `tt`: Exactly 1 key missing (`desk.reflections`).
+  - *Resolution*: The `desk.reflections` key has been added natively across all 7 language dictionaries without English fallbacks.
 
 ### 5.2 Content Post Language Coverage (`blog/posts/*.json`)
 - **Primary Languages with Full Article Catalog**: English (`en`), French (`fr`), Italian (`it`), Russian (`ru`), Greek (`el`).
 - **Languages with Top 100 Benchmark Articles Only**: Spanish (`es`), German (`de`), Portuguese (`pt`), Armenian (`hy`), Georgian (`ka`), Tatar (`tt`), Bashkir (`ba`), Breton (`br`).
-- *Requirement*: Under the No-Translation Fallback directive, when a user views the blog in German or Portuguese, the index filters to native articles available in that language (`language: "de"` or `language: "pt"`) rather than showing English text. Content expansion for secondary languages will follow via native post authoring in `blog/posts/*.json`.
+- *Requirement*: Under the No-Translation Fallback directive, when a user views the blog in German or Portuguese, the index filters to native articles available in that language (`language: "de"` or `language: "pt"`) rather than showing English text.

@@ -172,5 +172,8 @@
     "issue_october_title": "Il compleanno di JY DM e i suoi preferiti",
     "page_x_of_y": "Pagina {current} di {total}",
     "script_teleprompter": "📜 Gobbo / Teleprompter"
+  },
+  "tag": {
+    "top10top100": "Top 10 / Top 100"
   }
 }

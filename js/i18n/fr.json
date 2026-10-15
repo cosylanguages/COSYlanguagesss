@@ -175,5 +175,8 @@
     "issue_october_title": "L'anniversaire de JY DM et ses coup de cœur",
     "page_x_of_y": "Page {current} sur {total}",
     "script_teleprompter": "📜 Téléprompteur"
+  },
+  "tag": {
+    "top10top100": "Top 10 / Top 100"
   }
 }

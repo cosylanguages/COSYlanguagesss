@@ -144,7 +144,7 @@ Below is a complete, minimal, valid example of a blog post JSON file (`blog/post
   "id": "post-sample-authoring-001",
   "slug": "sample-authoring-guide",
   "language": "en",
-  "draft": false,
+  "draft": true,
   "desk": "Front Page",
   "format": "essay",
   "level": "A0–A1",
