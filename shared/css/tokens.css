@@ -61,7 +61,16 @@
     --teal-light:                        var(--sage-light);
     --primary-color:                     var(--sage);
 
-    /* ── 3. Group Accents ──────────────────────────────────────────────── */
+    /* ── 3. Named Repository Brand Accents ──────────────────────────────── */
+    --cosy-languages-accent:             #416B49;
+    --cosy-tools-accent:                 #0D7A5F;
+    --cosy-manuals-accent:               #7A5C3A;
+    --cosy-platform-accent:              #1E2F6B;
+    --cosy-events-accent:                #B84318;
+    --cosy-games-accent:                 #945E05;
+    --cosy-world-accent:                 #D66161;
+
+    /* ── 4. Group Accents ──────────────────────────────────────────────── */
     /* Group 1: Learn free (Free practice, games, reference) */
     --cosy-accent-learn-free:            #416B49;
     --cosy-accent-learn-free-light:      #E8F0E9;
