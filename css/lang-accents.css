@@ -23,6 +23,24 @@
   --accent: #2a6099;
   --accent-dark: #1a3f5c;
   --accent-pale: #eef1fb;
+  --lang-motif-pattern: radial-gradient(circle at 10% 20%, rgba(42, 96, 153, 0.08) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(26, 63, 92, 0.06) 0%, transparent 25%);
+}
+
+.hero[data-flag] {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero[data-flag]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--lang-motif-pattern, none);
+  pointer-events: none;
+  opacity: 0.8;
 }
 [data-lang-theme="es"] {
   --accent: #c4522a;

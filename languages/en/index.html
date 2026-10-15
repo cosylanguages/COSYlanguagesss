@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../../css/lang-accents.css">
 
     <link rel="stylesheet" href="../../css/mobile.css">
+    <link rel="stylesheet" href="../../css/daily-strip.css">
     <link rel="canonical" href="https://cosylanguages.github.io/COSYlanguages/languages/en/index.html">
 </head>
 <body data-lang-theme="en">
@@ -52,13 +53,13 @@
 
 <header class="hero" data-flag="🇬🇧" aria-label="English overview">
   <div class="hero-inner">
-    <div class="hero-eyebrow">🇬🇧 COSYEnglish</div>
+    <div class="hero-eyebrow">🇬🇧 Welcome to COSYenglish · English</div>
     <h1>Speak English with <em>confidence</em>.</h1>
     <p class="hero-sub">From absolute Baby level to fluent professional and academic discourse at Professor level. Speaking-first, always: because English opens every door.</p>
     <div class="hero-ctas">
       <a href="https://wa.me/330766784195?text=Hi!%20I%27d%20like%20to%20start%20English%20lessons." class="btn-primary">💬 Start English lessons</a>
+      <a href="../../placement-quiz.html" class="btn-soft">📝 Start with placement quiz</a>
       <a href="../../index.html#calculator" class="btn-ghost">See pricing 🏷️</a>
-      <button type="button" onclick="const url = window.location.origin + window.location.pathname + '?embed=true'; showPinModal((window.t ? window.t('pin_title') : 'Add to Home Screen'), (window.t ? window.t('pin_lang_desc_en') : 'Add COSYEnglish to your home screen for instant access to lessons and practice.'), url)" class="btn-ghost">📲 Pin to Home</button>
     </div>
     <div class="hero-why">
       <span class="hw-pill">🌍 World language</span>
@@ -70,24 +71,54 @@
   <div class="hero-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fdf8f0"/></svg></div>
 </header>
 
-<main id=main-content>
+<!-- Daily Strip Component Directly Under Hero -->
+<div data-daily-strip data-lang="en"></div>
 
-<!-- Start learning strip -->
-<section id="start-learning" style="padding-bottom:0">
-  <div class="start-strip reveal">
-    <div class="ss-left">
-      <h3>Ready to start learning English?</h3>
-      <p>Speaking-first lessons, Baby to Professor, 1-to-1 or group. All levels, all course types.</p>
-    </div>
-    <div class="ss-links">
-      <a href="../../index.html#calculator" class="ss-link ss-link-ghost">See pricing →</a>
-    </div>
+<main id="main-content">
+
+<!-- Courses Section with Levels & Book Now -->
+<section id="courses" class="home-section">
+  <div class="sec-head reveal">
+    <span class="sec-tag">📖 English Courses</span>
+    <h2>English Courses &amp; Levels (A1 → C2)</h2>
+    <p>Choose your course format: 1-to-1 or group. Every lesson is 40%+ speaking from day one.</p>
   </div>
-    <div class="exam-strip reveal" style="margin-top:1.1rem">
-    <span class="es-icon">📝</span>
-    <div>
-      <h3>Preparing for IELTS, Cambridge or TOEFL?</h3>
-      <p>We cover all major English exams with 120-minute preparation sessions: speaking component in every session.</p>
+  <div class="courses-grid summary-grid">
+    <div class="course-card course-card-general dark reveal visible">
+      <div class="cc-icon">📖</div>
+      <h3 class="cc-title">General Course</h3>
+      <p class="cc-desc">Levels A1 → C2. Structured adult curriculum covering speaking, listening, reading, and grammar.</p>
+      <a href="https://wa.me/330766784195?text=Hi!%20I%27d%20like%20to%20book%20the%20English%20General%20Course." class="btn-primary btn-card-on-dark">Book now →</a>
+    </div>
+    <div class="course-card course-card-spoken dark reveal visible">
+      <div class="cc-icon">🗣️</div>
+      <h3 class="cc-title">Spoken Course</h3>
+      <p class="cc-desc">Levels A1 → C2. 15 or 30 minute conversation workouts to build spontaneous fluency.</p>
+      <a href="https://wa.me/330766784195?text=Hi!%20I%27d%20like%20to%20book%20the%20English%20Spoken%20Course." class="btn-primary btn-card-on-dark">Book now →</a>
+    </div>
+    <div class="course-card course-card-exam dark reveal visible">
+      <div class="cc-icon">📝</div>
+      <h3 class="cc-title">Exam Preparation</h3>
+      <p class="cc-desc">IELTS, Cambridge &amp; TOEFL preparation under exact trial exam conditions.</p>
+      <a href="https://wa.me/330766784195?text=Hi!%20I%27d%20like%20to%20book%20English%20Exam%20Prep." class="btn-primary btn-card-on-dark">Book now →</a>
+    </div>
+    <div class="course-card course-card-travelling dark reveal visible">
+      <div class="cc-icon">✈️</div>
+      <h3 class="cc-title">Travelling Course</h3>
+      <p class="cc-desc">Practical English for travel: airport, hotel, restaurants, navigation &amp; emergencies.</p>
+      <a href="https://wa.me/330766784195?text=Hi!%20I%27d%20like%20to%20book%20the%20English%20Travelling%20Course." class="btn-primary btn-card-on-dark">Book now →</a>
+    </div>
+    <div class="course-card course-card-professional dark reveal visible">
+      <div class="cc-icon">💼</div>
+      <h3 class="cc-title">Professional Course</h3>
+      <p class="cc-desc">Business English for interviews, emails, presentations, and international negotiations.</p>
+      <a href="https://wa.me/330766784195?text=Hi!%20I%27d%20like%20to%20book%20the%20English%20Professional%20Course." class="btn-primary btn-card-on-dark">Book now →</a>
+    </div>
+    <div class="course-card course-card-relocation dark reveal visible">
+      <div class="cc-icon">🏡</div>
+      <div class="cc-title">Relocation Course</div>
+      <p class="cc-desc">Housing, administration, healthcare, and daily integration in English-speaking countries.</p>
+      <a href="https://wa.me/330766784195?text=Hi!%20I%27d%20like%20to%20book%20the%20English%20Relocation%20Course." class="btn-primary btn-card-on-dark">Book now →</a>
     </div>
   </div>
 </section>
@@ -131,18 +162,9 @@
 <section id="daily-dose">
   <div class="sec-head reveal">
     <span class="sec-tag" data-translate-key="daily_dose_tag">💊 Daily Dose &amp; Cultural Insights</span>
-    <h2 data-translate-key="daily_dose_title">Fact &amp; Idiom of the Day 💡</h2>
+    <h2 data-translate-key="daily_dose_title">Daily Dose of English 💡</h2>
   </div>
-  <div class="daily-grid">
-    <div class="daily-card reveal" data-bg="🤣">
-      <h3 data-translate-key="fun_fact_title">Fact of the Day 🤣</h3>
-      <div class="daily-content" id="fun-fact-of-the-day">Loading...</div>
-    </div>
-    <div class="daily-card reveal" data-bg="💡">
-      <h3 data-translate-key="idiom_title">Idiom of the Day 💬</h3>
-      <div class="daily-content" id="idiom-of-the-day">Loading...</div>
-    </div>
-  </div>
+  <div data-daily-strip data-lang="en"></div>
 </section>
 
 <!-- Learning resources -->
@@ -309,6 +331,75 @@
         <h4>TVNZ+ (New Zealand English)</h4>
         <p>Free streaming platform from Television New Zealand featuring local dramas, comedy and international shows.</p>
         <a href="https://www.tvnz.co.nz/" target="_blank" class="mc-link">Watch TVNZ+ →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Posts & Top 10/100 Guides -->
+<section id="blog-guides" class="home-section">
+  <div class="sec-head reveal">
+    <span class="sec-tag">📝 Vogue Gazette &amp; Knowledge Guides</span>
+    <h2>English Articles &amp; Master Lists</h2>
+    <p>Explore Top 100 A0–A1 master lists, grammar deep-dives, and audio podcast episodes for English learners.</p>
+  </div>
+  <div class="resources-grid">
+    <a href="../../blog/posts/top-100-a0-a1-english.html" class="resource-card reveal">
+      <div class="rc-icon">🏆</div>
+      <div class="rc-name">Top 100 English A0–A1 Master Guide</div>
+      <div class="rc-desc">Essential high-frequency English vocabulary with example sentences and pronunciation.</div>
+      <div class="rc-link">Read Guide →</div>
+    </a>
+    <a href="../../blog/posts/top-10-verbs.html" class="resource-card reveal">
+      <div class="rc-icon">⚡</div>
+      <div class="rc-name">Top 10 Essential English Verbs</div>
+      <div class="rc-desc">Master the core verbs that drive 80% of daily conversational English.</div>
+      <div class="rc-link">Read Guide →</div>
+    </a>
+    <a href="../../blog/podcast.html" class="resource-card reveal">
+      <div class="rc-icon">🎙️</div>
+      <div class="rc-name">COSY English Podcast &amp; Stage Mode</div>
+      <div class="rc-desc">Listen to audio episodes with synchronized teleprompter scripts.</div>
+      <div class="rc-link">Listen Now →</div>
+    </a>
+  </div>
+</section>
+
+<!-- Upcoming English Events -->
+<section id="events" class="home-section">
+  <div class="sec-head reveal">
+    <span class="sec-tag">🎉 Live Gathering</span>
+    <h2>Upcoming English Events &amp; Speaking Clubs</h2>
+    <p>Practice real spoken English in structured, friendly group speaking sessions led by native tutors.</p>
+  </div>
+  <div class="events-row reveal">
+    <span class="er-icon">🇬🇧</span>
+    <div class="er-body">
+      <h4>English Speaking Club: Conversational Flow</h4>
+      <p>Weekly online speaking sessions for Elementary (A2) to Advanced (C1) English learners.</p>
+    </div>
+    <a href="../../apps/premium-events/index.html" class="btn-secondary">Join Speaking Club →</a>
+  </div>
+</section>
+
+<!-- Student Reviews -->
+<section id="reviews" class="home-section">
+  <div class="sec-head reveal">
+    <span class="sec-tag">💬 Student Stories</span>
+    <h2>What COSYenglish Students Say</h2>
+    <p>Real feedback from students reaching fluency in English.</p>
+  </div>
+  <div class="reviews-carousel-wrapper reveal">
+    <div class="review-slide active" style="opacity: 1; position: relative;">
+      <div class="review-card-inner">
+        <span class="rq-mark rq-top">❝</span>
+        <p class="review-slide-text">I really enjoyed our lessons, they were both fascinating and informative. 🙂 It's a very convenient format when you can just have a dialogue with the teacher on everyday topics and learn the language at the same time. James very clearly shows how grammar works. I strongly advise you to study languages with COSYlanguages.</p>
+        <div class="review-slide-divider"></div>
+        <div class="review-slide-meta">
+          <span class="review-slide-brand">COSYenglish</span>
+          <span class="review-slide-course">General Course</span>
+        </div>
+        <span class="rq-mark rq-bottom">❞</span>
       </div>
     </div>
   </div>
@@ -648,6 +739,7 @@
 <script src="../../js/core/i18n.js"></script>
 <script src="../../js/data/daily_dose.js"></script>
 <script src="../../js/core/ui.js"></script>
+<script src="../../js/daily-strip.js" defer></script>
 <script src="../../js/data/pricing.js"></script>
 </body>
 </html>
