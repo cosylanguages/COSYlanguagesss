@@ -353,7 +353,7 @@
                 const langNameMap = (window.COSY_LANGUAGES || []).reduce((acc, l) => { acc[l.code] = l.name; return acc; }, {
                     en:'English', fr:'French', it:'Italian', ru:'Russian', el:'Greek', es:'Spanish', de:'German', pt:'Portuguese', hy:'Armenian', ka:'Georgian', tt:'Tatar', ba:'Bashkir', br:'Breton', cv:'Chuvash'
                 });
-                resEl.innerHTML = `Landed on: <strong>${langNameMap[result.lang] || result.lang} · ${result.cat}</strong>!<br>Starting practice... 🚀`;
+                resEl.textContent = '🎯 ✓';
                 setTimeout(() => {
                     window.cosyPractice.closeWheel();
                     window.cosyPractice.quickStart(result.lang, result.cat, 'all', 'all');
@@ -384,7 +384,7 @@
                     const langNameMap = (window.COSY_LANGUAGES || []).reduce((acc, l) => { acc[l.code] = l.name; return acc; }, {
                         en:'English', fr:'French', it:'Italian', ru:'Russian', el:'Greek', es:'Spanish', de:'German', pt:'Portuguese', hy:'Armenian', ka:'Georgian', tt:'Tatar', ba:'Bashkir', br:'Breton', cv:'Chuvash'
                     });
-                    resEl.innerHTML = `Landed on: <strong>${langNameMap[result.lang] || result.lang} · ${result.cat}</strong>!<br>Starting practice... 🚀`;
+                    resEl.textContent = '🎯 ✓';
                     setTimeout(() => {
                         window.cosyPractice.closeWheel();
                         window.cosyPractice.quickStart(result.lang, result.cat, 'all', 'all');
