@@ -454,9 +454,12 @@
             targetText = item.antonyms?.[0] || item.opposite;
             qText = `"${itemWord}" ≠ ?`;
         } else {
-            targetText = item.definitions?.[0]?.text || item.definition || item.subtext || itemWord || '...';
+            targetText = item.definitions?.[0]?.text || item.definition || item.subtext || '';
             qText = `"${itemWord}" = ?`;
         }
+
+        // Do not create a definition question when target-language meaning data is missing.
+        if (!targetText) return null;
 
         // Pull distractors
         let distractors = [];
@@ -477,24 +480,8 @@
         distractors = [...new Set(distractors)].filter(d => d && d.toLowerCase() !== targetText.toLowerCase());
         distractors = distractors.slice(0, 2);
 
-        const fallbackDefs = ['Alternative meaning or option', 'Related expression or concept'];
-        const fallbackWords = ['Option B', 'Option C'];
-        let fbIdx = 0;
-        while (distractors.length < 2) {
-            const fallback = pool
-                .filter(p => p && (p.id ? p.id !== item.id : p !== item))
-                .sort(() => Math.random() - 0.5)[0];
-            const fallbackVal = matchType === 'definition'
-                ? (fallback?.definitions?.[0]?.text || fallback?.definition || fallback?.subtext)
-                : (fallback?.word || fallback?.topic || fallback?.phrase);
-            if (fallbackVal && fallbackVal.toLowerCase() !== targetText.toLowerCase() && !distractors.includes(fallbackVal)) {
-                distractors.push(fallbackVal);
-            } else {
-                const list = matchType === 'definition' ? fallbackDefs : fallbackWords;
-                distractors.push(list[fbIdx % list.length]);
-                fbIdx++;
-            }
-        }
+        // Missing distractors are a data-quality problem, not a reason to inject English UI text.
+        if (distractors.length < 2) return null;
 
         const allOpts = [targetText, ...distractors].sort(() => Math.random() - 0.5);
         const ans = allOpts.indexOf(targetText);
