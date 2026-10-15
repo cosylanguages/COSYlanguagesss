@@ -821,9 +821,14 @@
                         ans = pairs;
                     } else if (type === 'mc') {
                         const mcQ = buildMCQuestion(item, pool);
-                        qText = mcQ.q;
-                        ans = mcQ.ans;
-                        opts = mcQ.opts;
+                        if (!mcQ) {
+                            if (!item.word || !definition || definition === item.word) return null;
+                            type = 'type';
+                        } else {
+                            qText = mcQ.q;
+                            ans = mcQ.ans;
+                            opts = mcQ.opts;
+                        }
                     } else if (type === 'ls') {
                         const otherWords = pool
                             .filter(p => p.id !== item.id && p.word)
@@ -871,9 +876,14 @@
                         if (!ex?.text || !item.word) {
                             type = 'mc';
                             const mcQ = buildMCQuestion(item, pool);
-                            qText = mcQ.q;
-                            ans = mcQ.ans;
-                            opts = mcQ.opts;
+                            if (!mcQ) {
+                                if (!item.word || !definition || definition === item.word) return null;
+                                type = 'type';
+                            } else {
+                                qText = mcQ.q;
+                                ans = mcQ.ans;
+                                opts = mcQ.opts;
+                            }
                         } else {
                             const regex = new RegExp(item.word, 'gi');
                             const sentenceWithBlank = ex.text.replace(regex, '[ ___ ]');
