@@ -973,7 +973,7 @@
                     };
                 }
                 return item;
-            });
+            }).filter(Boolean);
         } else {
             qs = getQuestions(lang.toUpperCase(), cat, level, theme, subTheme);
         }
