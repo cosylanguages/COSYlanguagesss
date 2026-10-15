@@ -29,22 +29,32 @@ The blog on `main` is **100% public** and built on a **Vogue Gazette magazine ar
 
 ## 2. Remote Branches Modifying `blog/`
 
-The following remote feature branches modify `blog/` assets:
+The following 12 open PR branches modify `blog/` assets:
 
-1. **Integrated / Main-Aligned Branches**:
-   - `origin/feat/blog-magazine-flipbook-newsstand-2961654914032171879`
-   - `origin/feature/blog-cosymagazine-redesign-15012565829454879171`
-   - `origin/feature/blog-cover-hero-redesign-15046963742816532331`
-   - `origin/feature/blog-newspaper-vogue-styling-7977824811727220811`
-   - `origin/blog-procedural-covers-13928725445509813372`
-   - `origin/blog-json-source-of-truth-7546565836593026302`
-   - `origin/stage-mode-visual-canvas-10980692283050967232`
-2. **Superseded Blogger Restyle Branches**:
-   - `origin/feat/blog-index-redesign-broadsheet-blogger-3356564148501542403`
-   - `origin/feat/classic-blogger-restyle-13473923240625020648`
-   - `origin/feat/blog-blogger-vogue-redesign-4927632515806823024`
-3. **Pending Content Branch**:
-   - `origin/feat/top-100-english-blog-page-15674311753884324214` (Contains English Top 100 article updates needing rebase into JSON schema format).
+1. **`origin/docs/blog-plan-and-authoring-guide-3369901012941800048` (PR #1568)**:
+   - Adds master `BLOG_PLAN.md` and `docs/BLOG_AUTHORING.md` strategy documentation.
+2. **`origin/jules/newsstand-flipbook-reader-verification-3631324704500175417` (PR #1559)**:
+   - Contains Newsstand and Flipbook reader verification fixes (integrated on `main`).
+3. **`origin/fix/blog-build-workflow-triggers-and-stale-ci-guard-15788587198201346850` (PR #1554)**:
+   - Updates workflow triggers and stale CI guards for blog builds.
+4. **`origin/blog-json-source-of-truth-7546565836593026302` (PR #1540)**:
+   - Initial JSON source-of-truth migration (integrated on `main`).
+5. **`origin/verify-blog-magazine-issues-13247521282894244804` (PR #1528)**:
+   - Issue volume verification script (integrated on `main`).
+6. **`origin/feature/blog-cosymagazine-redesign-15012565829454879171` (PR #1526)**:
+   - Vogue design tokens and template integration (integrated on `main`).
+7. **`origin/feature/blog-newspaper-vogue-styling-7977824811727220811` (PR #1510)**:
+   - Broadsheet Gazette styling (integrated on `main`).
+8. **`origin/feature/flipbook-blog-magazine-798519488841142537` (PR #1508)**:
+   - 3D flipbook magazine reader implementation (integrated on `main`).
+9. **`origin/add-intermediate-plateau-blog-posts-4438663174452280948` (PR #1492)**:
+   - Intermediate Plateau post additions (requires rebase to `blog/posts/*.json`).
+10. **`origin/feat/blog-blogger-vogue-redesign-4927632515806823024` (PR #1477)**:
+    - Attempted Blogger-style redesign (superseded / dropped).
+11. **`origin/feat/unified-top-100-a0-a1-blog-master-guide-10189015015062468556` (PR #1450)**:
+    - Consolidated Top 100 A0-A1 master guides (requires rebase).
+12. **`origin/feat/top-10-verbs-be-phrase-table-update-15757672762705553573` (PR #1439)**:
+    - Top 10 Verbs 'to be' phrase table update (requires rebase to `top-10-verbs.json`).
 
 ---
 
@@ -56,7 +66,7 @@ Local directory `vocabulary/` contains legacy `.js` vocabulary definition files 
 - **Central Source of Truth**: Central dictionary records reside in `COSYdata` (`schemas/themes.json` and language `themes-index.json`).
 - **Engine Fetching**: `js/core/engine.js` and `practice/hub.js` fetch central theme data directly via `window.COSY.loadLanguageData`.
 - **Remaining Legacy Local Files**: 1,198 `.js` files remain inside local `vocabulary/`.
-- **Action**: These legacy files are scheduled for complete removal upon merging PR #1430 (`origin/migrate-vocab-loading-cosydata-3301091516354408821`), eliminating dual-source drift.
+- **Deletion Safety Guard**: PR #1430 (`jules-vocab-cosydata-comparison-5656072142944109703`) proposes deleting 488 local `vocabulary/` files. **Merge Recommendation**: Keep PR #1430 open until central `COSYdata` is verified to contain complete B1–C2 entries for secondary languages (`ba`, `br`, `cv`, `de`, `es`, `hy`, `ka`, `pt`, `tt`), preventing vocabulary loss.
 
 ---
 
