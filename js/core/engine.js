@@ -558,24 +558,6 @@ function applyMode () {
 
     const nav = typeof document !== 'undefined' ? document.getElementById('cosy-nav') : null;
     if (nav) {
-        if (!document.querySelector('.cosy-ecosystem-strip')) {
-            const stripEl = document.createElement('nav');
-            const homeUrl = getNavHref('home');
-            stripEl.className = 'cosy-ecosystem-strip';
-            stripEl.setAttribute('aria-label', 'COSY Ecosystem Products');
-            stripEl.innerHTML = `
-              <div class="cosy-strip-inner">
-                <span class="cosy-strip-brand">🌐 COSY Ecosystem:</span>
-                <ul class="cosy-strip-links">
-                  <li><a href="${homeUrl}" class="cosy-strip-link active">COSYlanguages</a></li>
-                  <li><a href="https://cosylanguages.github.io/COSYevents/" target="_blank" rel="noopener" class="cosy-strip-link">COSYevents 🎉</a></li>
-                  <li><a href="https://cosylanguages.github.io/COSYgames/" target="_blank" rel="noopener" class="cosy-strip-link">COSYgames 🎮</a></li>
-                  <li><a href="https://cosylanguages.github.io/COSYdata/" target="_blank" rel="noopener" class="cosy-strip-link">COSYdata 📖</a></li>
-                  <li><a href="https://cosylanguages.github.io/COSYtools/" target="_blank" rel="noopener" class="cosy-strip-link">COSYtools 🔎</a></li>
-                </ul>
-              </div>`;
-            nav.parentNode.insertBefore(stripEl, nav);
-        }
         nav.className = 'nav-container';
         const t = getNavLabel;
         nav.setAttribute('aria-label', t('main_aria', 'Main Navigation'));

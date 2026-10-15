@@ -354,6 +354,42 @@ body.theme-dark #cosy-nav {
   text-decoration: underline;
 }
 
+/* 5. Translucent Ghost Overlay Button */
+.btn-ghost, a.btn-ghost, button.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: var(--btn-height, 48px);
+  padding: var(--btn-padding, 0 28px);
+  border-radius: var(--btn-radius, 100px);
+  font-size: var(--btn-font-size, 1rem);
+  font-weight: var(--btn-weight, 800);
+  font-family: var(--btn-font-sans, var(--cosy-font-sans));
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  transition: transform var(--cosy-transition-fast, 0.15s ease),
+              box-shadow var(--cosy-transition-fast, 0.15s ease),
+              background-color var(--cosy-transition-fast, 0.15s ease),
+              color var(--cosy-transition-fast, 0.15s ease),
+              border-color var(--cosy-transition-fast, 0.15s ease);
+}
+.btn-ghost:hover, a.btn-ghost:hover, button.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.65);
+  transform: translateY(-2px);
+}
+.btn-ghost:active, a.btn-ghost:active, button.btn-ghost:active {
+  transform: translateY(3px);
+  box-shadow: var(--cosy-shadow-pressed) !important;
+}
+
 /* On dark hero backgrounds, tertiary links use high-contrast warm cream */
 .hero .btn-tertiary,
 .hero-ctas .btn-tertiary,
