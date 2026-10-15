@@ -879,7 +879,7 @@ if (typeof window !== 'undefined') {
     };
 }
 
-window.COSY = {
+const COSY = window.COSY = {
     renderNav,
     get mode() { return STATE.mode },
     get practice() { return STATE.practice },
@@ -961,17 +961,36 @@ window.COSY = {
             localStorage.setItem('cosy_last_language', langCode);
         } catch (e) {}
 
+        const detail = { lang: langCode, pinned: true };
         const evt = new CustomEvent('cosy:langchange', {
-            detail: { lang: langCode, pinned: true },
+            detail: detail,
             bubbles: true
         });
-        document.dispatchEvent(evt);
+        if (typeof window !== 'undefined' && window.dispatchEvent) {
+            window.dispatchEvent(evt);
+        } else if (typeof document !== 'undefined' && document.dispatchEvent) {
+            document.dispatchEvent(evt);
+        }
 
         if (typeof window !== 'undefined' && typeof window.setLanguage === 'function') {
             window.setLanguage(langCode);
         }
 
         this.updateLangPanelUI(langCode);
+    },
+
+    dispatchInitialLangChange() {
+        const lang = this.getPinnedLanguage();
+        const detail = { lang: lang, pinned: true, initial: true };
+        const evt = new CustomEvent('cosy:langchange', {
+            detail: detail,
+            bubbles: true
+        });
+        if (typeof window !== 'undefined' && window.dispatchEvent) {
+            window.dispatchEvent(evt);
+        } else if (typeof document !== 'undefined' && document.dispatchEvent) {
+            document.dispatchEvent(evt);
+        }
     },
 
     updateLangPanelUI(pinnedLang) {
@@ -1424,6 +1443,18 @@ window.COSY = {
     }
 };
 
+if (typeof window !== 'undefined') {
+    window.addEventListener('cosy:langchange', (event) => {
+        const lang = event.detail && event.detail.lang;
+        if (lang) {
+            const badge = document.getElementById('cosy-pinned-lang-badge');
+            if (badge) {
+                badge.textContent = lang.toUpperCase();
+            }
+        }
+    });
+}
+
 if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
@@ -1431,12 +1462,14 @@ if (typeof document !== 'undefined') {
             inject();
             COSY.registerSW();
             updateNavActiveState();
+            COSY.dispatchInitialLangChange();
         });
     } else {
         COSY.initTheme();
         inject();
         COSY.registerSW();
         updateNavActiveState();
+        COSY.dispatchInitialLangChange();
     }
 }
 if (typeof window !== 'undefined') {
@@ -1467,8 +1500,6 @@ COSY.isUserAuthenticated = function() {
     return (role === 'student' || role === 'teacher' || role === 'admin');
 };
 
-})();
-
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         getEcosystemUrls,
@@ -1479,3 +1510,5 @@ if (typeof module !== 'undefined' && module.exports) {
         COSY_ECOSYSTEM_MENU
     };
 }
+
+})();
