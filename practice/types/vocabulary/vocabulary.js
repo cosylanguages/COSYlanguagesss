@@ -68,7 +68,7 @@
 
                 // Interactive Scramble, Cloze & Typing Exercises
                 { type:'sc', q:'🧩 Reorder the sentence:', ans:'She does not like coffee in the morning.', level:'starter', theme:'syntax_word_order', item:{ word:'Sentence Order' }, practice_links:['manuals/en/grammar/a1/topics/word-order.html'] },
-                { type:'cloze', q:'Fill in the blank: She is interested [ ___ ] modern art.', sentence:'She is interested [ ___ ] modern art.', opts:['in','at','on','for'], ans:0, level:'elementary', theme:'prepositions_place', ruleHint:'Use "in" with the adjective interested.', practice_links:['manuals/en/grammar/a1/topics/prepositions-place.html'] },
+                { type:'cloze', q:'✍️ She is interested [ ___ ] modern art.', sentence:'She is interested [ ___ ] modern art.', opts:['in','at','on','for'], ans:0, level:'elementary', theme:'prepositions_place', ruleHint:'in + interested', practice_links:['manuals/en/grammar/a1/topics/prepositions-place.html'] },
                 { type:'type', q:'"Past simple of verb: go" = ?', ans:'went', level:'starter', theme:'tenses_aspect', ruleHint:'Irregular verb: go ➔ went.', item:{ word:'went' }, practice_links:['manuals/en/grammar/a1/topics/past-simple-irregular.html'] },
 
                 // Tenses & Conditionals
@@ -454,9 +454,12 @@
             targetText = item.antonyms?.[0] || item.opposite;
             qText = `"${itemWord}" ≠ ?`;
         } else {
-            targetText = item.definitions?.[0]?.text || item.definition || item.subtext || itemWord || '...';
+            targetText = item.definitions?.[0]?.text || item.definition || item.subtext || '';
             qText = `"${itemWord}" = ?`;
         }
+
+        // Do not create a definition question when target-language meaning data is missing.
+        if (!targetText) return null;
 
         // Pull distractors
         let distractors = [];
@@ -477,24 +480,8 @@
         distractors = [...new Set(distractors)].filter(d => d && d.toLowerCase() !== targetText.toLowerCase());
         distractors = distractors.slice(0, 2);
 
-        const fallbackDefs = ['Alternative meaning or option', 'Related expression or concept'];
-        const fallbackWords = ['Option B', 'Option C'];
-        let fbIdx = 0;
-        while (distractors.length < 2) {
-            const fallback = pool
-                .filter(p => p && (p.id ? p.id !== item.id : p !== item))
-                .sort(() => Math.random() - 0.5)[0];
-            const fallbackVal = matchType === 'definition'
-                ? (fallback?.definitions?.[0]?.text || fallback?.definition || fallback?.subtext)
-                : (fallback?.word || fallback?.topic || fallback?.phrase);
-            if (fallbackVal && fallbackVal.toLowerCase() !== targetText.toLowerCase() && !distractors.includes(fallbackVal)) {
-                distractors.push(fallbackVal);
-            } else {
-                const list = matchType === 'definition' ? fallbackDefs : fallbackWords;
-                distractors.push(list[fbIdx % list.length]);
-                fbIdx++;
-            }
-        }
+        // Missing distractors are a data-quality problem, not a reason to inject English UI text.
+        if (distractors.length < 2) return null;
 
         const allOpts = [targetText, ...distractors].sort(() => Math.random() - 0.5);
         const ans = allOpts.indexOf(targetText);
@@ -779,16 +766,8 @@
                             .sort(() => Math.random() - 0.5);
 
                         const selectedPairs = [item, ...otherItems.slice(0, 3)];
-                        const cleanFallbacks = [
-                            { word: 'learn', definitions: [{ text: 'To acquire knowledge or skill' }], emoji: '📚', transcription: '[lɜːn]' },
-                            { word: 'speak', definitions: [{ text: 'To utter words or express thoughts' }], emoji: '🗣️', transcription: '[spiːk]' },
-                            { word: 'read', definitions: [{ text: 'To look at and comprehend written text' }], emoji: '📖', transcription: '[riːd]' }
-                        ];
-                        let cleanFbIdx = 0;
-                        while (selectedPairs.length < 4) {
-                            selectedPairs.push(cleanFallbacks[cleanFbIdx % cleanFallbacks.length]);
-                            cleanFbIdx++;
-                        }
+                        // Never pad a target-language matching exercise with English sample content.
+                        if (selectedPairs.length < 4) return null;
 
                         let possibleModes = ['definition'];
                         const hasEmojis = selectedPairs.filter(p => p.emoji).length >= 3;
@@ -822,36 +801,33 @@
                         });
 
                         if (selectedMode === 'emoji') {
-                            qText = "🧩 Match the words with their images";
+                            qText = "🧩 🖼️";
                         } else if (selectedMode === 'transcription') {
-                            qText = "🧩 Match the words with their pronunciation symbols";
+                            qText = "🧩 🔊";
                         } else if (selectedMode === 'antonym') {
-                            qText = "🧩 Match the words with their opposites (antonyms)";
+                            qText = "🧩 ↔️";
                         } else {
-                            qText = "🧩 Match the words with their definitions";
+                            qText = "🧩 📖";
                         }
 
                         ans = pairs;
                     } else if (type === 'mc') {
                         const mcQ = buildMCQuestion(item, pool);
-                        qText = mcQ.q;
-                        ans = mcQ.ans;
-                        opts = mcQ.opts;
+                        if (!mcQ) {
+                            if (!item.word || !definition || definition === item.word) return null;
+                            type = 'type';
+                        } else {
+                            qText = mcQ.q;
+                            ans = mcQ.ans;
+                            opts = mcQ.opts;
+                        }
                     } else if (type === 'ls') {
                         const otherWords = pool
                             .filter(p => p.id !== item.id && p.word)
                             .sort(() => Math.random() - 0.5)
                             .map(p => p.word);
                         let distractors = [...new Set(otherWords)].filter(w => w && w.toLowerCase() !== (item.word || '').toLowerCase()).slice(0, 2);
-                        const wordFallbacks = ['listen', 'speak', 'understand'];
-                        let wIdx = 0;
-                        while (distractors.length < 2) {
-                            const fbWord = wordFallbacks[wIdx % wordFallbacks.length];
-                            if (!distractors.includes(fbWord) && fbWord.toLowerCase() !== (item.word || '').toLowerCase()) {
-                                distractors.push(fbWord);
-                            }
-                            wIdx++;
-                        }
+                        if (distractors.length < 2) return null;
                         qText = '🔊 ?';
                         opts = [item.word, ...distractors].sort(() => Math.random() - 0.5);
                         ans = opts.indexOf(item.word);
@@ -864,7 +840,7 @@
                                 const randomOther = otherItems[Math.floor(Math.random() * otherItems.length)];
                                 displayDef = randomOther.definitions?.[0]?.text || randomOther.definition;
                             } else {
-                                displayDef = "opposite or unrelated concept";
+                                return null;
                             }
                         }
                         qText = `"${item.word}" = "${displayDef}"`;
@@ -884,13 +860,18 @@
                         if (!ex?.text || !item.word) {
                             type = 'mc';
                             const mcQ = buildMCQuestion(item, pool);
-                            qText = mcQ.q;
-                            ans = mcQ.ans;
-                            opts = mcQ.opts;
+                            if (!mcQ) {
+                                if (!item.word || !definition || definition === item.word) return null;
+                                type = 'type';
+                            } else {
+                                qText = mcQ.q;
+                                ans = mcQ.ans;
+                                opts = mcQ.opts;
+                            }
                         } else {
                             const regex = new RegExp(item.word, 'gi');
                             const sentenceWithBlank = ex.text.replace(regex, '[ ___ ]');
-                            qText = `Fill in the blank: ${sentenceWithBlank}`;
+                            qText = `✍️ ${sentenceWithBlank}`;
 
                             const distractors = pool
                                 .filter(p => p.id !== item.id && p.word)
@@ -898,15 +879,7 @@
                                 .map(p => p.word)
                                 .filter(w => w && w.toLowerCase() !== (item.word || '').toLowerCase())
                                 .slice(0, 2);
-                            const clozeFallbacks = ['also', 'then', 'so', 'well'];
-                            let cIdx = 0;
-                            while (distractors.length < 2) {
-                                const fbWord = clozeFallbacks[cIdx % clozeFallbacks.length];
-                                if (!distractors.includes(fbWord) && fbWord.toLowerCase() !== (item.word || '').toLowerCase()) {
-                                    distractors.push(fbWord);
-                                }
-                                cIdx++;
-                            }
+                            if (distractors.length < 2) return null;
 
                             opts = [item.word, ...distractors].sort(() => Math.random() - 0.5);
                             ans = opts.indexOf(item.word);
@@ -919,7 +892,7 @@
                     }
 
                     if (!qText) {
-                        qText = `Practice: ${item.word}`;
+                        qText = `🧩 ${item.word}`;
                     }
 
                     let morphologicalHint = null;
@@ -927,16 +900,16 @@
                         const verbParadigm = window.COSY.getVerbParadigm(l, item.word);
                         if (verbParadigm) {
                             if (verbParadigm.usage_hint) {
-                                morphologicalHint = `Usage: ${verbParadigm.usage_hint}`;
+                                morphologicalHint = verbParadigm.usage_hint;
                             } else if (verbParadigm.group) {
-                                morphologicalHint = `Group: ${verbParadigm.group}`;
+                                morphologicalHint = verbParadigm.group;
                             }
                         }
                     }
                     if (!morphologicalHint && window.COSY && window.COSY.getNounDeclension) {
                         const nounDecl = window.COSY.getNounDeclension(l, item.word);
                         if (nounDecl && nounDecl.gender) {
-                            morphologicalHint = `Gender: ${nounDecl.gender}`;
+                            morphologicalHint = nounDecl.gender;
                         }
                     }
 
@@ -950,7 +923,7 @@
                         theme: item.theme,
                         sub_theme: item.sub_theme || null,
                         practice_links: item.practice_links,
-                        ruleHint: item.usage_hint || item.collocation || (item.preposition ? `Collocation / Preposition: ${item.word} ${item.preposition}` : morphologicalHint)
+                        ruleHint: item.usage_hint || item.collocation || (item.preposition ? `${item.word} ${item.preposition}` : morphologicalHint)
                     };
                 } else if (cat === 'Speaking' || cat === 'speaking') {
                     return { form: 'conv', q: item.topic || item.text || item.q, level: LEVEL_MAP[item.level] || item.level || 'a1', theme: item.theme };
@@ -977,7 +950,7 @@
 
                     return {
                         form: 'ls',
-                        q: `🔊 Pronounce: ${item.word}`,
+                        q: `🔊 ${item.word}`,
                         item: item,
                         ans: ans,
                         opts: opts,
@@ -986,7 +959,7 @@
                     };
                 }
                 return item;
-            });
+            }).filter(Boolean);
         } else {
             qs = getQuestions(lang.toUpperCase(), cat, level, theme, subTheme);
         }
