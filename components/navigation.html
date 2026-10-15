@@ -28,19 +28,15 @@
   </ul>
 
   <div class="cosy-nav-actions">
-    <div class="cosy-lang-lock-wrap" style="display:inline-flex; align-items:center; gap:4px;">
-      <select id="cosy-ui-lang-switcher" class="cosy-lang-select" onchange="if(window.setLanguage)window.setLanguage(this.value)" aria-label="Select Interface Language">
-        <option value="en">🇬🇧 EN</option>
-        <option value="fr">🇫🇷 FR</option>
-        <option value="it">🇮🇹 IT</option>
-        <option value="ru">🇷🇺 RU</option>
-        <option value="el">🇬🇷 EL</option>
-      </select>
-      <button id="cosy-ui-lang-lock-btn" type="button" onclick="if(window.toggleLanguageLock)window.toggleLanguageLock()" class="cosy-lang-lock-btn" title="Pin interface language on this device." aria-label="Pin interface language on this device." style="background:none; border:1px solid var(--cosy-color-border, rgba(74, 107, 80, 0.12)); border-radius:var(--cosy-radius-sm, 6px); padding:2px 4px; font-size:0.75rem; height:28px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;">📌</button>
-    </div>
-    <button type="button" class="cosy-theme-btn" aria-label="Toggle Theme" onclick="if(window.toggleTheme)window.toggleTheme()">🌙</button>
     <a href="login.html" class="cosy-nav-link cosy-nav-login">🔐 Log in</a>
     <a href="https://wa.me/330766784195" class="cosy-nav-cta" target="_blank" rel="noopener">💬 Contact Us</a>
+    <div class="cosy-lang-dropdown-wrap" style="position:relative;">
+      <button id="cosy-lang-menu-btn" type="button" class="cosy-lang-menu-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cosy-lang-panel" aria-label="Select Language" onclick="if(window.COSY&&window.COSY.toggleLangPanel)window.COSY.toggleLangPanel()">🌐 <span class="cosy-pinned-lang-label" id="cosy-pinned-lang-badge">EN</span></button>
+      <div id="cosy-lang-panel" class="cosy-lang-panel" role="dialog" aria-label="Languages We Teach" hidden>
+        <!-- Populated by engine -->
+      </div>
+    </div>
+    <button type="button" class="cosy-theme-btn theme-toggle-btn" aria-label="Toggle Theme" onclick="if(window.toggleTheme)window.toggleTheme()">🌙</button>
     <button type="button" class="cosy-hamburger-btn" aria-label="Toggle Navigation Menu" aria-expanded="false" onclick="const d=document.getElementById('cosy-nav-drawer'); if(d){ d.classList.toggle('open'); this.setAttribute('aria-expanded', d.classList.contains('open')); }">
       ☰
     </button>

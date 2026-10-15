@@ -350,3 +350,272 @@ body.theme-dark #cosy-mobile-menu {
     justify-content: center;
   }
 }
+
+/* Language Dropdown & Panel */
+.cosy-lang-dropdown-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cosy-lang-menu-btn {
+  background: transparent;
+  border: 1px solid var(--border, rgba(74, 107, 80, 0.18));
+  border-radius: var(--r-sm, 8px);
+  padding: 6px 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink, #2a2a2a);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.cosy-lang-menu-btn:hover,
+.cosy-lang-menu-btn:focus-visible {
+  background: var(--sage-pale, #e8f0e9);
+  color: var(--sage-dark, #375742);
+  outline: 2px solid var(--sage, #416b49);
+  outline-offset: 2px;
+}
+
+html[data-theme="dark"] .cosy-lang-menu-btn,
+body.theme-dark .cosy-lang-menu-btn {
+  border-color: #323A34;
+  color: #f0f4f1;
+}
+
+html[data-theme="dark"] .cosy-lang-menu-btn:hover,
+body.theme-dark .cosy-lang-menu-btn:hover {
+  background: #2a342c;
+  color: #86efac;
+}
+
+.cosy-pinned-lang-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  background: var(--sage-mist, #e0eee2);
+  color: var(--sage-deep, #233827);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+html[data-theme="dark"] .cosy-pinned-lang-label,
+body.theme-dark .cosy-pinned-lang-label {
+  background: #2a382c;
+  color: #86efac;
+}
+
+.cosy-lang-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 270px;
+  max-height: 380px;
+  overflow-y: auto;
+  background: var(--warm-white, #FFFEFB);
+  border: 1px solid var(--border, rgba(74, 107, 80, 0.18));
+  border-radius: var(--r-md, 12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  z-index: 1020;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cosy-lang-panel[hidden] {
+  display: none !important;
+}
+
+html[data-theme="dark"] .cosy-lang-panel,
+body.theme-dark .cosy-lang-panel {
+  background: #1a1f1a;
+  border-color: #323A34;
+  color: #f0f4f1;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.cosy-lang-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px 8px;
+  border-bottom: 1px solid var(--border, rgba(74, 107, 80, 0.12));
+  margin-bottom: 4px;
+}
+
+.cosy-lang-panel-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft, #666);
+}
+
+html[data-theme="dark"] .cosy-lang-panel-title,
+body.theme-dark .cosy-lang-panel-title {
+  color: #a0aec0;
+}
+
+.cosy-lang-panel-close {
+  background: transparent;
+  border: none;
+  font-size: 0.9rem;
+  color: var(--ink-soft, #666);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.cosy-lang-panel-close:hover {
+  background: var(--sage-pale, #e8f0e9);
+  color: var(--ink, #2a2a2a);
+}
+
+.cosy-lang-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cosy-lang-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: var(--r-sm, 6px);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  min-height: 44px;
+  user-select: none;
+}
+
+.cosy-lang-row:hover,
+.cosy-lang-row:focus-visible {
+  background: var(--sage-pale, #e8f0e9);
+  outline: none;
+}
+
+html[data-theme="dark"] .cosy-lang-row:hover,
+html[data-theme="dark"] .cosy-lang-row:focus-visible,
+body.theme-dark .cosy-lang-row:hover,
+body.theme-dark .cosy-lang-row:focus-visible {
+  background: #2a342c;
+}
+
+.cosy-lang-row.is-pinned {
+  background: var(--sage-mist, #e0eee2);
+  font-weight: 700;
+}
+
+html[data-theme="dark"] .cosy-lang-row.is-pinned,
+body.theme-dark .cosy-lang-row.is-pinned {
+  background: #233426;
+}
+
+.cosy-lang-flag {
+  font-size: 1.1rem;
+  margin-right: 8px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cosy-lang-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.cosy-lang-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink, #2a2a2a);
+}
+
+html[data-theme="dark"] .cosy-lang-name,
+body.theme-dark .cosy-lang-name {
+  color: #f0f4f1;
+}
+
+.cosy-lang-native {
+  font-size: 0.75rem;
+  color: var(--ink-soft, #666);
+}
+
+html[data-theme="dark"] .cosy-lang-native,
+body.theme-dark .cosy-lang-native {
+  color: #a0aec0;
+}
+
+.cosy-lang-pin-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  opacity: 0.4;
+  transition: all 0.15s ease;
+  min-height: 32px;
+  min-width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cosy-lang-pin-btn:hover,
+.cosy-lang-pin-btn.pinned {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Theme Toggle Button Focus & Touch */
+.theme-toggle-btn,
+.cosy-theme-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--r-sm, 8px);
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.theme-toggle-btn:hover,
+.cosy-theme-btn:hover,
+.theme-toggle-btn:focus-visible,
+.cosy-theme-btn:focus-visible {
+  background: var(--sage-pale, #e8f0e9);
+  outline: 2px solid var(--sage, #416b49);
+  outline-offset: 2px;
+}
+
+html[data-theme="dark"] .theme-toggle-btn:hover,
+html[data-theme="dark"] .cosy-theme-btn:hover,
+body.theme-dark .theme-toggle-btn:hover,
+body.theme-dark .cosy-theme-btn:hover {
+  background: #2a342c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cosy-lang-menu-btn,
+  .cosy-lang-panel,
+  .cosy-lang-row,
+  .cosy-lang-pin-btn,
+  .theme-toggle-btn,
+  .cosy-theme-btn {
+    transition: none !important;
+    transform: none !important;
+  }
+}
