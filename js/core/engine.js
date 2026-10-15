@@ -572,6 +572,7 @@ function applyMode () {
             }
         }
         window.COSY.bindEcosystemLogoTriggers();
+        window.COSY.bindLanguageMegaMenuTriggers();
 
         const activeNavLang = getActiveNavLang();
         const desktopSw = document.getElementById('cosy-language-switcher');
@@ -1222,6 +1223,202 @@ const COSY = window.COSY = {
 
                 if (!menu.contains(e.target) && !logo) {
                     COSY.closeEcosystemMenu();
+                }
+            });
+        }
+    },
+
+    renderLanguageMegaMenuHTML(langCode) {
+        const lang = langCode || getActiveNavLang() || 'en';
+        const cfg = (typeof window !== 'undefined' && window.getLangConfig)
+            ? window.getLangConfig(lang)
+            : ((typeof window !== 'undefined' && window.COSY_LANG_CONFIG) ? window.COSY_LANG_CONFIG[lang] : null);
+
+        if (!cfg || !cfg.megaMenu || !cfg.megaMenu.length) {
+            return '';
+        }
+
+        const groupsHtml = cfg.megaMenu.map(grp => {
+            const validItems = (grp.items || []).filter(item => item && item.title && item.href);
+            if (!validItems.length) return '';
+
+            const cardsHtml = validItems.map(item => {
+                const isExternal = item.href.startsWith('http://') || item.href.startsWith('https://');
+                const targetAttr = isExternal ? ' target="_blank" rel="noopener"' : '';
+                return `
+                  <a href="${item.href}" class="cosy-eco-card" data-accent="${grp.accentKey || 'learn-free'}" ${targetAttr}>
+                    <div class="cosy-eco-card-header">
+                      <span class="cosy-eco-card-icon">${item.icon || '📌'}</span>
+                      <span class="cosy-eco-card-title">${item.title}</span>
+                    </div>
+                    <div class="cosy-eco-card-promise">${item.promise || ''}</div>
+                  </a>`;
+            }).join('');
+
+            return `
+              <div class="cosy-eco-group" data-accent="${grp.accentKey || 'learn-free'}">
+                <div class="cosy-eco-group-title">${grp.group}</div>
+                <div class="cosy-eco-group-grid">
+                  ${cardsHtml}
+                </div>
+              </div>`;
+        }).join('');
+
+        return `
+          <div id="cosy-lang-mega-menu" class="cosy-eco-mega-menu cosy-lang-mega-menu" role="dialog" aria-label="${cfg.name || 'Language'} Navigation Menu" hidden>
+            <div class="cosy-eco-menu-header">
+              <span class="cosy-eco-menu-title">${cfg.flag || '🌐'} COSY${(cfg.name || 'Language').toLowerCase()} Menu</span>
+              <button type="button" class="cosy-eco-menu-close" aria-label="Close menu" onclick="COSY.closeLanguageMegaMenu()">✕</button>
+            </div>
+            <div class="cosy-eco-menu-body">
+              ${groupsHtml}
+            </div>
+          </div>`;
+    },
+
+    openLanguageMegaMenu(langCode) {
+        let menu = document.getElementById('cosy-lang-mega-menu');
+        const lang = langCode || getActiveNavLang() || 'en';
+        if (!menu) {
+            const container = document.createElement('div');
+            container.innerHTML = this.renderLanguageMegaMenuHTML(lang);
+            if (container.firstElementChild) {
+                document.body.appendChild(container.firstElementChild);
+                menu = document.getElementById('cosy-lang-mega-menu');
+            }
+        } else {
+            const container = document.createElement('div');
+            container.innerHTML = this.renderLanguageMegaMenuHTML(lang);
+            if (container.firstElementChild) {
+                menu.replaceWith(container.firstElementChild);
+                menu = document.getElementById('cosy-lang-mega-menu');
+            }
+        }
+        if (!menu) return;
+
+        const trigger = document.querySelector('.sd-breadcrumb-trigger, #cosy-lang-menu-trigger, [data-lang-menu-trigger]');
+        menu.removeAttribute('hidden');
+        menu.classList.add('open');
+        if (trigger) {
+            trigger.setAttribute('aria-expanded', 'true');
+        }
+        this._langPreviousFocus = document.activeElement;
+        const firstCard = menu.querySelector('.cosy-eco-card, button');
+        if (firstCard) firstCard.focus();
+    },
+
+    closeLanguageMegaMenu() {
+        const menu = document.getElementById('cosy-lang-mega-menu');
+        const trigger = document.querySelector('.sd-breadcrumb-trigger, #cosy-lang-menu-trigger, [data-lang-menu-trigger]');
+        if (!menu) return;
+        menu.setAttribute('hidden', '');
+        menu.classList.remove('open');
+        if (trigger) {
+            trigger.setAttribute('aria-expanded', 'false');
+            if (this._langPreviousFocus) {
+                this._langPreviousFocus.focus();
+            }
+        }
+    },
+
+    toggleLanguageMegaMenu(langCode) {
+        const menu = document.getElementById('cosy-lang-mega-menu');
+        if (!menu) {
+            this.openLanguageMegaMenu(langCode);
+            return;
+        }
+        const isOpen = !menu.hasAttribute('hidden') && menu.classList.contains('open');
+        if (isOpen) {
+            this.closeLanguageMegaMenu();
+        } else {
+            this.openLanguageMegaMenu(langCode);
+        }
+    },
+
+    bindLanguageMegaMenuTriggers() {
+        const triggers = document.querySelectorAll('.sd-breadcrumb-trigger, #cosy-lang-menu-trigger, [data-lang-menu-trigger]');
+        if (triggers.length === 0) return;
+
+        const lang = getActiveNavLang() || 'en';
+        if (!document.getElementById('cosy-lang-mega-menu')) {
+            const container = document.createElement('div');
+            container.innerHTML = this.renderLanguageMegaMenuHTML(lang);
+            if (container.firstElementChild) {
+                document.body.appendChild(container.firstElementChild);
+            }
+        }
+
+        triggers.forEach(trig => {
+            if (trig.dataset.langMegaBound) return;
+            trig.dataset.langMegaBound = 'true';
+            trig.setAttribute('aria-haspopup', 'dialog');
+            trig.setAttribute('aria-expanded', 'false');
+
+            let hoverTimer = null;
+            trig.addEventListener('mouseenter', () => {
+                if (window.innerWidth >= 768) {
+                    hoverTimer = setTimeout(() => {
+                        COSY.openLanguageMegaMenu(lang);
+                    }, 150);
+                }
+            });
+            trig.addEventListener('mouseleave', () => {
+                if (hoverTimer) clearTimeout(hoverTimer);
+            });
+
+            trig.addEventListener('click', (e) => {
+                e.preventDefault();
+                COSY.toggleLanguageMegaMenu(lang);
+            });
+
+            trig.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    COSY.toggleLanguageMegaMenu(lang);
+                }
+            });
+        });
+
+        if (!window._langMegaGlobalHandlerBound) {
+            window._langMegaGlobalHandlerBound = true;
+
+            document.addEventListener('keydown', (e) => {
+                const menu = document.getElementById('cosy-lang-mega-menu');
+                if (!menu || menu.hasAttribute('hidden') || !menu.classList.contains('open')) return;
+
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    COSY.closeLanguageMegaMenu();
+                    return;
+                }
+
+                if (e.key === 'Tab') {
+                    const focusables = Array.from(menu.querySelectorAll('a[href], button, [tabindex="0"]')).filter(el => !el.hasAttribute('disabled'));
+                    if (focusables.length === 0) return;
+                    const firstEl = focusables[0];
+                    const lastEl = focusables[focusables.length - 1];
+
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstEl) {
+                            e.preventDefault();
+                            lastEl.focus();
+                        }
+                    } else {
+                        if (document.activeElement === lastEl) {
+                            e.preventDefault();
+                            firstEl.focus();
+                        }
+                    }
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                const menu = document.getElementById('cosy-lang-mega-menu');
+                const trigger = e.target.closest('.sd-breadcrumb-trigger, #cosy-lang-menu-trigger, [data-lang-menu-trigger]');
+                if (!menu || menu.hasAttribute('hidden') || !menu.classList.contains('open')) return;
+
+                if (!menu.contains(e.target) && !trigger) {
+                    COSY.closeLanguageMegaMenu();
                 }
             });
         }

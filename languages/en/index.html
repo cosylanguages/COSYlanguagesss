@@ -32,22 +32,18 @@
 
 <nav id="cosy-nav" aria-label="Main navigation"></nav>
 
-<!-- Sticky Top Navigation Header -->
+<!-- Sticky Top Navigation Header with Language Mega-Menu Trigger -->
 <header class="sd-sticky-header" aria-label="English section navigation">
   <div class="sd-header-inner">
     <div class="sd-breadcrumbs">
       <a href="../../index.html">Home</a>
       <span class="sep">/</span>
-      <span class="current">English</span>
+      <button type="button" class="sd-breadcrumb-trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="cosy-lang-mega-menu" aria-label="Open English navigation menu">
+        <span class="sd-breadcrumb-flag">🇬🇧</span>
+        <span class="sd-breadcrumb-name">English</span>
+        <span class="sd-breadcrumb-caret">▾</span>
+      </button>
     </div>
-    <nav class="sd-jump-links" aria-label="Page jump links">
-      <a href="#skills" class="sd-jump-link">Skill Portals</a>
-      <a href="#daily-dose" class="sd-jump-link">Daily Dose</a>
-      <a href="#interactive-tools" class="sd-jump-link">Apps &amp; Practice</a>
-      <a href="#resources" class="sd-jump-link">Resources</a>
-      <a href="#media-culture" class="sd-jump-link">Media &amp; Culture</a>
-      <a href="#daily-life" class="sd-jump-link">Daily Life</a>
-    </nav>
   </div>
 </header>
 
@@ -389,7 +385,7 @@
     <p>Real feedback from students reaching fluency in English.</p>
   </div>
   <div class="reviews-carousel-wrapper reveal">
-    <div class="review-slide active" style="opacity: 1; position: relative;">
+    <div class="review-slide active">
       <div class="review-card-inner">
         <span class="rq-mark rq-top">❝</span>
         <p class="review-slide-text">I really enjoyed our lessons, they were both fascinating and informative. 🙂 It's a very convenient format when you can just have a dialogue with the teacher on everyday topics and learn the language at the same time. James very clearly shows how grammar works. I strongly advise you to study languages with COSYlanguages.</p>
@@ -734,6 +730,7 @@
 </footer>
 
 <script src="../../js/data/languages.js"></script>
+<script src="../../js/data/lang-config.js"></script>
 <script src="../../js/core/engine.js"></script>
 <script src="../../js/core/i18n.js"></script>
 <script src="../../js/data/daily_dose.js"></script>
