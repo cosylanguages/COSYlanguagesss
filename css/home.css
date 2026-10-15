@@ -31,54 +31,163 @@
 }
 .hs-lbl { font-size: .75rem; color: #ffffff; font-weight: 700; text-transform: uppercase; }
 
-/* ── Journey Philosophy & Organic Flow Enhancements ────────────────── */
-section {
+/* ── Reusable Section Pattern & Organic Flow Enhancements ────────────────── */
+.home-section {
   position: relative;
-  border-radius: 32px;
-  margin: 1.5rem auto;
+  border-radius: var(--cosy-radius-xl, 32px);
+  margin: 1rem auto;
   padding: 3.5rem 2rem;
-  transition: background-color 0.3s ease;
+  box-shadow: var(--cosy-shadow-sm);
+  border: 1px solid var(--cosy-color-border);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  z-index: 2;
+}
+
+#story {
+  background: var(--cosy-color-cream, #FAF7F2);
 }
 
 #how {
-  background: linear-gradient(180deg, var(--cosy-color-cream) 0%, var(--cosy-color-cream-dark) 100%);
-  border: 1px solid var(--cosy-color-border);
+  background: var(--cosy-color-warm-white, #FFFEFB);
 }
 
 #languages {
-  background: linear-gradient(180deg, var(--cosy-color-warm-white) 0%, var(--cosy-color-cream) 100%);
-  border: 1px solid var(--cosy-color-border);
+  background: var(--cosy-color-cream-dark, #F4EDE2);
 }
 
 #courses {
-  background: linear-gradient(180deg, var(--cosy-color-cream-dark) 0%, var(--cosy-color-warm-white) 100%);
-  border: 1px solid var(--cosy-color-border);
+  background: var(--cosy-color-warm-white, #FFFEFB);
 }
 
 #events {
-  background: linear-gradient(135deg, var(--cosy-accent-join-in-light) 0%, var(--cosy-color-honey-pale) 100%);
-  border: 1px solid var(--cosy-color-border);
+  background: var(--cosy-color-honey-pale, #FFF8E7);
 }
 
 #tools {
-  background: linear-gradient(180deg, var(--cosy-color-sage-mist) 0%, var(--cosy-color-cream) 100%);
-  border: 1px solid var(--cosy-color-border);
+  background: var(--cosy-color-sage-mist, #F0F5F1);
 }
 
 #calculator {
-  background: linear-gradient(180deg, var(--cosy-color-warm-white) 0%, var(--cosy-color-cream-dark) 100%);
-  border: 1px solid var(--cosy-color-border);
+  background: var(--cosy-color-warm-white, #FFFEFB);
 }
 
 #reviews {
-  background: linear-gradient(180deg, var(--cosy-color-cream-dark) 0%, var(--cosy-color-sage-mist) 100%);
-  border: 1px solid var(--cosy-color-border);
+  background: var(--cosy-color-cream, #FAF7F2);
 }
 
 #start {
-  background: linear-gradient(135deg, var(--cosy-color-sage-deep) 0%, var(--cosy-color-sage-dark) 100%);
-  border-radius: var(--cosy-radius-xl);
+  background: linear-gradient(135deg, var(--cosy-color-sage-deep, #233827) 0%, var(--cosy-color-sage-dark, #375742) 100%);
   color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+#start .sec-tag-light {
+  color: #FFE09A;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+#start .sec-h2 {
+  color: #ffffff;
+}
+
+#start .sec-p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Wave Section Dividers ────────────────────────── */
+.sec-divider {
+  width: 100%;
+  height: 32px;
+  margin: -0.75rem 0;
+  position: relative;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sec-divider svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Journey Thread Component ────────────────────────── */
+.page-journey-container {
+  position: relative;
+}
+
+.journey-thread-svg-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1040px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.journey-thread-path {
+  stroke: var(--cosy-color-sage, #416B49);
+  stroke-width: 2.5px;
+  stroke-dasharray: 6 6;
+  opacity: 0.35;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.sec-milestone-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 4;
+  margin: -1.25rem auto;
+  pointer-events: none;
+}
+
+.milestone-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.95rem;
+  border-radius: 100px;
+  background: var(--cosy-color-surface, #ffffff);
+  color: var(--sage-deep, #233827);
+  border: 1.5px solid var(--cosy-color-border, rgba(74, 107, 80, 0.2));
+  box-shadow: var(--cosy-shadow-sm);
+  pointer-events: auto;
+}
+
+.milestone-badge .m-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+@media (max-width: 860px) {
+  .journey-thread-svg-overlay {
+    display: none;
+  }
+  .milestone-badge {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-thread-path {
+    stroke-dasharray: none;
+  }
 }
 
 /* Journey Roadmap Connectors & Badges */
