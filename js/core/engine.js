@@ -761,20 +761,14 @@ function ensureI18nLoaded() {
     document.head.appendChild(s);
 }
 
-function ensureSSOAndCMSLoaded() {
+function ensureSSOLoaded() {
     if (typeof document === 'undefined') return;
     const p = getPrefix();
 
-    function loadSSOAndCMS() {
+    function loadSSO() {
         if (!document.querySelector('script[src*="js/core/auth-sso.js"]')) {
             const s = document.createElement('script');
             s.src = p + 'js/core/auth-sso.js';
-            document.head.appendChild(s);
-        }
-
-        if (!document.querySelector('script[src*="js/core/cms-editor.js"]')) {
-            const s = document.createElement('script');
-            s.src = p + 'js/core/cms-editor.js';
             document.head.appendChild(s);
         }
     }
@@ -783,17 +777,17 @@ function ensureSSOAndCMSLoaded() {
         const sbScript = document.createElement('script');
         sbScript.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1';
         sbScript.crossOrigin = 'anonymous';
-        sbScript.onload = loadSSOAndCMS;
+        sbScript.onload = loadSSO;
         document.head.appendChild(sbScript);
     } else {
-        loadSSOAndCMS();
+        loadSSO();
     }
 }
 
 function inject () {
     injectStyles();
     ensureI18nLoaded();
-    ensureSSOAndCMSLoaded();
+    ensureSSOLoaded();
     if (!document.getElementById('cosy-mobile-menu')) {
         const m = document.createElement('div'); m.id = 'cosy-mobile-menu'; document.body.appendChild(m);
     }

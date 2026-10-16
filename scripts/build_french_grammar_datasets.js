@@ -80,7 +80,7 @@ const FRENCH_TOPIC_EXPLANATIONS = {
         a: "Utilisez 'apporter' pour transporter un objet vers le lieu où l'on se rend.",
         b: "Utilisez 'emporter' pour prendre un objet avec soi en quittant un lieu."
     },
-    'grâce-a-vs-a-cause-de': {
+    'grace-a-vs-a-cause-de': {
         a: "Utilisez 'grâce à' pour introduire une cause bénéfique ou positive.",
         b: "Utilisez 'à cause de' pour introduire une cause négative ou responsable d'un problème."
     },
@@ -329,7 +329,7 @@ const FRENCH_TOPICS = [
     { lvl: 'b1', id: 'depuis-vs-pendant', label: 'depuis vs pendant', group: 'Temps', a: 'depuis', b: 'pendant' },
     { lvl: 'b1', id: 'penser-a-vs-penser-de', label: 'penser à vs penser de', group: 'Verbes à préposition', a: 'penser à', b: 'penser de' },
     { lvl: 'b1', id: 'apporter-vs-emporter', label: 'apporter vs emporter', group: 'Verbes de mouvement', a: 'apporter', b: 'emporter' },
-    { lvl: 'b1', id: 'grâce-a-vs-a-cause-de', label: 'grâce à vs à cause de', group: 'Cause', a: 'grâce à', b: 'à cause de' },
+    { lvl: 'b1', id: 'grace-a-vs-a-cause-de', label: 'grâce à vs à cause de', group: 'Cause', a: 'grâce à', b: 'à cause de' },
 
     // B2
     { lvl: 'b2', id: 'subjonctif-vs-indicatif', label: 'subjonctif vs indicatif', group: 'Modes', a: 'indicatif', b: 'subjonctif' },
