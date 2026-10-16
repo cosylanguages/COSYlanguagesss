@@ -68,8 +68,9 @@ This document provides a definitive architectural audit, migration strategy, and
 * **Primary Role:** The principal learning platform for online individual and group lessons. Area for logged-in students and teachers.
 * **Competitor Benchmarking & Feature Architecture (inspired by Skyeng, ProgressMe, Edvibe, Preply):**
   - **Interactive Lesson Canvas:** Multi-user synced whiteboard/canvas supporting drag-and-drop exercises, gap-fills, line matching, inline audio players, and live video stream integration.
-  - **Integrated Teacher Dashboard:**
-    - Lesson planning workspace with 1-click loading of curriculum units from `cosymanuals` and speaking club themes from `cosyevents`.
+  - **Integrated Teacher Dashboard & Lesson Creation Studio:**
+    - Lesson creation feature enabling teachers and content authors to build, customize, and publish individual and group online lessons.
+    - Lesson planning workspace with 1-click loading of curriculum units from `cosymanuals`, speaking club themes from `cosyevents`, and interactive drills.
     - Real-time student error tracker and "Vocabulary Collector" tool that pushes new target words directly to the student's personal dictionary notebook during class.
     - Homework assigner with auto-checking cloze drills.
   - **Student Personal Space:** Progress dashboard, lesson history, active homework tasks, diagnostic radar charts, and dictionary trainer.
