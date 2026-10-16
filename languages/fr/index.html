@@ -17,6 +17,7 @@
 <meta name="apple-mobile-web-app-title" content="COSYlanguages">
 <link rel="apple-touch-icon" href="../../images/logos/cosylanguages.png">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&amp;family=Lora:ital,wght@0,500;0,700;1,500;1,700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/components.css">
 <link rel="stylesheet" href="../../css/lang-pages.css">
 <link rel="stylesheet" href="../../css/lang-accents.css">
 <link rel="stylesheet" href="../../css/mobile.css">
@@ -25,7 +26,7 @@
 </head>
 <body data-lang-theme="fr">
 
-<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:1rem;z-index:9999;padding:0.5rem 1rem;background:#fff;color:#000;" onfocus="this.style.left='1rem'" onblur="this.style.left='-9999px'">Aller au contenu principal</a>
+<a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
 <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20en%20savoir%20plus%20sur%20les%20cours%20de%20fran%C3%A7ais." class="wa-fab" title="Chat sur WhatsApp">💬</a>
 
@@ -40,29 +41,28 @@
       <span class="current">Français</span>
     </div>
     <nav class="sd-jump-links" aria-label="Liens d'accès rapide">
-      <a href="#courses" class="sd-jump-link">Cours &amp; Niveaux</a>
-      <a href="#skills" class="sd-jump-link">Portails d'apprentissage</a>
-      <a href="#daily-dose" class="sd-jump-link">Dose quotidienne</a>
-      <a href="#interactive-tools" class="sd-jump-link">Applications &amp; Pratique</a>
-      <a href="#resources" class="sd-jump-link">Ressources</a>
-      <a href="#media-culture" class="sd-jump-link">Médias &amp; Culture</a>
+      <a href="#learn" class="sd-jump-link">Apprendre</a>
+      <a href="#practice-free" class="sd-jump-link">Pratique gratuite</a>
+      <a href="#explore" class="sd-jump-link">Explorer le français</a>
       <a href="#blog-guides" class="sd-jump-link">Articles &amp; Guides</a>
       <a href="#events" class="sd-jump-link">Événements</a>
       <a href="#reviews" class="sd-jump-link">Avis</a>
-      <a href="#daily-life" class="sd-jump-link">Vie quotidienne</a>
     </nav>
   </div>
 </header>
 
 <header class="hero" data-flag="🇫🇷" aria-label="Présentation du français">
+  <div class="hero-motif" aria-hidden="true">
+    <svg class="lang-motif" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 20L80 80H20L50 20Z" stroke="currentColor" stroke-width="2"/><circle cx="50" cy="55" r="12" stroke="currentColor" stroke-width="2"/></svg>
+  </div>
   <div class="hero-inner">
     <div class="hero-eyebrow">🇫🇷 Bienvenue sur COSYfrançais · Français</div>
     <h1>Parlez français avec <em>élégance</em>.</h1>
     <p class="hero-sub">Du « Bonjour » au niveau Baby au discours professionnel fluide au niveau Professor. La conversation d'abord, toujours: parce que le français ouvre les portes de la culture et du monde.</p>
     <div class="hero-ctas">
       <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20commencer%20des%20cours%20de%20fran%C3%A7ais." class="btn-primary">💬 Commencer le français</a>
-      <a href="../../placement-quiz.html" class="btn-soft">📝 Test de niveau gratuit</a>
-      <a href="../../index.html#calculator" class="btn-ghost">Voir les tarifs 🏷️</a>
+      <a href="../../placement-quiz.html" class="btn-secondary">📝 Test de niveau gratuit</a>
+      <a href="../../index.html#calculator" class="btn-soft">🏷️ Voir les tarifs</a>
     </div>
     <div class="hero-why">
       <span class="hw-pill">🌍 Langue mondiale</span>
@@ -71,259 +71,473 @@
       <span class="hw-pill">🗣️ 1-à-1 &amp; groupe</span>
     </div>
   </div>
-  <div class="hero-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fdf8f0"/></svg></div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="var(--cream)"/></svg></div>
 </header>
 
-<!-- Daily Strip Component Directly Under Hero -->
-<div data-daily-strip data-lang="fr"></div>
+<!-- Daily Strip Component Directly Under Hero with preserved #daily-dose anchor -->
+<div id="daily-dose" data-daily-strip data-lang="fr"></div>
+
+<div class="page-journey-container">
+
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">📖</span> Milestone 1: Apprentissage structuré</span></div>
 
 <main id="main-content">
 
-<!-- Courses Section with Levels & Book Now -->
-<section id="courses" class="home-section">
+<!-- SECTION 1: LEARN (Courses + Skill Portals) -->
+<section id="learn" class="home-section lang-sec-tone-1">
+  <!-- Inner anchors for backward compatibility -->
+  <div id="courses"></div>
+  <div id="skills"></div>
+
   <div class="sec-head reveal">
-    <span class="sec-tag">📖 Cours de français</span>
-    <h2>Cours &amp; Niveaux de français (A1 → C2)</h2>
-    <p>Choisissez votre format de cours: individuel ou en groupe. Chaque leçon est 40%+ de pratique orale dès le premier jour.</p>
+    <span class="sec-tag">📖 Apprendre le français</span>
+    <h2>Cours, Niveaux &amp; Portails d'apprentissage</h2>
+    <p>Choisissez votre format de cours (A1 → C2) ou explorez directement nos portails de compétences.</p>
   </div>
-  <div class="courses-grid summary-grid">
-    <div class="course-card course-card-general dark reveal visible">
-      <div class="cc-icon">📖</div>
-      <h3 class="cc-title">Cours Général</h3>
-      <p class="cc-desc">Niveaux A1 → C2. Programme structuré pour adultes couvrant l'expression orale, l'écoute, la lecture et la grammaire.</p>
-      <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20Général%20de%20français." class="btn-primary btn-card-on-dark">Réserver →</a>
+
+  <div class="learn-container">
+    <div class="learn-block">
+      <h3 class="block-subtitle">Cours de français &amp; Niveaux (A1 → C2)</h3>
+      <div class="courses-grid summary-grid">
+        <div class="course-card course-card-general dark reveal visible">
+          <div class="cc-icon">📖</div>
+          <h3 class="cc-title">Cours Général</h3>
+          <p class="cc-desc">Niveaux A1 → C2. Programme structuré pour adultes couvrant l'expression orale, l'écoute, la lecture et la grammaire.</p>
+          <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20Général%20de%20français." class="btn-primary btn-card-on-dark">Réserver →</a>
+        </div>
+        <div class="course-card course-card-spoken dark reveal visible">
+          <div class="cc-icon">🗣️</div>
+          <h3 class="cc-title">Cours de Conversation</h3>
+          <p class="cc-desc">Niveaux A1 → C2. Entraînements de conversation de 15 ou 30 minutes pour développer la fluidité spontanée.</p>
+          <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20de%20Conversation%20en%20français." class="btn-primary btn-card-on-dark">Réserver →</a>
+        </div>
+        <div class="course-card course-card-exam dark reveal visible">
+          <div class="cc-icon">📝</div>
+          <h3 class="cc-title">Préparation aux Examens</h3>
+          <p class="cc-desc">Préparation au DELF (A1–B2) et DALF (C1–C2) dans les conditions exactes des épreuves d'examen.</p>
+          <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20la%20préparation%20DELF/DALF." class="btn-primary btn-card-on-dark">Réserver →</a>
+        </div>
+        <div class="course-card course-card-travelling dark reveal visible">
+          <div class="cc-icon">✈️</div>
+          <h3 class="cc-title">Français de Voyage</h3>
+          <p class="cc-desc">Français pratique pour voyager: aéroport, hôtel, restaurants, orientation et urgences.</p>
+          <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20Français%20de%20Voyage." class="btn-primary btn-card-on-dark">Réserver →</a>
+        </div>
+        <div class="course-card course-card-professional dark reveal visible">
+          <div class="cc-icon">💼</div>
+          <h3 class="cc-title">Français Professionnel</h3>
+          <p class="cc-desc">Français des affaires pour les entretiens, e-mails, présentations et négociations internationales.</p>
+          <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20Français%20Professionnel." class="btn-primary btn-card-on-dark">Réserver →</a>
+        </div>
+        <div class="course-card course-card-relocation dark reveal visible">
+          <div class="cc-icon">🏡</div>
+          <h3 class="cc-title">Cours d'Installation &amp; Relocalisation</h3>
+          <p class="cc-desc">Logement, démarches administratives, santé et intégration quotidienne dans les pays francophones.</p>
+          <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20d'Installation." class="btn-primary btn-card-on-dark">Réserver →</a>
+        </div>
+      </div>
     </div>
-    <div class="course-card course-card-spoken dark reveal visible">
-      <div class="cc-icon">🗣️</div>
-      <h3 class="cc-title">Cours de Conversation</h3>
-      <p class="cc-desc">Niveaux A1 → C2. Entraînements de conversation de 15 ou 30 minutes pour développer la fluidité spontanée.</p>
-      <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20de%20Conversation%20en%20français." class="btn-primary btn-card-on-dark">Réserver →</a>
-    </div>
-    <div class="course-card course-card-exam dark reveal visible">
-      <div class="cc-icon">📝</div>
-      <h3 class="cc-title">Préparation aux Examens</h3>
-      <p class="cc-desc">Préparation au DELF (A1–B2) et DALF (C1–C2) dans les conditions exactes des épreuves d'examen.</p>
-      <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20la%20préparation%20DELF/DALF." class="btn-primary btn-card-on-dark">Réserver →</a>
-    </div>
-    <div class="course-card course-card-travelling dark reveal visible">
-      <div class="cc-icon">✈️</div>
-      <h3 class="cc-title">Français de Voyage</h3>
-      <p class="cc-desc">Français pratique pour voyager: aéroport, hôtel, restaurants, orientation et urgences.</p>
-      <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20Français%20de%20Voyage." class="btn-primary btn-card-on-dark">Réserver →</a>
-    </div>
-    <div class="course-card course-card-professional dark reveal visible">
-      <div class="cc-icon">💼</div>
-      <h3 class="cc-title">Français Professionnel</h3>
-      <p class="cc-desc">Français des affaires pour les entretiens, e-mails, présentations et négociations internationales.</p>
-      <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20Français%20Professionnel." class="btn-primary btn-card-on-dark">Réserver →</a>
-    </div>
-    <div class="course-card course-card-relocation dark reveal visible">
-      <div class="cc-icon">🏡</div>
-      <h3 class="cc-title">Cours d'Installation &amp; Relocalisation</h3>
-      <p class="cc-desc">Logement, démarches administratives, santé et intégration quotidienne dans les pays francophones.</p>
-      <a href="https://wa.me/330766784195?text=Bonjour!%20Je%20souhaite%20réserver%20le%20Cours%20d'Installation." class="btn-primary btn-card-on-dark">Réserver →</a>
+
+    <div class="learn-block">
+      <h3 class="block-subtitle">Maîtriser le français (Portails principaux)</h3>
+      <div class="skills-grid reveal">
+        <a href="curriculum.html" class="skill-card">
+          <div class="sc-badge">📖</div>
+          <div class="sc-title">Programme d'études A1-C2</div>
+          <div class="sc-desc">Unités structurées, fiches pédagogiques et thèmes communicatifs.</div>
+          <div class="sc-action">Explorer le programme →</div>
+        </a>
+        <a href="grammar.html" class="skill-card">
+          <div class="sc-badge">⚡</div>
+          <div class="sc-title">Manuels de Grammaire</div>
+          <div class="sc-desc">Règles détaillées, explications, questions de vérification et exercices.</div>
+          <div class="sc-action">Étudier la grammaire →</div>
+        </a>
+        <a href="vocabulary.html" class="skill-card">
+          <div class="sc-badge">📚</div>
+          <div class="sc-title">Vocabulaire &amp; Expressions</div>
+          <div class="sc-desc">Listes thématiques, collocations, verbes et idiomes essentiels.</div>
+          <div class="sc-action">Apprendre les mots →</div>
+        </a>
+        <a href="marathon-prononciation.html" class="skill-card">
+          <div class="sc-badge">🗣️</div>
+          <div class="sc-title">Marathon Prononciation</div>
+          <div class="sc-desc">Recettes physiques des sons, liaisons, rythme et exercices audio.</div>
+          <div class="sc-action">Pratiquer la prononciation →</div>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Core Skill Portals -->
-<section id="skills">
-  <div class="sec-head reveal">
-    <span class="sec-tag">🎓 Portails d'apprentissage</span>
-    <h2>Maîtriser le français</h2>
-    <p>Ressources structurées pour le programme, la grammaire, le vocabulaire et la prononciation.</p>
-  </div>
-  <div class="skills-grid reveal">
-    <a href="curriculum.html" class="skill-card">
-      <div class="sc-badge">📖</div>
-      <div class="sc-title">Programme d'études A1-C2</div>
-      <div class="sc-desc">Unités structurées, fiches pédagogiques et thèmes communicatifs.</div>
-      <div class="sc-action">Explorer le programme →</div>
-    </a>
-    <a href="grammar.html" class="skill-card">
-      <div class="sc-badge">⚡</div>
-      <div class="sc-title">Manuels de Grammaire</div>
-      <div class="sc-desc">Règles détaillées, explications, questions de vérification et exercices.</div>
-      <div class="sc-action">Étudier la grammaire →</div>
-    </a>
-    <a href="vocabulary.html" class="skill-card">
-      <div class="sc-badge">📚</div>
-      <div class="sc-title">Vocabulaire &amp; Expressions</div>
-      <div class="sc-desc">Listes thématiques, collocations, verbes et idiomes essentiels.</div>
-      <div class="sc-action">Apprendre les mots →</div>
-    </a>
-    <a href="pronunciation.html" class="skill-card">
-      <div class="sc-badge">🗣️</div>
-      <div class="sc-title">Marathon Prononciation</div>
-      <div class="sc-desc">Recettes physiques des sons, liaisons, rythme et exercices audio.</div>
-      <div class="sc-action">Pratiquer la prononciation →</div>
-    </a>
-  </div>
-</section>
+<div class="sec-divider" aria-hidden="true"><svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 0C240 32 480 48 720 48C960 48 1200 32 1440 0V48H0V0Z" fill="var(--bg-tone-2, #f0f5f1)"/></svg></div>
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🛠️</span> Milestone 2: Pratique quotidienne</span></div>
 
-<!-- Daily dose -->
-<section id="daily-dose">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="daily_dose_tag">💊 Daily Dose &amp; Cultural Insights</span>
-    <h2 data-translate-key="daily_dose_title">Dose quotidienne de français 💡</h2>
-  </div>
-</section>
+<!-- SECTION 2: PRACTICE FREE (Interactive Tools + Essential Resources) -->
+<section id="practice-free" class="home-section lang-sec-tone-2">
+  <!-- Inner anchors for backward compatibility -->
+  <div id="interactive-tools"></div>
+  <div id="resources"></div>
 
-<!-- Interactive Reference Engines & Practice -->
-<section id="interactive-tools">
   <div class="sec-head reveal">
-    <span class="sec-tag">🛠️ Applications interactives</span>
-    <h2>Applications &amp; Pratique interactive</h2>
+    <span class="sec-tag">🛠️ Pratique gratuite</span>
+    <h2>Applications interactives, Jeux &amp; Ressources</h2>
     <p>Pratiquez le français avec des moteurs de référence interactifs, des exercices et des jeux éducatifs.</p>
   </div>
-  <div class="resources-grid">
 
-    <a href="https://cosylanguages.github.io/COSYtools/fr-regime/index.html" target="_blank" class="resource-card reveal" rel="noopener">
-      <div class="rc-icon">⚙️</div>
-      <div class="rc-name">Régime Prépositionnel Français</div>
-      <div class="rc-desc">Moteur interactif pour les régimes prépositionnels des verbes et adjectifs.</div>
-      <div class="rc-link">Ouvrir l'application →</div>
-    </a>
-    <a href="https://cosylanguages.github.io/COSYtools/fr-conjugeur/index.html" target="_blank" class="resource-card reveal" rel="noopener">
-      <div class="rc-icon">⚙️</div>
-      <div class="rc-name">Le Conjugeur Français</div>
-      <div class="rc-desc">Base de données complète de conjugaison des verbes français.</div>
-      <div class="rc-link">Ouvrir l'application →</div>
-    </a>
-    <a href="https://cosylanguages.github.io/COSYtools/fr-genre/index.html" target="_blank" class="resource-card reveal" rel="noopener">
-      <div class="rc-icon">⚙️</div>
-      <div class="rc-name">Genre des Noms Français</div>
-      <div class="rc-desc">Guide interactif du genre des noms et des exceptions.</div>
-      <div class="rc-link">Ouvrir l'application →</div>
+  <div class="practice-entry-grid reveal">
+    <a href="../../practice/index.html?lang=FR" class="practice-entry-card highlight-practice">
+      <div class="pec-icon">💡</div>
+      <div class="pec-content">
+        <h3>Pratique Interactive</h3>
+        <p>Exercices gratuits, quiz et compréhension orale personnalisés.</p>
+      </div>
+      <div class="pec-action">S'entraîner maintenant →</div>
     </a>
 
-    <a href="../../practice/index.html?lang=FR" class="resource-card reveal">
-      <div class="rc-icon">💡</div>
-      <div class="rc-name">Pratique Interactive (COSYdata)</div>
-      <div class="rc-desc">Exercices gratuits, quiz et compréhension orale pour le français.</div>
-      <div class="rc-link">S'entraîner maintenant →</div>
+    <a href="https://cosylanguages.github.io/COSYtools/fr-regime/index.html" target="_blank" rel="noopener" class="practice-entry-card highlight-tools">
+      <div class="pec-icon">⚙️</div>
+      <div class="pec-content">
+        <h3>Régime Prépositionnel</h3>
+        <p>Moteur interactif pour les prépositions des verbes et adjectifs.</p>
+      </div>
+      <div class="pec-action">Ouvrir l'application →</div>
     </a>
-    <a href="https://cosylanguages.github.io/COSYgames/scene_match/index.html?lang=FR" class="resource-card reveal">
-      <div class="rc-icon">🖼️</div>
-      <div class="rc-name">Scene Match Interactif</div>
-      <div class="rc-desc">Jeu interactif de vocabulaire visuel et scènes de la vie quotidienne.</div>
-      <div class="rc-link">Jouer →</div>
+
+    <a href="https://cosylanguages.github.io/COSYgames/?lang=FR" target="_blank" rel="noopener" class="practice-entry-card highlight-games">
+      <div class="pec-icon">🎮</div>
+      <div class="pec-content">
+        <h3>Jeux Linguistiques</h3>
+        <p>Jeux de vocabulaire et de grammaire pour tester votre fluidité.</p>
+      </div>
+      <div class="pec-action">Jouer aux jeux →</div>
     </a>
-    <a href="https://cosylanguages.github.io/COSYgames/?lang=FR" class="resource-card reveal">
-      <div class="rc-icon">🎮</div>
-      <div class="rc-name">Jeux Linguistiques</div>
-      <div class="rc-desc">Jeux de vocabulaire et de grammaire pour tester votre fluidité.</div>
-      <div class="rc-link">Jouer aux jeux →</div>
-    </a>
+  </div>
+
+  <div class="resource-filter-wrapper reveal">
+    <h3 class="block-subtitle">Outils d'apprentissage &amp; Ressources essentielles</h3>
+    <div class="resource-filter-tabs" role="tablist" aria-label="Catégories de ressources">
+      <button type="button" class="rf-tab active" onclick="filterResources('all', this)" role="tab" aria-selected="true">Toutes les ressources</button>
+      <button type="button" class="rf-tab" onclick="filterResources('dictionary', this)" role="tab" aria-selected="false">Dictionnaires</button>
+      <button type="button" class="rf-tab" onclick="filterResources('grammar', this)" role="tab" aria-selected="false">Grammaire &amp; Outils</button>
+      <button type="button" class="rf-tab" onclick="filterResources('media', this)" role="tab" aria-selected="false">Médias &amp; Actualités</button>
+    </div>
+
+    <div class="resources-grid" id="resources-grid">
+      <a href="https://www.larousse.fr/dictionnaires/francais" target="_blank" rel="noopener" class="resource-card reveal" data-cat="dictionary">
+        <div class="rc-icon">📖</div>
+        <div class="rc-name">Larousse</div>
+        <div class="rc-desc">Dictionnaire de référence avec définitions et synonymes.</div>
+        <div class="rc-link">Visiter →</div>
+      </a>
+      <a href="https://www.wordreference.com/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="dictionary">
+        <div class="rc-icon">🔄</div>
+        <div class="rc-name">WordReference</div>
+        <div class="rc-desc">Dictionnaire multilingue: traduisez vers n'importe quelle langue.</div>
+        <div class="rc-link">Visiter →</div>
+      </a>
+      <a href="https://bonpatron.com/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">✍️</div>
+        <div class="rc-name">BonPatron</div>
+        <div class="rc-desc">Correcteur d'orthographe et de grammaire en ligne.</div>
+        <div class="rc-link">Visiter →</div>
+      </a>
+      <a href="https://cosylanguages.github.io/COSYtools/fr-conjugeur/index.html" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">⚙️</div>
+        <div class="rc-name">Le Conjugeur Français</div>
+        <div class="rc-desc">Base de données complète de conjugaison des verbes français.</div>
+        <div class="rc-link">Ouvrir l'application →</div>
+      </a>
+      <a href="https://cosylanguages.github.io/COSYtools/fr-genre/index.html" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">⚙️</div>
+        <div class="rc-name">Genre des Noms Français</div>
+        <div class="rc-desc">Guide interactif du genre des noms et des exceptions.</div>
+        <div class="rc-link">Ouvrir l'application →</div>
+      </a>
+      <a href="https://forvo.com/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="media">
+        <div class="rc-icon">🔊</div>
+        <div class="rc-name">Forvo</div>
+        <div class="rc-desc">Prononciations par des locuteurs natifs pour chaque mot.</div>
+        <div class="rc-link">Visiter →</div>
+      </a>
+      <a href="https://francaisfacile.rfi.fr/fr/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="media">
+        <div class="rc-icon">📰</div>
+        <div class="rc-name">RFI Français Facile</div>
+        <div class="rc-desc">Actualités en français simplifié pour les apprenants.</div>
+        <div class="rc-link">Visiter →</div>
+      </a>
+    </div>
   </div>
 </section>
 
-<section id="resources">
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🎭</span> Milestone 3: Immersion culturelle</span></div>
+
+<!-- SECTION 3: EXPLORE FRENCH (Media, Culture & Daily Life) -->
+<section id="explore" class="home-section lang-sec-tone-3">
+  <!-- Inner anchors for backward compatibility -->
+  <div id="media-culture"></div>
+  <div id="daily-life"></div>
+
   <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="sec_tag_tools">📚 Outils d'apprentissage</span>
-    <h2 data-translate-key="learning_resources">Ressources essentielles pour le français</h2>
-    <p data-translate-key="learning_resources_desc">Dictionnaires, outils de grammaire, guides de prononciation: tous gratuits.</p>
+    <span class="sec-tag">🎭 Explorer le français</span>
+    <h2>Médias, Culture &amp; Vie quotidienne</h2>
+    <p>Immergez-vous dans la langue française: radio en direct, chaînes TV et services de la vie quotidienne.</p>
   </div>
-  <div class="resources-grid">
-    <a href="https://www.larousse.fr/dictionnaires/francais" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">📖</div>
-      <div class="rc-name">Larousse</div>
-      <div class="rc-desc">Dictionnaire de référence avec définitions et synonymes.</div>
-      <div class="rc-link">Visiter →</div>
-    </a>
-    <a href="https://www.wordreference.com/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">🔄</div>
-      <div class="rc-name">WordReference</div>
-      <div class="rc-desc">Dictionnaire multilingue: traduisez vers n'importe quelle langue.</div>
-      <div class="rc-link">Visiter →</div>
-    </a>
-    <a href="https://bonpatron.com/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">✍️</div>
-      <div class="rc-name">BonPatron</div>
-      <div class="rc-desc">Correcteur d'orthographe et de grammaire en ligne.</div>
-      <div class="rc-link">Visiter →</div>
-    </a>
-    <a href="https://forvo.com/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">🔊</div>
-      <div class="rc-name">Forvo</div>
-      <div class="rc-desc">Prononciations par des locuteurs natifs pour chaque mot.</div>
-      <div class="rc-link">Visiter →</div>
-    </a>
-    <a href="https://francaisfacile.rfi.fr/fr/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">📰</div>
-      <div class="rc-name">RFI Français Facile</div>
-      <div class="rc-desc">Actualités en français simplifié pour les apprenants.</div>
-      <div class="rc-link">Visiter →</div>
-    </a>
+
+  <div class="explore-tabs-container">
+    <div class="explore-main-tabs" role="tablist" aria-label="Catégories d'exploration">
+      <button type="button" class="exp-tab active" onclick="showExploreTab('media', this)" role="tab" aria-selected="true" id="exp-tab-media">📺 Médias &amp; Streaming</button>
+      <button type="button" class="exp-tab" onclick="showExploreTab('culture', this)" role="tab" aria-selected="false" id="exp-tab-culture">🎭 Immersion culturelle</button>
+      <button type="button" class="exp-tab" onclick="showExploreTab('dailylife', this)" role="tab" aria-selected="false" id="exp-tab-dailylife">🛒 Vie quotidienne &amp; Services</button>
+    </div>
+
+    <!-- Tab 1: Media -->
+    <div class="explore-panel show" id="exp-panel-media" role="tabpanel" aria-labelledby="exp-tab-media">
+      <div class="media-grid">
+        <div class="media-card reveal">
+          <div class="mc-icon">📻</div>
+          <div class="mc-body">
+            <h4>Radio Garden</h4>
+            <p>Écoutez des stations de radio françaises en direct du monde entier.</p>
+            <a href="https://radio.garden/" target="_blank" rel="noopener" class="mc-link">Ouvrir Radio Garden →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">📺</div>
+          <div class="mc-body">
+            <h4>TV Garden</h4>
+            <p>Regardez les chaînes de télévision françaises: actualités, divertissement, culture.</p>
+            <a href="https://tv.garden/" target="_blank" rel="noopener" class="mc-link">Ouvrir TV Garden →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">🎬</div>
+          <div class="mc-body">
+            <h4>france.tv</h4>
+            <p>Plateforme de streaming gratuite de la télévision publique française: séries, émissions et direct.</p>
+            <a href="https://www.france.tv/" target="_blank" rel="noopener" class="mc-link">Regarder france.tv →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">🎨</div>
+          <div class="mc-body">
+            <h4>Arte en français</h4>
+            <p>Chaîne culturelle européenne avec documentaires, films et magazines gratuits en français.</p>
+            <a href="https://www.arte.tv/fr/" target="_blank" rel="noopener" class="mc-link">Regarder Arte →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">🇨🇦</div>
+          <div class="mc-body">
+            <h4>ONF / NFB</h4>
+            <p>Office national du film du Canada: des centaines de films, documentaires et animations en français.</p>
+            <a href="https://www.nfb.ca/" target="_blank" rel="noopener" class="mc-link">Explorer l'ONF →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Culture -->
+    <div class="explore-panel" id="exp-panel-culture" role="tabpanel" aria-labelledby="exp-tab-culture">
+      <div class="culture-intro">
+        <h3>Immersion culturelle francophone</h3>
+        <p>Enrichissez votre vocabulaire culturel grâce aux arts authentiques, au cinéma et aux reportages.</p>
+      </div>
+      <div class="media-grid">
+        <div class="media-card reveal">
+          <div class="mc-icon">🎨</div>
+          <div class="mc-body">
+            <h4>Arte Culture</h4>
+            <p>Documentaires haute définition, expositions et spectacles vivants en français.</p>
+            <a href="https://www.arte.tv/fr/" target="_blank" rel="noopener" class="mc-link">Regarder Arte →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">📻</div>
+          <div class="mc-body">
+            <h4>Radio France</h4>
+            <p>Écoutez France Inter, France Culture et FIP en direct pour la richesse de la langue orale.</p>
+            <a href="https://www.radiofrance.fr/" target="_blank" rel="noopener" class="mc-link">Écouter Radio France →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">🇨🇦</div>
+          <div class="mc-body">
+            <h4>ONF Canada</h4>
+            <p>Cinéma d'auteur québécois, légendes autochtones et animations primées aux Oscars.</p>
+            <a href="https://www.nfb.ca/" target="_blank" rel="noopener" class="mc-link">Explorer l'ONF →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Daily Life -->
+    <div class="explore-panel" id="exp-panel-dailylife" role="tabpanel" aria-labelledby="exp-tab-dailylife">
+      <div class="country-tabs">
+        <button type="button" class="ctab active" data-country="fr" onclick="showCountry('fr')">🇫🇷 France</button>
+        <button type="button" class="ctab" data-country="be" onclick="showCountry('be')">🇧🇪 Belgique</button>
+        <button type="button" class="ctab" data-country="ch" onclick="showCountry('ch')">🇨🇭 Suisse</button>
+        <button type="button" class="ctab" data-country="ca" onclick="showCountry('ca')">🇨🇦 Canada (QC)</button>
+      </div>
+
+      <div class="country-panel show" id="country-fr">
+        <div class="country-name">🇫🇷 France</div>
+        <div class="shop-category">
+          <h4>🏢 Logement, Location &amp; Immobilier</h4>
+          <div class="shop-grid">
+            <a href="https://www.seloger.com/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">SeLoger</div>
+              <div class="sc-desc">1er site d'annonces immobilières et location d'appartements.</div>
+            </a>
+            <a href="https://www.leboncoin.fr/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Leboncoin</div>
+              <div class="sc-desc">Petites annonces, ventes, logements et services.</div>
+            </a>
+            <a href="https://www.bienici.com/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Bien'ici</div>
+              <div class="sc-desc">Recherche immobilière avec carte interactive 3D.</div>
+            </a>
+            <a href="https://www.pap.fr/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">PAP</div>
+              <div class="sc-desc">Location et vente immobilière de particulier à particulier.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>💄 Mode &amp; Beauté</h4>
+          <div class="shop-grid">
+            <a href="https://www.galerieslafayette.com/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Galeries Lafayette</div>
+              <div class="sc-desc">Grand magasin iconique de mode et luxe.</div>
+            </a>
+            <a href="https://www.sephora.fr/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Sephora</div>
+              <div class="sc-desc">Parfumerie et cosmétiques.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>🏡 Maison &amp; Tech</h4>
+          <div class="shop-grid">
+            <a href="https://www.fnac.com/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Fnac</div>
+              <div class="sc-desc">Produits culturels et électroniques.</div>
+            </a>
+            <a href="https://www.darty.com/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Darty</div>
+              <div class="sc-desc">Électroménager et multimédia.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>🍲 Alimentation</h4>
+          <div class="shop-grid">
+            <a href="https://www.carrefour.fr/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Carrefour</div>
+              <div class="sc-desc">Supermarché et épicerie en ligne.</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="country-panel" id="country-be">
+        <div class="country-name">🇧🇪 Belgique</div>
+        <div class="shop-category">
+          <h4>🏢 Logement, Location &amp; Immobilier</h4>
+          <div class="shop-grid">
+            <a href="https://www.immoweb.be/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Immoweb</div>
+              <div class="sc-desc">Le premier site immobilier en Belgique.</div>
+            </a>
+            <a href="https://www.zimmo.be/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Zimmo</div>
+              <div class="sc-desc">Annonces immobilières, maisons et appartements.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>🍲 Alimentation</h4>
+          <div class="shop-grid">
+            <a href="https://www.delhaize.be/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Delhaize</div>
+              <div class="sc-desc">Grande distribution belge.</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="country-panel" id="country-ch">
+        <div class="country-name">🇨🇭 Suisse</div>
+        <div class="shop-category">
+          <h4>🏢 Logement, Location &amp; Immobilier</h4>
+          <div class="shop-grid">
+            <a href="https://www.immoscout24.ch/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">ImmoScout24 CH</div>
+              <div class="sc-desc">Portail immobilier suisse pour louer et acheter.</div>
+            </a>
+            <a href="https://www.homegate.ch/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Homegate</div>
+              <div class="sc-desc">Plateforme immobilière et appartements en Suisse.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>🍲 Alimentation</h4>
+          <div class="shop-grid">
+            <a href="https://www.migros.ch/fr" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Migros</div>
+              <div class="sc-desc">Le géant suisse de la distribution.</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="country-panel" id="country-ca">
+        <div class="country-name">🇨🇦 Canada (Québec)</div>
+        <div class="shop-category">
+          <h4>🏢 Logement, Location &amp; Immobilier</h4>
+          <div class="shop-grid">
+            <a href="https://www.centris.ca/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Centris</div>
+              <div class="sc-desc">Le site immobilier numéro 1 au Québec.</div>
+            </a>
+            <a href="https://duproprio.com/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">DuProprio</div>
+              <div class="sc-desc">Immobilier sans commission au Québec.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>🍲 Alimentation</h4>
+          <div class="shop-grid">
+            <a href="https://www.iga.net/fr" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">IGA</div>
+              <div class="sc-desc">Chaîne de supermarchés québécoise.</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Media & Culture -->
-<section id="media-culture">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="media_culture_tag">🎭 Immersion</span>
-    <h2 data-translate-key="media_culture">Médias et culture en français</h2>
-    <p data-translate-key="media_culture_desc">Immergez-vous dans le français: écoutez la radio en direct et regardez les chaînes de télévision.</p>
-  </div>
-  <div class="media-grid">
-    <div class="media-card reveal">
-      <div class="mc-icon">📻</div>
-      <div class="mc-body">
-        <h4>Radio Garden</h4>
-        <p>Écoutez des stations de radio françaises en direct du monde entier.</p>
-        <a href="https://radio.garden/" target="_blank" class="mc-link">Ouvrir Radio Garden →</a>
-      </div>
-    </div>
-    <div class="media-card reveal">
-      <div class="mc-icon">📺</div>
-      <div class="mc-body">
-        <h4>TV Garden</h4>
-        <p>Regardez les chaînes de télévision françaises: actualités, divertissement, culture.</p>
-        <a href="https://tv.garden/" target="_blank" class="mc-link">Ouvrir TV Garden →</a>
-      </div>
-    </div>
-    <div class="media-card reveal">
-      <div class="mc-icon">🎬</div>
-      <div class="mc-body">
-        <h4>france.tv</h4>
-        <p>Plateforme de streaming gratuite de la télévision publique française: séries, émissions et direct.</p>
-        <a href="https://www.france.tv/" target="_blank" class="mc-link">Regarder france.tv →</a>
-      </div>
-    </div>
-    <div class="media-card reveal">
-      <div class="mc-icon">🎨</div>
-      <div class="mc-body">
-        <h4>Arte en français</h4>
-        <p>Chaîne culturelle européenne avec documentaires, films et magazines gratuits en français.</p>
-        <a href="https://www.arte.tv/fr/" target="_blank" class="mc-link">Regarder Arte →</a>
-      </div>
-    </div>
-    <div class="media-card reveal">
-      <div class="mc-icon">🇨🇦</div>
-      <div class="mc-body">
-        <h4>ONF / NFB</h4>
-        <p>Office national du film du Canada: des centaines de films, documentaires et animations en français.</p>
-        <a href="https://www.nfb.ca/" target="_blank" class="mc-link">Explorer l'ONF →</a>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">📝</span> Milestone 4: Connaissances &amp; Audio</span></div>
 
-<!-- Blog Posts & Guides -->
-<section id="blog-guides" class="home-section">
+<!-- SECTION 4: ARTICLES & TOP 100 -->
+<section id="blog-guides" class="home-section lang-sec-tone-4">
   <div class="sec-head reveal">
     <span class="sec-tag">📝 Vogue Gazette &amp; Guides</span>
     <h2>Articles &amp; Master Lists de français</h2>
     <p>Explorez nos guides master Top 100 A0–A1, nos analyses grammaticales et nos épisodes de podcast.</p>
   </div>
   <div class="resources-grid">
-    <a href="../../blog/posts/top-100-a0-a1-french.html" class="resource-card reveal">
+    <a href="../../blog/top-100-a0-a1-french.html" class="resource-card reveal">
       <div class="rc-icon">🏆</div>
       <div class="rc-name">Guide Master Top 100 Français A0–A1</div>
       <div class="rc-desc">Le vocabulaire français haute fréquence essentiel avec exemples et prononciation.</div>
       <div class="rc-link">Lire le guide →</div>
     </a>
-    <a href="../../blog/posts/replace-50-overused-phrases-fr.html" class="resource-card reveal">
+    <a href="../../blog/replace-50-overused-phrases-fr.html" class="resource-card reveal">
       <div class="rc-icon">⚡</div>
       <div class="rc-name">50 phrases surutilisées en français</div>
       <div class="rc-desc">Remplacez les expressions répétitives par du français naturel et nuancé.</div>
@@ -338,8 +552,10 @@
   </div>
 </section>
 
-<!-- Upcoming French Events -->
-<section id="events" class="home-section">
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🎉</span> Milestone 5: Communauté en direct</span></div>
+
+<!-- SECTION 5: EVENTS -->
+<section id="events" class="home-section lang-sec-tone-5">
   <div class="sec-head reveal">
     <span class="sec-tag">🎉 Rencontres en direct</span>
     <h2>Prochains événements &amp; Clubs de conversation</h2>
@@ -355,15 +571,17 @@
   </div>
 </section>
 
-<!-- Student Reviews -->
-<section id="reviews" class="home-section">
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">💬</span> Milestone 6: Témoignages</span></div>
+
+<!-- SECTION 6: REVIEWS -->
+<section id="reviews" class="home-section lang-sec-tone-6">
   <div class="sec-head reveal">
     <span class="sec-tag">💬 Témoignages d'étudiants</span>
     <h2>Ce que disent les étudiants de COSYfrançais</h2>
     <p>Des retours authentiques d'étudiants progressant vers la fluidité en français.</p>
   </div>
   <div class="reviews-carousel-wrapper reveal">
-    <div class="review-slide active" style="opacity: 1; position: relative;">
+    <div class="review-slide active">
       <div class="review-card-inner">
         <span class="rq-mark rq-top">❝</span>
         <p class="review-slide-text">J'ai vraiment adoré mes cours de français! La méthode axée sur le parler m'a permis de me débloquer très rapidement. Les explications de grammaire sont claires et directement applicables dans la conversation.</p>
@@ -378,156 +596,7 @@
   </div>
 </section>
 
-<!-- Daily life / shopping -->
-<section id="daily-life">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="daily_life">🛒 Vie quotidienne</span>
-    <h2 data-translate-key="daily_life_title">La vie quotidienne en français</h2>
-    <p data-translate-key="daily_life_desc">Explorez les magasins et services réels: idéal pour un vocabulaire pratique en contexte.</p>
-  </div>
-  <div class="country-tabs">
-    <button type="button" class="ctab" data-country="fr" onclick="showCountry('fr')" data-translate-key="france">🇫🇷 France</button>
-    <button type="button" class="ctab" data-country="be" onclick="showCountry('be')" data-translate-key="belgium">🇧🇪 Belgique</button>
-    <button type="button" class="ctab" data-country="ch" onclick="showCountry('ch')" data-translate-key="switzerland">🇨🇭 Suisse</button>
-    <button type="button" class="ctab" data-country="ca" onclick="showCountry('ca')" data-translate-key="canada">🇨🇦 Canada (QC)</button>
-  </div>
-  <div class="country-panel" id="country-fr">
-    <div class="country-name">🇫🇷 France</div>
-      <div class="shop-category">
-        <h4>🏢 Logement, Location &amp; Immobilier</h4>
-        <div class="shop-grid">
-          <a href="https://www.seloger.com/" target="_blank" class="shop-card">
-            <div class="sc-name">SeLoger</div>
-            <div class="sc-desc">1er site d'annonces immobilières et location d'appartements.</div>
-          </a>
-          <a href="https://www.leboncoin.fr/" target="_blank" class="shop-card">
-            <div class="sc-name">Leboncoin</div>
-            <div class="sc-desc">Petites annonces, ventes, logements et services.</div>
-          </a>
-          <a href="https://www.bienici.com/" target="_blank" class="shop-card">
-            <div class="sc-name">Bien'ici</div>
-            <div class="sc-desc">Recherche immobilière avec carte interactive 3D.</div>
-          </a>
-          <a href="https://www.pap.fr/" target="_blank" class="shop-card">
-            <div class="sc-name">PAP</div>
-            <div class="sc-desc">Location et vente immobilière de particulier à particulier.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>💄 Mode &amp; Beauté</h4>
-        <div class="shop-grid">
-          <a href="https://www.galerieslafayette.com/" target="_blank" class="shop-card">
-            <div class="sc-name">Galeries Lafayette</div>
-            <div class="sc-desc">Grand magasin iconique de mode et luxe.</div>
-          </a>
-          <a href="https://www.sephora.fr/" target="_blank" class="shop-card">
-            <div class="sc-name">Sephora</div>
-            <div class="sc-desc">Parfumerie et cosmétiques.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>🏡 Maison &amp; Tech</h4>
-        <div class="shop-grid">
-          <a href="https://www.fnac.com/" target="_blank" class="shop-card">
-            <div class="sc-name">Fnac</div>
-            <div class="sc-desc">Produits culturels et électroniques.</div>
-          </a>
-          <a href="https://www.darty.com/" target="_blank" class="shop-card">
-            <div class="sc-name">Darty</div>
-            <div class="sc-desc">Électroménager et multimédia.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>🍲 Alimentation</h4>
-        <div class="shop-grid">
-          <a href="https://www.carrefour.fr/" target="_blank" class="shop-card">
-            <div class="sc-name">Carrefour</div>
-            <div class="sc-desc">Supermarché et épicerie en ligne.</div>
-          </a>
-        </div>
-      </div>
-  </div>
-  <div class="country-panel" id="country-be">
-    <div class="country-name">🇧🇪 Belgique</div>
-      <div class="shop-category">
-        <h4>🏢 Logement, Location &amp; Immobilier</h4>
-        <div class="shop-grid">
-          <a href="https://www.immoweb.be/" target="_blank" class="shop-card">
-            <div class="sc-name">Immoweb</div>
-            <div class="sc-desc">Le premier site immobilier en Belgique.</div>
-          </a>
-          <a href="https://www.zimmo.be/" target="_blank" class="shop-card">
-            <div class="sc-name">Zimmo</div>
-            <div class="sc-desc">Annonces immobilières, maisons et appartements.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>🍲 Alimentation</h4>
-        <div class="shop-grid">
-          <a href="https://www.delhaize.be/" target="_blank" class="shop-card">
-            <div class="sc-name">Delhaize</div>
-            <div class="sc-desc">Grande distribution belge.</div>
-          </a>
-        </div>
-      </div>
-  </div>
-  <div class="country-panel" id="country-ch">
-    <div class="country-name">🇨🇭 Suisse</div>
-      <div class="shop-category">
-        <h4>🏢 Logement, Location &amp; Immobilier</h4>
-        <div class="shop-grid">
-          <a href="https://www.immoscout24.ch/" target="_blank" class="shop-card">
-            <div class="sc-name">ImmoScout24 CH</div>
-            <div class="sc-desc">Portail immobilier suisse pour louer et acheter.</div>
-          </a>
-          <a href="https://www.homegate.ch/" target="_blank" class="shop-card">
-            <div class="sc-name">Homegate</div>
-            <div class="sc-desc">Plateforme immobilière et appartements en Suisse.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>🍲 Alimentation</h4>
-        <div class="shop-grid">
-          <a href="https://www.migros.ch/fr" target="_blank" class="shop-card">
-            <div class="sc-name">Migros</div>
-            <div class="sc-desc">Le géant suisse de la distribution.</div>
-          </a>
-        </div>
-      </div>
-  </div>
-  <div class="country-panel" id="country-ca">
-    <div class="country-name">🇨🇦 Canada (Québec)</div>
-      <div class="shop-category">
-        <h4>🏢 Logement, Location &amp; Immobilier</h4>
-        <div class="shop-grid">
-          <a href="https://www.centris.ca/" target="_blank" class="shop-card">
-            <div class="sc-name">Centris</div>
-            <div class="sc-desc">Le site immobilier numéro 1 au Québec.</div>
-          </a>
-          <a href="https://duproprio.com/" target="_blank" class="shop-card">
-            <div class="sc-name">DuProprio</div>
-            <div class="sc-desc">Immobilier sans commission au Québec.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>🍲 Alimentation</h4>
-        <div class="shop-grid">
-          <a href="https://www.iga.net/fr" target="_blank" class="shop-card">
-            <div class="sc-name">IGA</div>
-            <div class="sc-desc">Chaîne de supermarchés québécoise.</div>
-          </a>
-        </div>
-      </div>
-  </div>
-</section>
-
-<!-- CTA -->
+<!-- SECTION 7: CTA -->
 <div class="cta-block reveal">
   <h2>Prêt à parler français ? 🗣️</h2>
   <p>Écrivez-nous sur WhatsApp ou Telegram. Dites-nous où vous en êtes: on s'occupe du reste.</p>
@@ -538,6 +607,8 @@
 </div>
 
 </main>
+
+</div>
 
 <footer>
 
@@ -592,5 +663,63 @@
 <script src="../../js/core/ui.js"></script>
 <script src="../../js/daily-strip.js" defer></script>
 <script src="../../js/data/pricing.js"></script>
+
+<script>
+function filterResources(cat, btn) {
+  const tabs = document.querySelectorAll('.rf-tab');
+  tabs.forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+
+  const cards = document.querySelectorAll('#resources-grid .resource-card');
+  cards.forEach(card => {
+    if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function showExploreTab(tabId, btn) {
+  const tabs = document.querySelectorAll('.exp-tab');
+  tabs.forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+
+  const panels = document.querySelectorAll('.explore-panel');
+  panels.forEach(p => p.classList.remove('show'));
+
+  const targetPanel = document.getElementById('exp-panel-' + tabId);
+  if (targetPanel) {
+    targetPanel.classList.add('show');
+  }
+}
+
+function showCountry(code) {
+  const ctabs = document.querySelectorAll('.ctab');
+  ctabs.forEach(t => {
+    if (t.getAttribute('data-country') === code) {
+      t.classList.add('active');
+    } else {
+      t.classList.remove('active');
+    }
+  });
+
+  const cpanels = document.querySelectorAll('.country-panel');
+  cpanels.forEach(p => p.classList.remove('show'));
+
+  const target = document.getElementById('country-' + code);
+  if (target) {
+    target.classList.add('show');
+  }
+}
+</script>
 </body>
 </html>

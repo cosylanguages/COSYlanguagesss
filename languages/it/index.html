@@ -10,13 +10,14 @@
 <meta property="og:image" content="https://cosylanguages.github.io/COSYlanguages/images/logos/cosylanguages.png">
 <link rel="icon" href="../../images/logos/cosylanguages.png">
 <link rel="manifest" href="../../apps/free-portal/manifest.json">
-<meta name="theme-color" content="#4a6b50">
+<meta name="theme-color" content="#9e2a2a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="COSYlanguages">
 <link rel="apple-touch-icon" href="../../images/logos/cosylanguages.png">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&amp;family=Lora:ital,wght@0,500;0,700;1,500;1,700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/components.css">
 <link rel="stylesheet" href="../../css/lang-pages.css">
 <link rel="stylesheet" href="../../css/lang-accents.css">
 <link rel="stylesheet" href="../../css/mobile.css">
@@ -25,7 +26,7 @@
 </head>
 <body data-lang-theme="it">
 
-<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:1rem;z-index:9999;padding:0.5rem 1rem;background:#fff;color:#000;" onfocus="this.style.left='1rem'" onblur="this.style.left='-9999px'">Vai al contenuto principale</a>
+<a href="#main-content" class="skip-link">Vai al contenuto principale</a>
 
 <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20saperne%20di%20pi%C3%B9%20sulle%20lezioni%20di%20italiano." class="wa-fab" title="Chatta su WhatsApp">💬</a>
 
@@ -40,29 +41,28 @@
       <span class="current">Italiano</span>
     </div>
     <nav class="sd-jump-links" aria-label="Link di accesso rapido">
-      <a href="#courses" class="sd-jump-link">Corsi &amp; Livelli</a>
-      <a href="#skills" class="sd-jump-link">Portali di competenze</a>
-      <a href="#daily-dose" class="sd-jump-link">Dose giornaliera</a>
-      <a href="#interactive-tools" class="sd-jump-link">App &amp; Pratica</a>
-      <a href="#resources" class="sd-jump-link">Risorse</a>
-      <a href="#media-culture" class="sd-jump-link">Media &amp; Cultura</a>
+      <a href="#learn" class="sd-jump-link">Impara</a>
+      <a href="#practice-free" class="sd-jump-link">Pratica gratuita</a>
+      <a href="#explore" class="sd-jump-link">Esplora l'italiano</a>
       <a href="#blog-guides" class="sd-jump-link">Articoli &amp; Guide</a>
       <a href="#events" class="sd-jump-link">Eventi</a>
       <a href="#reviews" class="sd-jump-link">Recensioni</a>
-      <a href="#daily-life" class="sd-jump-link">Vita quotidiana</a>
     </nav>
   </div>
 </header>
 
 <header class="hero" data-flag="🇮🇹" aria-label="Presentazione dell'italiano">
+  <div class="hero-motif" aria-hidden="true">
+    <svg class="lang-motif" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="2"/><path d="M50 15C60 30 60 70 50 85M50 15C40 30 40 70 50 85" stroke="currentColor" stroke-width="2"/></svg>
+  </div>
   <div class="hero-inner">
     <div class="hero-eyebrow">🇮🇹 Benvenuti su COSYitaliano · Italiano</div>
     <h1>Parlate italiano con <em>passione</em>.</h1>
     <p class="hero-sub">L'italiano è musica, cultura, storia e cucina. Imparate a parlarlo davvero: dalla prima frase fino alla padronanza naturale.</p>
     <div class="hero-ctas">
       <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20iniziare%20le%20lezioni%20di%20italiano." class="btn-primary">💬 Inizia l'italiano</a>
-      <a href="../../placement-quiz.html" class="btn-soft">📝 Test di livello gratuito</a>
-      <a href="../../index.html#calculator" class="btn-ghost">Vedi i prezzi 🏷️</a>
+      <a href="../../placement-quiz.html" class="btn-secondary">📝 Test di livello gratuito</a>
+      <a href="../../index.html#calculator" class="btn-soft">🏷️ Vedi i prezzi</a>
     </div>
     <div class="hero-why">
       <span class="hw-pill">🍕 Arte &amp; cultura</span>
@@ -71,239 +71,394 @@
       <span class="hw-pill">🗣️ 1-to-1 &amp; gruppo</span>
     </div>
   </div>
-  <div class="hero-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fdf8f0"/></svg></div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="var(--cream)"/></svg></div>
 </header>
 
-<!-- Daily Strip Component Directly Under Hero -->
-<div data-daily-strip data-lang="it"></div>
+<!-- Daily Strip Component Directly Under Hero with preserved #daily-dose anchor -->
+<div id="daily-dose" data-daily-strip data-lang="it"></div>
+
+<div class="page-journey-container">
+
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">📖</span> Milestone 1: Apprendimento strutturato</span></div>
 
 <main id="main-content">
 
-<!-- Courses Section with Levels & Book Now -->
-<section id="courses" class="home-section">
+<!-- SECTION 1: LEARN (Courses + Skill Portals) -->
+<section id="learn" class="home-section lang-sec-tone-1">
+  <!-- Inner anchors for backward compatibility -->
+  <div id="courses"></div>
+  <div id="skills"></div>
+
   <div class="sec-head reveal">
-    <span class="sec-tag">📖 Corsi di Italiano</span>
-    <h2>Corsi &amp; Livelli di Italiano (A1)</h2>
-    <p>Scegliete il formato del vostro corso: individuale o in gruppo. Ogni lezione include oltre il 40% di conversazione fin dal primo giorno.</p>
+    <span class="sec-tag">📖 Impara l'italiano</span>
+    <h2>Corsi, Livelli &amp; Portali di competenze</h2>
+    <p>Scegliete il formato del vostro corso (Livello A1) o esplorate direttamente i nostri portali dedicati.</p>
   </div>
-  <div class="courses-grid summary-grid">
-    <div class="course-card course-card-general dark reveal visible">
-      <div class="cc-icon">📖</div>
-      <h3 class="cc-title">Corso Generale</h3>
-      <p class="cc-desc">Livello A1. Percorso strutturato per adulti: conversazione, ascolto, lettura e basi grammaticali.</p>
-      <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20prenotare%20il%20Corso%20Generale%20di%20italiano." class="btn-primary btn-card-on-dark">Prenota ora →</a>
-    </div>
-    <div class="course-card course-card-spoken dark reveal visible">
-      <div class="cc-icon">🗣️</div>
-      <div class="cc-title">Corso di Conversazione</div>
-      <p class="cc-desc">Livello A1. Sessioni di conversazione da 15 o 30 minuti per sviluppare scioltezza spontanea.</p>
-      <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20prenotare%20il%20Corso%20di%20Conversazione%20di%20italiano." class="btn-primary btn-card-on-dark">Prenota ora →</a>
-    </div>
-    <div class="course-card course-card-exam dark reveal visible">
-      <div class="cc-icon">📝</div>
-      <h3 class="cc-title">Preparazione Esami</h3>
-      <p class="cc-desc">Preparazione CILS, CELI e PLIDA con simulazioni d'esame e prove orali in ogni lezione.</p>
-      <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20prenotare%20la%20preparazione%20esami%20di%20italiano." class="btn-primary btn-card-on-dark">Prenota ora →</a>
-    </div>
-    <div class="course-card course-card-travelling dark reveal visible">
-      <div class="cc-icon">✈️</div>
-      <h3 class="cc-title">Italiano per Viaggiare</h3>
-      <p class="cc-desc">Italiano pratico per viaggiare: aeroporto, hotel, ristoranti, trasporti ed emergenze.</p>
-      <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20prenotare%20il%20Corso%20di%20Italiano%20per%20Viaggiare." class="btn-primary btn-card-on-dark">Prenota ora →</a>
-    </div>
-  </div>
-</section>
 
-<!-- Core Skill Portals -->
-<section id="skills">
-  <div class="sec-head reveal">
-    <span class="sec-tag">🎓 Portali di apprendimento</span>
-    <h2>Impara l'Italiano</h2>
-    <p>Risorse strutturate per programma, grammatica, vocabolario e pronuncia.</p>
-  </div>
-  <div class="skills-grid reveal">
-    <a href="curriculum.html" class="skill-card">
-      <div class="sc-badge">📖</div>
-      <div class="sc-title">Programma A1-C2</div>
-      <div class="sc-desc">Unità strutturate e argomenti comunicativi.</div>
-      <div class="sc-action">Esplora il programma →</div>
-    </a>
-    <a href="grammar.html" class="skill-card">
-      <div class="sc-badge">⚡</div>
-      <div class="sc-title">Manuali di Grammatica</div>
-      <div class="sc-desc">Regole ed esercizi per dominare la grammatica.</div>
-      <div class="sc-action">Studia la grammatica →</div>
-    </a>
-    <a href="vocabulary.html" class="skill-card">
-      <div class="sc-badge">📚</div>
-      <div class="sc-title">Vocabolario e Modi di Dire</div>
-      <div class="sc-desc">Liste di parole, verbi e frasi utili.</div>
-      <div class="sc-action">Impara i vocaboli →</div>
-    </a>
-    <a href="pronunciation.html" class="skill-card">
-      <div class="sc-badge">🗣️</div>
-      <div class="sc-title">Pronuncia Italiana</div>
-      <div class="sc-desc">Guida alla fonetica e all'accento italiano.</div>
-      <div class="sc-action">Esercita la pronuncia →</div>
-    </a>
-  </div>
-</section>
-
-<!-- Daily dose -->
-<section id="daily-dose">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="daily_dose_tag">💊 Daily Dose &amp; Cultural Insights</span>
-    <h2 data-translate-key="daily_dose_title">Dose giornaliera di italiano 💡</h2>
-  </div>
-</section>
-
-<!-- Interactive Reference Engines & Practice -->
-<section id="interactive-tools">
-  <div class="sec-head reveal">
-    <span class="sec-tag">🛠️ Strumenti interattivi</span>
-    <h2>App &amp; Pratica Interattiva</h2>
-    <p>Esercitati con l'italiano usando motori di riferimento, esercizi e giochi didattici.</p>
-  </div>
-  <div class="resources-grid">
-
-    <a href="https://cosylanguages.github.io/COSYtools/it-reggenza/index.html" target="_blank" class="resource-card reveal" rel="noopener">
-      <div class="rc-icon">⚙️</div>
-      <div class="rc-name">Reggenza Verbale Italiana</div>
-      <div class="rc-desc">Motore di reggenza preposizionale per verbi, nomi e aggettivi italiani.</div>
-      <div class="rc-link">Apri l'app →</div>
-    </a>
-    <a href="https://cosylanguages.github.io/COSYtools/it-coniugatore/index.html" target="_blank" class="resource-card reveal" rel="noopener">
-      <div class="rc-icon">⚙️</div>
-      <div class="rc-name">Il Coniugatore Italiano</div>
-      <div class="rc-desc">Database completo di coniugazione verbale e tempi.</div>
-      <div class="rc-link">Apri l'app →</div>
-    </a>
-    <a href="https://cosylanguages.github.io/COSYtools/it-genere/index.html" target="_blank" class="resource-card reveal" rel="noopener">
-      <div class="rc-icon">⚙️</div>
-      <div class="rc-name">Genere dei Nomi Italiani</div>
-      <div class="rc-desc">Classificazione del genere dei nomi e modelli irregolari.</div>
-      <div class="rc-link">Apri l'app →</div>
-    </a>
-
-    <a href="../../practice/index.html?lang=IT" class="resource-card reveal">
-      <div class="rc-icon">💡</div>
-      <div class="rc-name">Pratica Interattiva (COSYdata)</div>
-      <div class="rc-desc">Esercizi gratuiti, quiz e compiti di ascolto per l'italiano.</div>
-      <div class="rc-link">Esercitati ora →</div>
-    </a>
-    <a href="https://cosylanguages.github.io/COSYgames/?lang=IT" class="resource-card reveal">
-      <div class="rc-icon">🎮</div>
-      <div class="rc-name">Giochi Linguistici</div>
-      <div class="rc-desc">Giochi di vocabolario e grammatica per mettere alla prova la tua scioltezza.</div>
-      <div class="rc-link">Gioca ora →</div>
-    </a>
-  </div>
-</section>
-
-<section id="resources">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="sec_tag_tools">📚 Strumenti di apprendimento</span>
-    <h2 data-translate-key="learning_resources">Risorse essenziali per l'italiano</h2>
-    <p data-translate-key="learning_resources_desc">Dizionari, strumenti di coniugazione, guide alla pronuncia: tutti gratuiti.</p>
-  </div>
-  <div class="resources-grid">
-    <a href="https://www.treccani.it/vocabolario/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">📖</div>
-      <div class="rc-name">Treccani Vocabolario</div>
-      <div class="rc-desc">Il dizionario monolingue di riferimento.</div>
-      <div class="rc-link">Visita →</div>
-    </a>
-    <a href="https://www.wordreference.com/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">🔄</div>
-      <div class="rc-name">WordReference</div>
-      <div class="rc-desc">Dizionario multilingue: traducete in qualsiasi lingua.</div>
-      <div class="rc-link">Visita →</div>
-    </a>
-    <a href="https://www.cooljugator.com/it" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">📝</div>
-      <div class="rc-name">Cooljugator</div>
-      <div class="rc-desc">Strumento di coniugazione per tutti i tempi.</div>
-      <div class="rc-link">Visita →</div>
-    </a>
-    <a href="https://forvo.com/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">🔊</div>
-      <div class="rc-name">Forvo</div>
-      <div class="rc-desc">Pronunce autentiche da madrelingua italiani.</div>
-      <div class="rc-link">Visita →</div>
-    </a>
-    <a href="https://www.rai.it/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">📰</div>
-      <div class="rc-name">RAI</div>
-      <div class="rc-desc">Il servizio pubblico radiotelevisivo italiano: notizie e cultura.</div>
-      <div class="rc-link">Visita →</div>
-    </a>
-    <a href="https://www.accademiadellacrusca.it/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">📚</div>
-      <div class="rc-name">Accademia della Crusca</div>
-      <div class="rc-desc">L'istituto della lingua italiana: curiosità e approfondimenti.</div>
-      <div class="rc-link">Visita →</div>
-    </a>
-  </div>
-</section>
-
-<!-- Media & Culture -->
-<section id="media-culture">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="media_culture_tag">🎭 Immersione</span>
-    <h2 data-translate-key="media_culture">Media e cultura in italiano</h2>
-    <p data-translate-key="media_culture_desc">Immergetevi nella lingua italiana: ascoltate la radio dal vivo e guardate i canali TV italiani.</p>
-  </div>
-  <div class="media-grid">
-    <div class="media-card reveal">
-      <div class="mc-icon">📻</div>
-      <div class="mc-body">
-        <h4>Radio Garden</h4>
-        <p>Ascoltate stazioni radio italiane in diretta: musica, notizie, cultura.</p>
-        <a href="https://radio.garden/" target="_blank" class="mc-link">Apri Radio Garden →</a>
+  <div class="learn-container">
+    <div class="learn-block">
+      <h3 class="block-subtitle">Corsi di Italiano &amp; Livelli (A1)</h3>
+      <div class="courses-grid summary-grid">
+        <div class="course-card course-card-general dark reveal visible">
+          <div class="cc-icon">📖</div>
+          <h3 class="cc-title">Corso Generale</h3>
+          <p class="cc-desc">Livello A1. Percorso strutturato per adulti: conversazione, ascolto, lettura e basi grammaticali.</p>
+          <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20prenotare%20il%20Corso%20Generale%20di%20italiano." class="btn-primary btn-card-on-dark">Prenota ora →</a>
+        </div>
+        <div class="course-card course-card-spoken dark reveal visible">
+          <div class="cc-icon">🗣️</div>
+          <h3 class="cc-title">Corso di Conversazione</h3>
+          <p class="cc-desc">Livello A1. Sessioni di conversazione da 15 o 30 minuti per sviluppare scioltezza spontanea.</p>
+          <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20prenotare%20il%20Corso%20di%20Conversazione%20di%20italiano." class="btn-primary btn-card-on-dark">Prenota ora →</a>
+        </div>
+        <div class="course-card course-card-exam dark reveal visible">
+          <div class="cc-icon">📝</div>
+          <h3 class="cc-title">Preparazione Esami</h3>
+          <p class="cc-desc">Preparazione CILS, CELI e PLIDA con simulazioni d'esame e prove orali in ogni lezione.</p>
+          <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20prenotare%20la%20preparazione%20esami%20di%20italiano." class="btn-primary btn-card-on-dark">Prenota ora →</a>
+        </div>
+        <div class="course-card course-card-travelling dark reveal visible">
+          <div class="cc-icon">✈️</div>
+          <h3 class="cc-title">Italiano per Viaggiare</h3>
+          <p class="cc-desc">Italiano pratico per viaggiare: aeroporto, hotel, ristoranti, trasporti ed emergenze.</p>
+          <a href="https://wa.me/330766784195?text=Ciao!%20Vorrei%20prenotare%20il%20Corso%20di%20Italiano%20per%20Viaggiare." class="btn-primary btn-card-on-dark">Prenota ora →</a>
+        </div>
       </div>
     </div>
-    <div class="media-card reveal">
-      <div class="mc-icon">📺</div>
-      <div class="mc-body">
-        <h4>TV Garden</h4>
-        <p>Guardate canali TV italiani da tutto il mondo: RAI, Mediaset e molto altro.</p>
-        <a href="https://tv.garden/" target="_blank" class="mc-link">Apri TV Garden →</a>
-      </div>
-    </div>
-    <div class="media-card reveal">
-      <div class="mc-icon">🎬</div>
-      <div class="mc-body">
-        <h4>RaiPlay</h4>
-        <p>La piattaforma streaming gratuita della RAI: film, serie TV, fiction e programmi culturali.</p>
-        <a href="https://www.raiplay.it/" target="_blank" class="mc-link">Guarda RaiPlay →</a>
-      </div>
-    </div>
-    <div class="media-card reveal">
-      <div class="mc-icon">🎨</div>
-      <div class="mc-body">
-        <h4>Arte in italiano</h4>
-        <p>Canale culturale europeo con documentari, reportage e programmi gratuiti in lingua italiana.</p>
-        <a href="https://www.arte.tv/it/" target="_blank" class="mc-link">Guarda Arte →</a>
+
+    <div class="learn-block">
+      <h3 class="block-subtitle">Impara l'Italiano (Portali principali)</h3>
+      <div class="skills-grid reveal">
+        <a href="curriculum.html" class="skill-card">
+          <div class="sc-badge">📖</div>
+          <div class="sc-title">Programma A1-C2</div>
+          <div class="sc-desc">Unità strutturate e argomenti comunicativi.</div>
+          <div class="sc-action">Esplora il programma →</div>
+        </a>
+        <a href="grammar.html" class="skill-card">
+          <div class="sc-badge">⚡</div>
+          <div class="sc-title">Manuali di Grammatica</div>
+          <div class="sc-desc">Regole ed esercizi per dominare la grammatica.</div>
+          <div class="sc-action">Studia la grammatica →</div>
+        </a>
+        <a href="vocabulary.html" class="skill-card">
+          <div class="sc-badge">📚</div>
+          <div class="sc-title">Vocabolario e Modi di Dire</div>
+          <div class="sc-desc">Liste di parole, verbi e frasi utili.</div>
+          <div class="sc-action">Impara i vocaboli →</div>
+        </a>
+        <a href="pronunciation.html" class="skill-card">
+          <div class="sc-badge">🗣️</div>
+          <div class="sc-title">Pronuncia Italiana</div>
+          <div class="sc-desc">Guida alla fonetica e all'accento italiano.</div>
+          <div class="sc-action">Esercita la pronuncia →</div>
+        </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Blog Posts & Guides -->
-<section id="blog-guides" class="home-section">
+<div class="sec-divider" aria-hidden="true"><svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 0C240 32 480 48 720 48C960 48 1200 32 1440 0V48H0V0Z" fill="var(--bg-tone-2, #f0f5f1)"/></svg></div>
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🛠️</span> Milestone 2: Pratica quotidiana</span></div>
+
+<!-- SECTION 2: PRACTICE FREE (Interactive Tools + Essential Resources) -->
+<section id="practice-free" class="home-section lang-sec-tone-2">
+  <!-- Inner anchors for backward compatibility -->
+  <div id="interactive-tools"></div>
+  <div id="resources"></div>
+
+  <div class="sec-head reveal">
+    <span class="sec-tag">🛠️ Pratica gratuita</span>
+    <h2>App interattive, Giochi &amp; Risorse</h2>
+    <p>Esercitati con l'italiano usando motori di riferimento interattivi, esercizi e giochi didattici.</p>
+  </div>
+
+  <div class="practice-entry-grid reveal">
+    <a href="../../practice/index.html?lang=IT" class="practice-entry-card highlight-practice">
+      <div class="pec-icon">💡</div>
+      <div class="pec-content">
+        <h3>Pratica Interattiva</h3>
+        <p>Esercizi gratuiti, quiz e compiti di ascolto per l'italiano.</p>
+      </div>
+      <div class="pec-action">Esercitati ora →</div>
+    </a>
+
+    <a href="https://cosylanguages.github.io/COSYtools/it-reggenza/index.html" target="_blank" rel="noopener" class="practice-entry-card highlight-tools">
+      <div class="pec-icon">⚙️</div>
+      <div class="pec-content">
+        <h3>Reggenza Verbale</h3>
+        <p>Motore di reggenza preposizionale per verbi, nomi e aggettivi.</p>
+      </div>
+      <div class="pec-action">Apri l'app →</div>
+    </a>
+
+    <a href="https://cosylanguages.github.io/COSYgames/?lang=IT" target="_blank" rel="noopener" class="practice-entry-card highlight-games">
+      <div class="pec-icon">🎮</div>
+      <div class="pec-content">
+        <h3>Giochi Linguistici</h3>
+        <p>Giochi di vocabolario e grammatica per testare la tua fluidità.</p>
+      </div>
+      <div class="pec-action">Gioca ora →</div>
+    </a>
+  </div>
+
+  <div class="resource-filter-wrapper reveal">
+    <h3 class="block-subtitle">Strumenti di apprendimento &amp; Risorse essenziali</h3>
+    <div class="resource-filter-tabs" role="tablist" aria-label="Categorie di risorse">
+      <button type="button" class="rf-tab active" onclick="filterResources('all', this)" role="tab" aria-selected="true">Tutte le risorse</button>
+      <button type="button" class="rf-tab" onclick="filterResources('dictionary', this)" role="tab" aria-selected="false">Dizionari</button>
+      <button type="button" class="rf-tab" onclick="filterResources('grammar', this)" role="tab" aria-selected="false">Grammatica &amp; Strumenti</button>
+      <button type="button" class="rf-tab" onclick="filterResources('media', this)" role="tab" aria-selected="false">Media &amp; Cultura</button>
+    </div>
+
+    <div class="resources-grid" id="resources-grid">
+      <a href="https://www.treccani.it/vocabolario/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="dictionary">
+        <div class="rc-icon">📖</div>
+        <div class="rc-name">Treccani Vocabolario</div>
+        <div class="rc-desc">Il dizionario monolingue di riferimento.</div>
+        <div class="rc-link">Visita →</div>
+      </a>
+      <a href="https://www.wordreference.com/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="dictionary">
+        <div class="rc-icon">🔄</div>
+        <div class="rc-name">WordReference</div>
+        <div class="rc-desc">Dizionario multilingue: traducete in qualsiasi lingua.</div>
+        <div class="rc-link">Visita →</div>
+      </a>
+      <a href="https://cosylanguages.github.io/COSYtools/it-coniugatore/index.html" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">⚙️</div>
+        <div class="rc-name">Il Coniugatore Italiano</div>
+        <div class="rc-desc">Database completo di coniugazione verbale e tempi.</div>
+        <div class="rc-link">Apri l'app →</div>
+      </a>
+      <a href="https://cosylanguages.github.io/COSYtools/it-genere/index.html" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">⚙️</div>
+        <div class="rc-name">Genere dei Nomi Italiani</div>
+        <div class="rc-desc">Classificazione del genere dei nomi e modelli irregolari.</div>
+        <div class="rc-link">Apri l'app →</div>
+      </a>
+      <a href="https://www.cooljugator.com/it" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">📝</div>
+        <div class="rc-name">Cooljugator</div>
+        <div class="rc-desc">Strumento di coniugazione per tutti i tempi.</div>
+        <div class="rc-link">Visita →</div>
+      </a>
+      <a href="https://forvo.com/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="media">
+        <div class="rc-icon">🔊</div>
+        <div class="rc-name">Forvo</div>
+        <div class="rc-desc">Pronunce autentiche da madrelingua italiani.</div>
+        <div class="rc-link">Visita →</div>
+      </a>
+      <a href="https://www.rai.it/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="media">
+        <div class="rc-icon">📰</div>
+        <div class="rc-name">RAI</div>
+        <div class="rc-desc">Il servizio pubblico radiotelevisivo italiano: notizie e cultura.</div>
+        <div class="rc-link">Visita →</div>
+      </a>
+      <a href="https://www.accademiadellacrusca.it/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">📚</div>
+        <div class="rc-name">Accademia della Crusca</div>
+        <div class="rc-desc">L'istituto della lingua italiana: curiosità e approfondimenti.</div>
+        <div class="rc-link">Visita →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🎭</span> Milestone 3: Immersione culturale</span></div>
+
+<!-- SECTION 3: EXPLORE ITALIAN (Media, Culture & Daily Life) -->
+<section id="explore" class="home-section lang-sec-tone-3">
+  <!-- Inner anchors for backward compatibility -->
+  <div id="media-culture"></div>
+  <div id="daily-life"></div>
+
+  <div class="sec-head reveal">
+    <span class="sec-tag">🎭 Esplora l'italiano</span>
+    <h2>Media, Cultura &amp; Vita quotidiana</h2>
+    <p>Immergetevi nella lingua italiana: radio dal vivo, canali TV italiani e servizi reali.</p>
+  </div>
+
+  <div class="explore-tabs-container">
+    <div class="explore-main-tabs" role="tablist" aria-label="Categorie di esplorazione">
+      <button type="button" class="exp-tab active" onclick="showExploreTab('media', this)" role="tab" aria-selected="true" id="exp-tab-media">📺 Media &amp; Streaming</button>
+      <button type="button" class="exp-tab" onclick="showExploreTab('culture', this)" role="tab" aria-selected="false" id="exp-tab-culture">🎭 Immersione culturale</button>
+      <button type="button" class="exp-tab" onclick="showExploreTab('dailylife', this)" role="tab" aria-selected="false" id="exp-tab-dailylife">🛒 Vita quotidiana &amp; Servizi</button>
+    </div>
+
+    <!-- Tab 1: Media -->
+    <div class="explore-panel show" id="exp-panel-media" role="tabpanel" aria-labelledby="exp-tab-media">
+      <div class="media-grid">
+        <div class="media-card reveal">
+          <div class="mc-icon">📻</div>
+          <div class="mc-body">
+            <h4>Radio Garden</h4>
+            <p>Ascoltate stazioni radio italiane in diretta: musica, notizie, cultura.</p>
+            <a href="https://radio.garden/" target="_blank" rel="noopener" class="mc-link">Apri Radio Garden →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">📺</div>
+          <div class="mc-body">
+            <h4>TV Garden</h4>
+            <p>Guardate canali TV italiani da tutto il mondo: RAI, Mediaset e molto altro.</p>
+            <a href="https://tv.garden/" target="_blank" rel="noopener" class="mc-link">Apri TV Garden →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">🎬</div>
+          <div class="mc-body">
+            <h4>RaiPlay</h4>
+            <p>La piattaforma streaming gratuita della RAI: film, serie TV, fiction e programmi culturali.</p>
+            <a href="https://www.raiplay.it/" target="_blank" rel="noopener" class="mc-link">Guarda RaiPlay →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">🎨</div>
+          <div class="mc-body">
+            <h4>Arte in italiano</h4>
+            <p>Canale culturale europeo con documentari, reportage e programmi gratuiti in lingua italiana.</p>
+            <a href="https://www.arte.tv/it/" target="_blank" rel="noopener" class="mc-link">Guarda Arte →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Culture -->
+    <div class="explore-panel" id="exp-panel-culture" role="tabpanel" aria-labelledby="exp-tab-culture">
+      <div class="culture-intro">
+        <h3>Immersione culturale italiana</h3>
+        <p>Arricchisci il tuo vocabolario attraverso arte, patrimonio storico, teatro e grande cinema.</p>
+      </div>
+      <div class="media-grid">
+        <div class="media-card reveal">
+          <div class="mc-icon">🎨</div>
+          <div class="mc-body">
+            <h4>Arte Italia</h4>
+            <p>Documentari d'arte, musica lirica e grandi reportage culturali in italiano.</p>
+            <a href="https://www.arte.tv/it/" target="_blank" rel="noopener" class="mc-link">Guarda Arte →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">📻</div>
+          <div class="mc-body">
+            <h4>Rai Radio 3</h4>
+            <p>La radio culturale italiana: letteratura, storia, teatro e musica classica dal vivo.</p>
+            <a href="https://www.raiplaysound.it/rairadio3" target="_blank" rel="noopener" class="mc-link">Ascolta Radio 3 →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">🏛️</div>
+          <div class="mc-body">
+            <h4>Accademia della Crusca</h4>
+            <p>Approfondimenti sulla lingua italiana, storia dei vocaboli e risposte agli utenti.</p>
+            <a href="https://www.accademiadellacrusca.it/" target="_blank" rel="noopener" class="mc-link">Visita la Crusca →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Daily Life -->
+    <div class="explore-panel" id="exp-panel-dailylife" role="tabpanel" aria-labelledby="exp-tab-dailylife">
+      <div class="country-tabs">
+        <button type="button" class="ctab active" data-country="it" onclick="showCountry('it')">🇮🇹 Italia</button>
+      </div>
+
+      <div class="country-panel show" id="country-it">
+        <div class="country-name">🇮🇹 Italia</div>
+        <div class="shop-category">
+          <h4>🏢 Casa, Affitti &amp; Immobiliare</h4>
+          <div class="shop-grid">
+            <a href="https://www.immobiliare.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Immobiliare.it</div>
+              <div class="sc-desc">Il primo sito di case e appartamenti in Italia.</div>
+            </a>
+            <a href="https://www.idealista.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Idealista IT</div>
+              <div class="sc-desc">Case e stanze in vendita e in affitto.</div>
+            </a>
+            <a href="https://www.subito.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Subito.it</div>
+              <div class="sc-desc">Il sito n.1 in Italia per affitti, vendite e servizi.</div>
+            </a>
+            <a href="https://www.casa.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Casa.it</div>
+              <div class="sc-desc">Annunci immobiliari di case e appartamenti.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>💄 Moda &amp; Bellezza</h4>
+          <div class="shop-grid">
+            <a href="https://www.zalando.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Zalando</div>
+              <div class="sc-desc">Moda online multimarca.</div>
+            </a>
+            <a href="https://www.sephora.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Sephora</div>
+              <div class="sc-desc">Cosmetici e prodotti di bellezza.</div>
+            </a>
+            <a href="https://www.intimissimi.com/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Intimissimi</div>
+              <div class="sc-desc">Intimo e loungewear.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>🏡 Elettronica &amp; Casa</h4>
+          <div class="shop-grid">
+            <a href="https://www.mediaworld.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">MediaWorld</div>
+              <div class="sc-desc">Elettronica di consumo.</div>
+            </a>
+            <a href="https://www.unieuro.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Unieuro</div>
+              <div class="sc-desc">Elettrodomestici e high-tech.</div>
+            </a>
+            <a href="https://www.ikea.com/it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">IKEA Italia</div>
+              <div class="sc-desc">Arredamento e accessori per la casa.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>🍲 Alimentari &amp; Spesa</h4>
+          <div class="shop-grid">
+            <a href="https://www.coop.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Coop</div>
+              <div class="sc-desc">Supermercato cooperativo.</div>
+            </a>
+            <a href="https://www.esselunga.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Esselunga</div>
+              <div class="sc-desc">Supermercato di qualità.</div>
+            </a>
+            <a href="https://www.carrefour.it/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Carrefour Italia</div>
+              <div class="sc-desc">Grande superficie alimentare.</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">📝</span> Milestone 4: Conoscenze &amp; Audio</span></div>
+
+<!-- SECTION 4: ARTICLES & TOP 100 -->
+<section id="blog-guides" class="home-section lang-sec-tone-4">
   <div class="sec-head reveal">
     <span class="sec-tag">📝 Vogue Gazette &amp; Guide</span>
     <h2>Articoli &amp; Guide di Italiano</h2>
     <p>Esplora la guida master Top 100 A0–A1, i verbi essenziali e i podcast audio per chi impara l'italiano.</p>
   </div>
   <div class="resources-grid">
-    <a href="../../blog/posts/top-100-a0-a1-italian.html" class="resource-card reveal">
+    <a href="../../blog/top-100-a0-a1-italian.html" class="resource-card reveal">
       <div class="rc-icon">🏆</div>
       <div class="rc-name">Guida Master Top 100 Italiano A0–A1</div>
       <div class="rc-desc">Vocabolario italiano fondamentale con frasi ed esempi di pronuncia.</div>
       <div class="rc-link">Leggi la guida →</div>
     </a>
-    <a href="../../blog/posts/replace-50-overused-phrases-it.html" class="resource-card reveal">
+    <a href="../../blog/replace-50-overused-phrases-it.html" class="resource-card reveal">
       <div class="rc-icon">⚡</div>
       <div class="rc-name">50 Frasi Sovrautilizzate in Italiano</div>
       <div class="rc-desc">Sostituisci le espressioni ripetitive con un italiano naturale ed espressivo.</div>
@@ -318,8 +473,10 @@
   </div>
 </section>
 
-<!-- Upcoming Italian Events -->
-<section id="events" class="home-section">
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🎉</span> Milestone 5: Comunità dal vivo</span></div>
+
+<!-- SECTION 5: EVENTS -->
+<section id="events" class="home-section lang-sec-tone-5">
   <div class="sec-head reveal">
     <span class="sec-tag">🎉 Incontri dal Vivo</span>
     <h2>Prossimi Eventi di Italiano &amp; Speaking Club</h2>
@@ -335,15 +492,17 @@
   </div>
 </section>
 
-<!-- Student Reviews -->
-<section id="reviews" class="home-section">
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">💬</span> Milestone 6: Storie degli studenti</span></div>
+
+<!-- SECTION 6: REVIEWS -->
+<section id="reviews" class="home-section lang-sec-tone-6">
   <div class="sec-head reveal">
     <span class="sec-tag">💬 Storie degli Studenti</span>
     <h2>Cosa Dicono gli Studenti di COSYitaliano</h2>
     <p>Esperienze reali di studenti che stanno imparando l'italiano con successo.</p>
   </div>
   <div class="reviews-carousel-wrapper reveal">
-    <div class="review-slide active" style="opacity: 1; position: relative;">
+    <div class="review-slide active">
       <div class="review-card-inner">
         <span class="rq-mark rq-top">❝</span>
         <p class="review-slide-text">Le lezioni di italiano sono state un'esperienza bellissima! L'approccio pratico alla conversazione permette di esprimersi fin da subito in situazioni reali con naturalezza.</p>
@@ -358,94 +517,7 @@
   </div>
 </section>
 
-<!-- Daily life / shopping -->
-<section id="daily-life">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="daily_life">🛒 Vita quotidiana</span>
-    <h2 data-translate-key="daily_life_title">La vita quotidiana in italiano</h2>
-    <p data-translate-key="daily_life_desc">Esplorate i negozi e i servizi italiani: ottimo per un vocabolario pratico e concreto.</p>
-  </div>
-  <div class="country-tabs">
-    <button type="button" class="ctab" data-country="it" onclick="showCountry('it')" data-translate-key="italy">🇮🇹 Italia</button>
-  </div>
-  <div class="country-panel" id="country-it">
-    <div class="country-name">🇮🇹 Italia</div>
-      <div class="shop-category">
-        <h4>🏢 Casa, Affitti &amp; Immobiliare</h4>
-        <div class="shop-grid">
-          <a href="https://www.immobiliare.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Immobiliare.it</div>
-            <div class="sc-desc">Il primo sito di case e appartamenti in Italia.</div>
-          </a>
-          <a href="https://www.idealista.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Idealista IT</div>
-            <div class="sc-desc">Case e stanze in vendita e in affitto.</div>
-          </a>
-          <a href="https://www.subito.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Subito.it</div>
-            <div class="sc-desc">Il sito n.1 in Italia per affitti, vendite e servizi.</div>
-          </a>
-          <a href="https://www.casa.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Casa.it</div>
-            <div class="sc-desc">Annunci immobiliari di case e appartamenti.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>💄 Moda &amp; Bellezza</h4>
-        <div class="shop-grid">
-          <a href="https://www.zalando.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Zalando</div>
-            <div class="sc-desc">Moda online multimarca.</div>
-          </a>
-          <a href="https://www.sephora.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Sephora</div>
-            <div class="sc-desc">Cosmetici e prodotti di bellezza.</div>
-          </a>
-          <a href="https://www.intimissimi.com/" target="_blank" class="shop-card">
-            <div class="sc-name">Intimissimi</div>
-            <div class="sc-desc">Intimo e loungewear.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>🏡 Elettronica &amp; Casa</h4>
-        <div class="shop-grid">
-          <a href="https://www.mediaworld.it/" target="_blank" class="shop-card">
-            <div class="sc-name">MediaWorld</div>
-            <div class="sc-desc">Elettronica di consumo.</div>
-          </a>
-          <a href="https://www.unieuro.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Unieuro</div>
-            <div class="sc-desc">Elettrodomestici e high-tech.</div>
-          </a>
-          <a href="https://www.ikea.com/it/" target="_blank" class="shop-card">
-            <div class="sc-name">IKEA Italia</div>
-            <div class="sc-desc">Arredamento e accessori per la casa.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>🍲 Alimentari &amp; Spesa</h4>
-        <div class="shop-grid">
-          <a href="https://www.coop.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Coop</div>
-            <div class="sc-desc">Supermercato cooperativo.</div>
-          </a>
-          <a href="https://www.esselunga.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Esselunga</div>
-            <div class="sc-desc">Supermercato di qualità.</div>
-          </a>
-          <a href="https://www.carrefour.it/" target="_blank" class="shop-card">
-            <div class="sc-name">Carrefour Italia</div>
-            <div class="sc-desc">Grande superficie alimentare.</div>
-          </a>
-        </div>
-      </div>
-  </div>
-</section>
-
-<!-- CTA -->
+<!-- SECTION 7: CTA -->
 <div class="cta-block reveal">
   <h2>Pronti a parlare italiano? 🗣️</h2>
   <p>Scriveteci su WhatsApp o Telegram. Diteci dove siete: pensiamo noi al resto.</p>
@@ -456,6 +528,8 @@
 </div>
 
 </main>
+
+</div>
 
 <footer>
 
@@ -510,5 +584,63 @@
 <script src="../../js/core/ui.js"></script>
 <script src="../../js/daily-strip.js" defer></script>
 <script src="../../js/data/pricing.js"></script>
+
+<script>
+function filterResources(cat, btn) {
+  const tabs = document.querySelectorAll('.rf-tab');
+  tabs.forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+
+  const cards = document.querySelectorAll('#resources-grid .resource-card');
+  cards.forEach(card => {
+    if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function showExploreTab(tabId, btn) {
+  const tabs = document.querySelectorAll('.exp-tab');
+  tabs.forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+
+  const panels = document.querySelectorAll('.explore-panel');
+  panels.forEach(p => p.classList.remove('show'));
+
+  const targetPanel = document.getElementById('exp-panel-' + tabId);
+  if (targetPanel) {
+    targetPanel.classList.add('show');
+  }
+}
+
+function showCountry(code) {
+  const ctabs = document.querySelectorAll('.ctab');
+  ctabs.forEach(t => {
+    if (t.getAttribute('data-country') === code) {
+      t.classList.add('active');
+    } else {
+      t.classList.remove('active');
+    }
+  });
+
+  const cpanels = document.querySelectorAll('.country-panel');
+  cpanels.forEach(p => p.classList.remove('show'));
+
+  const target = document.getElementById('country-' + code);
+  if (target) {
+    target.classList.add('show');
+  }
+}
+</script>
 </body>
 </html>
