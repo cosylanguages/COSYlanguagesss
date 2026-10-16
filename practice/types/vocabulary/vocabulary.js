@@ -547,6 +547,23 @@
 
             console.log('[COSY Practice] getVocabPool result count:', pool.length);
 
+            // Progressively relax selectors before falling back to aggregated data.
+            const relaxPool = (langCode, lvl, th, sub, category, strict) => {
+                const source = window.gameUtils.getVocabPool(langCode, lvl, th, sub, { excludeExtra: true });
+                return source.length
+                    ? window.gameUtils.filterVocabulary(source, { lang: langCode, level: lvl, theme: th, subTheme: sub, category, strict })
+                    : [];
+            };
+            if (pool.length === 0 && subTheme && subTheme !== 'all') {
+                pool = relaxPool(l, level, theme, 'all', uiCat, isStrict);
+            }
+            if (pool.length === 0 && theme !== 'all') {
+                pool = relaxPool(l, level, 'all', 'all', uiCat, isStrict);
+            }
+            if (pool.length === 0 && level !== 'all') {
+                pool = relaxPool(l, 'all', 'all', 'all', uiCat, isStrict);
+            }
+
             // Fallback to aggregated window.*Data if pool is empty
             if (pool.length === 0) {
                 const keys = ['vocabularyData', 'verbsData', 'adjectivesData', 'locationsData', 'peopleData', 'nationalitiesData', 'grammarData', 'grammarElements'];
