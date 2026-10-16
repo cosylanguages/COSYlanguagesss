@@ -1367,7 +1367,51 @@ const COSY = window.COSY = {
         }
 
         const key = `${langLow}_${levelLow}`;
-        return (window.curriculumData && window.curriculumData[key]) || [];
+        const units = (window.curriculumData && window.curriculumData[key]) || [];
+
+        // Recover structured lesson fields that are serialized in teacher_notes.
+        const parseTeacherNotes = (notesStr) => {
+            const result = {};
+            if (typeof notesStr !== 'string' || !notesStr.trim()) return result;
+            let currentKey = null;
+            let currentValue = [];
+            const flush = () => {
+                if (currentKey) result[currentKey] = currentValue.join('\n').trim();
+            };
+            for (const line of notesStr.split('\n')) {
+                const match = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
+                if (match) {
+                    flush();
+                    currentKey = match[1];
+                    currentValue = [match[2]];
+                } else if (currentKey) {
+                    currentValue.push(line);
+                }
+            }
+            flush();
+            for (const k of Object.keys(result)) {
+                const value = result[k];
+                if (value.length >= 2 && value.startsWith('"') && value.endsWith('"')) {
+                    result[k] = value.slice(1, -1);
+                }
+            }
+            if (result.pronunciation && typeof result.pronunciation === 'string') {
+                try { result.pronunciation = JSON.parse(result.pronunciation); }
+                catch (e) { console.warn('Failed to parse pronunciation from teacher_notes:', e); }
+            }
+            return result;
+        };
+
+        if (Array.isArray(units)) {
+            units.forEach(unit => (unit.lessons || []).forEach(lesson => {
+                if (!lesson.teacher_notes) return;
+                const parsed = parseTeacherNotes(lesson.teacher_notes);
+                Object.keys(parsed).forEach(field => {
+                    if (lesson[field] == null) lesson[field] = parsed[field];
+                });
+            }));
+        }
+        return units;
     },
 
     async loadMorphologyData(lang) {
