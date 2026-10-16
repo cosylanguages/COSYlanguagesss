@@ -1347,6 +1347,52 @@ const COSY = window.COSY = {
         const levelUp = level.toUpperCase();
         const levelLow = level.toLowerCase();
         const langLow = lang.toLowerCase();
+        const key = `${langLow}_${levelLow}`;
+
+        const hydrateTeacherNotes = (units) => {
+            const parseTeacherNotes = (notesStr) => {
+                const result = {};
+                if (typeof notesStr !== 'string' || !notesStr.trim()) return result;
+                let currentKey = null;
+                let currentValue = [];
+                const flush = () => {
+                    if (currentKey) result[currentKey] = currentValue.join('\n').trim();
+                };
+                for (const line of notesStr.split('\n')) {
+                    const match = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
+                    if (match) {
+                        flush();
+                        currentKey = match[1];
+                        currentValue = [match[2]];
+                    } else if (currentKey) {
+                        currentValue.push(line);
+                    }
+                }
+                flush();
+                for (const k of Object.keys(result)) {
+                    const value = result[k];
+                    if (value.length >= 2 && value.startsWith('"') && value.endsWith('"')) {
+                        result[k] = value.slice(1, -1);
+                    }
+                }
+                if (result.pronunciation && typeof result.pronunciation === 'string') {
+                    try { result.pronunciation = JSON.parse(result.pronunciation); }
+                    catch (e) { console.warn('Failed to parse pronunciation from teacher_notes:', e); }
+                }
+                return result;
+            };
+
+            if (Array.isArray(units)) {
+                units.forEach(unit => (unit.lessons || []).forEach(lesson => {
+                    if (!lesson.teacher_notes) return;
+                    const parsed = parseTeacherNotes(lesson.teacher_notes);
+                    Object.keys(parsed).forEach(field => {
+                        if (lesson[field] == null) lesson[field] = parsed[field];
+                    });
+                }));
+            }
+            return units;
+        };
 
         const standardPath = `https://raw.githubusercontent.com/cosylanguages/COSYplatform/main/curriculums/${lang}/general/${levelUp}.json`;
         const v2Path = `https://raw.githubusercontent.com/cosylanguages/COSYplatform/main/curriculums/${lang}/general/${levelUp}_v2.json`;
@@ -1355,9 +1401,8 @@ const COSY = window.COSY = {
             const res = await fetch(standardPath);
             const data = res.ok ? await res.json() : await fetch(v2Path).then(r => r.ok ? r.json() : null);
             if (data && data.units) {
-                const units = data.units;
+                const units = hydrateTeacherNotes(data.units);
                 window.curriculumData = window.curriculumData || {};
-                const key = `${langLow}_${levelLow}`;
                 window.curriculumData[key] = units;
                 if (window.cosyDays) window.cosyDays.state.curriculum = units;
                 return units;
@@ -1366,52 +1411,8 @@ const COSY = window.COSY = {
             console.warn(`Failed to load curriculum for ${lang} ${level}:`, e);
         }
 
-        const key = `${langLow}_${levelLow}`;
         const units = (window.curriculumData && window.curriculumData[key]) || [];
-
-        // Recover structured lesson fields that are serialized in teacher_notes.
-        const parseTeacherNotes = (notesStr) => {
-            const result = {};
-            if (typeof notesStr !== 'string' || !notesStr.trim()) return result;
-            let currentKey = null;
-            let currentValue = [];
-            const flush = () => {
-                if (currentKey) result[currentKey] = currentValue.join('\n').trim();
-            };
-            for (const line of notesStr.split('\n')) {
-                const match = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
-                if (match) {
-                    flush();
-                    currentKey = match[1];
-                    currentValue = [match[2]];
-                } else if (currentKey) {
-                    currentValue.push(line);
-                }
-            }
-            flush();
-            for (const k of Object.keys(result)) {
-                const value = result[k];
-                if (value.length >= 2 && value.startsWith('"') && value.endsWith('"')) {
-                    result[k] = value.slice(1, -1);
-                }
-            }
-            if (result.pronunciation && typeof result.pronunciation === 'string') {
-                try { result.pronunciation = JSON.parse(result.pronunciation); }
-                catch (e) { console.warn('Failed to parse pronunciation from teacher_notes:', e); }
-            }
-            return result;
-        };
-
-        if (Array.isArray(units)) {
-            units.forEach(unit => (unit.lessons || []).forEach(lesson => {
-                if (!lesson.teacher_notes) return;
-                const parsed = parseTeacherNotes(lesson.teacher_notes);
-                Object.keys(parsed).forEach(field => {
-                    if (lesson[field] == null) lesson[field] = parsed[field];
-                });
-            }));
-        }
-        return units;
+        return hydrateTeacherNotes(units);
     },
 
     async loadMorphologyData(lang) {
