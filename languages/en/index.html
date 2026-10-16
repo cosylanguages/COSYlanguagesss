@@ -10,13 +10,14 @@
 <meta property="og:image" content="https://cosylanguages.github.io/COSYlanguages/images/logos/cosylanguages.png">
 <link rel="icon" href="../../images/logos/cosylanguages.png">
 <link rel="manifest" href="../../apps/free-portal/manifest.json">
-<meta name="theme-color" content="#4a6b50">
+<meta name="theme-color" content="#2a6099">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="COSYlanguages">
 <link rel="apple-touch-icon" href="../../images/logos/cosylanguages.png">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&amp;family=Lora:ital,wght@0,500;0,700;1,500;1,700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/components.css">
 <link rel="stylesheet" href="../../css/lang-pages.css">
 <link rel="stylesheet" href="../../css/lang-accents.css">
 <link rel="stylesheet" href="../../css/mobile.css">
@@ -51,14 +52,17 @@
 </header>
 
 <header class="hero" data-flag="🇬🇧" aria-label="English overview">
+  <div class="hero-motif" aria-hidden="true">
+    <svg class="lang-motif" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/><path d="M30 50H70M50 30V70" stroke="currentColor" stroke-width="2"/></svg>
+  </div>
   <div class="hero-inner">
     <div class="hero-eyebrow">🇬🇧 Welcome to COSYenglish · English</div>
     <h1>Speak English with <em>confidence</em>.</h1>
     <p class="hero-sub">From absolute Baby level to fluent professional and academic discourse at Professor level. Speaking-first, always: because English opens every door.</p>
     <div class="hero-ctas">
       <a href="https://wa.me/330766784195?text=Hi!%20I%27d%20like%20to%20start%20English%20lessons." class="btn-primary">💬 Start English lessons</a>
-      <a href="../../placement-quiz.html" class="btn-soft">📝 Start with placement quiz</a>
-      <a href="../../index.html#calculator" class="btn-ghost">See pricing 🏷️</a>
+      <a href="../../placement-quiz.html" class="btn-secondary">📝 Placement quiz</a>
+      <a href="../../index.html#calculator" class="btn-soft">🏷️ See pricing</a>
     </div>
     <div class="hero-why">
       <span class="hw-pill">🌍 World language</span>
@@ -67,16 +71,20 @@
       <span class="hw-pill">🗣️ 1-to-1 &amp; group</span>
     </div>
   </div>
-  <div class="hero-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fdf8f0"/></svg></div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="var(--cream)"/></svg></div>
 </header>
 
 <!-- Daily Strip Component Directly Under Hero with preserved #daily-dose anchor -->
 <div id="daily-dose" data-daily-strip data-lang="en"></div>
 
+<div class="page-journey-container">
+
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">📖</span> Milestone 1: Structured Learning</span></div>
+
 <main id="main-content">
 
 <!-- SECTION 1: LEARN (Courses + Skill Portals) -->
-<section id="learn" class="home-section">
+<section id="learn" class="home-section lang-sec-tone-1">
   <!-- Inner anchors for backward compatibility -->
   <div id="courses"></div>
   <div id="skills"></div>
@@ -162,8 +170,11 @@
   </div>
 </section>
 
+<div class="sec-divider" aria-hidden="true"><svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 0C240 32 480 48 720 48C960 48 1200 32 1440 0V48H0V0Z" fill="var(--bg-tone-2, #f0f5f1)"/></svg></div>
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🛠️</span> Milestone 2: Daily Practice</span></div>
+
 <!-- SECTION 2: PRACTICE FREE (Interactive Tools + Essential Resources) -->
-<section id="practice-free" class="home-section">
+<section id="practice-free" class="home-section lang-sec-tone-2">
   <!-- Inner anchors for backward compatibility -->
   <div id="interactive-tools"></div>
   <div id="resources"></div>
@@ -253,8 +264,10 @@
   </div>
 </section>
 
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🎭</span> Milestone 3: Cultural Immersion</span></div>
+
 <!-- SECTION 3: EXPLORE ENGLISH (Media, Culture & Daily Life) -->
-<section id="explore" class="home-section">
+<section id="explore" class="home-section lang-sec-tone-3">
   <!-- Inner anchors for backward compatibility -->
   <div id="media-culture"></div>
   <div id="daily-life"></div>
@@ -672,8 +685,10 @@
   </div>
 </section>
 
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">📝</span> Milestone 4: Knowledge &amp; Audio</span></div>
+
 <!-- SECTION 4: ARTICLES & TOP 100 -->
-<section id="blog-guides" class="home-section">
+<section id="blog-guides" class="home-section lang-sec-tone-4">
   <div class="sec-head reveal">
     <span class="sec-tag">📝 Vogue Gazette &amp; Knowledge Guides</span>
     <h2>English Articles &amp; Master Lists</h2>
@@ -701,8 +716,10 @@
   </div>
 </section>
 
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🎉</span> Milestone 5: Live Community</span></div>
+
 <!-- SECTION 5: EVENTS -->
-<section id="events" class="home-section">
+<section id="events" class="home-section lang-sec-tone-5">
   <div class="sec-head reveal">
     <span class="sec-tag">🎉 Live Gathering</span>
     <h2>Upcoming English Events &amp; Speaking Clubs</h2>
@@ -718,8 +735,10 @@
   </div>
 </section>
 
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">💬</span> Milestone 6: Student Success</span></div>
+
 <!-- SECTION 6: REVIEWS -->
-<section id="reviews" class="home-section">
+<section id="reviews" class="home-section lang-sec-tone-6">
   <div class="sec-head reveal">
     <span class="sec-tag">💬 Student Stories</span>
     <h2>What COSYenglish Students Say</h2>
@@ -752,6 +771,8 @@
 </div>
 
 </main>
+
+</div>
 
 <footer>
 
@@ -842,6 +863,25 @@ function showExploreTab(tabId, btn) {
   const targetPanel = document.getElementById('exp-panel-' + tabId);
   if (targetPanel) {
     targetPanel.classList.add('show');
+  }
+}
+
+function showCountry(code) {
+  const ctabs = document.querySelectorAll('.ctab');
+  ctabs.forEach(t => {
+    if (t.getAttribute('data-country') === code) {
+      t.classList.add('active');
+    } else {
+      t.classList.remove('active');
+    }
+  });
+
+  const cpanels = document.querySelectorAll('.country-panel');
+  cpanels.forEach(p => p.classList.remove('show'));
+
+  const target = document.getElementById('country-' + code);
+  if (target) {
+    target.classList.add('show');
   }
 }
 </script>
