@@ -36,7 +36,6 @@ const STATIC_ASSETS = [
   './js/core/morphology.js',
   './js/pages/flipbook.js',
   './js/data/languages.js',
-  './js/data/pricing.js',
   './js/data/grammar_config.js',
   './practice/_engine/core.js',
   './practice/_engine/renderers.js',

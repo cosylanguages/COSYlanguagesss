@@ -1,7 +1,0 @@
-{
-  "currency": "EUR",
-  "plans": [
-    { "id": "free", "emoji": "🆓", "price": 0, "billing": null },
-    { "id": "student_monthly", "emoji": "📅", "price": 0, "billing": "monthly" }
-  ]
-}

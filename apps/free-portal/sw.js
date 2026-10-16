@@ -22,7 +22,6 @@ const STATIC_ASSETS = [
   '../../js/core/linguistics.js',
   '../../js/core/morphology.js',
   '../../js/data/languages.js',
-  '../../js/data/pricing.js',
   '../../js/data/grammar_config.js',
   '../../practice/_engine/core.js',
   '../../practice/_engine/renderers.js',
