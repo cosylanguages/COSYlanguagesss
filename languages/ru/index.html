@@ -10,13 +10,14 @@
 <meta property="og:image" content="https://cosylanguages.github.io/COSYlanguages/images/logos/cosylanguages.png">
 <link rel="icon" href="../../images/logos/cosylanguages.png">
 <link rel="manifest" href="../../apps/free-portal/manifest.json">
-<meta name="theme-color" content="#4a6b50">
+<meta name="theme-color" content="#3a5298">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="COSYlanguages">
 <link rel="apple-touch-icon" href="../../images/logos/cosylanguages.png">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&amp;family=Lora:ital,wght@0,500;0,700;1,500;1,700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/components.css">
 <link rel="stylesheet" href="../../css/lang-pages.css">
 <link rel="stylesheet" href="../../css/lang-accents.css">
 <link rel="stylesheet" href="../../css/mobile.css">
@@ -25,7 +26,7 @@
 </head>
 <body data-lang-theme="ru">
 
-<a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:1rem;z-index:9999;padding:0.5rem 1rem;background:#fff;color:#000;" onfocus="this.style.left='1rem'" onblur="this.style.left='-9999px'">Перейти к основному содержимому</a>
+<a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
 
 <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20узнать%20больше%20об%20уроках%20русского%20языка." class="wa-fab" title="Написать в WhatsApp">💬</a>
 
@@ -40,29 +41,28 @@
       <span class="current">Русский</span>
     </div>
     <nav class="sd-jump-links" aria-label="Быстрый переход">
-      <a href="#courses" class="sd-jump-link">Курсы и Уровни</a>
-      <a href="#skills" class="sd-jump-link">Языковые порталы</a>
-      <a href="#daily-dose" class="sd-jump-link">Ежедневный раздел</a>
-      <a href="#interactive-tools" class="sd-jump-link">Приложения и Практика</a>
-      <a href="#resources" class="sd-jump-link">Ресурсы</a>
-      <a href="#media-culture" class="sd-jump-link">Медиа и Культура</a>
+      <a href="#learn" class="sd-jump-link">Обучение</a>
+      <a href="#practice-free" class="sd-jump-link">Бесплатная практика</a>
+      <a href="#explore" class="sd-jump-link">Изучайте русский</a>
       <a href="#blog-guides" class="sd-jump-link">Статьи и Гиды</a>
       <a href="#events" class="sd-jump-link">Мероприятия</a>
       <a href="#reviews" class="sd-jump-link">Отзывы</a>
-      <a href="#daily-life" class="sd-jump-link">Повседневная жизнь</a>
     </nav>
   </div>
 </header>
 
 <header class="hero" data-flag="🇷🇺" aria-label="Обзор курса русского языка">
+  <div class="hero-motif" aria-hidden="true">
+    <svg class="lang-motif" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="25" y="25" width="50" height="50" rx="8" stroke="currentColor" stroke-width="2"/><path d="M25 50H75M50 25V75" stroke="currentColor" stroke-width="2"/></svg>
+  </div>
   <div class="hero-inner">
     <div class="hero-eyebrow">🇷🇺 Добро пожаловать в ТАКОЙрусский · Русский</div>
     <h1>Говорите по-русски <em>уверенно</em>.</h1>
     <p class="hero-sub">От « Привет » на уровне Baby до свободного профессионального общения на уровне Professor. Разговорная практика прежде всего: потому что русский открывает целый мир.</p>
     <div class="hero-ctas">
       <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20начать%20занятия%20русским%20языком." class="btn-primary">💬 Начать обучение</a>
-      <a href="../../placement-quiz.html" class="btn-soft">📝 Тест на уровень языка</a>
-      <a href="../../index.html#calculator" class="btn-ghost">Цены 🏷️</a>
+      <a href="../../placement-quiz.html" class="btn-secondary">📝 Тест на уровень языка</a>
+      <a href="../../index.html#calculator" class="btn-soft">🏷️ Цены</a>
     </div>
     <div class="hero-why">
       <span class="hw-pill">🌍 Язык Евразии</span>
@@ -71,223 +71,358 @@
       <span class="hw-pill">🗣️ 1-на-1 и группы</span>
     </div>
   </div>
-  <div class="hero-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fdf8f0"/></svg></div>
+  <div class="hero-wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="var(--cream)"/></svg></div>
 </header>
 
-<!-- Daily Strip Component Directly Under Hero -->
-<div data-daily-strip data-lang="ru"></div>
+<!-- Daily Strip Component Directly Under Hero with preserved #daily-dose anchor -->
+<div id="daily-dose" data-daily-strip data-lang="ru"></div>
+
+<div class="page-journey-container">
+
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">📖</span> Milestone 1: Структурированное обучение</span></div>
 
 <main id="main-content">
 
-<!-- Courses Section with Levels & Book Now -->
-<section id="courses" class="home-section">
+<!-- SECTION 1: LEARN (Courses + Skill Portals) -->
+<section id="learn" class="home-section lang-sec-tone-1">
+  <!-- Inner anchors for backward compatibility -->
+  <div id="courses"></div>
+  <div id="skills"></div>
+
   <div class="sec-head reveal">
-    <span class="sec-tag">📖 Курсы русского языка</span>
-    <h2>Курсы и Уровни русского языка (A1 → C2)</h2>
-    <p>Выберите формат обучения: индивидуально или в группе. На каждом уроке 40%+ времени уделяется разговорной практике.</p>
+    <span class="sec-tag">📖 Обучение русскому языку</span>
+    <h2>Курсы, Уровни &amp; Языковые порталы</h2>
+    <p>Выберите формат обучения (A1 → C2) или перейдите прямо к нашим профильным разделам.</p>
   </div>
-  <div class="courses-grid summary-grid">
-    <div class="course-card course-card-general dark reveal visible">
-      <div class="cc-icon">📖</div>
-      <h3 class="cc-title">Общий курс</h3>
-      <p class="cc-desc">Уровни A1 → C2. Структурированная программа для взрослых: говорение, аудирование, чтение и грамматика.</p>
-      <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Общий%20курс%20русского%20языка." class="btn-primary btn-card-on-dark">Записаться →</a>
+
+  <div class="learn-container">
+    <div class="learn-block">
+      <h3 class="block-subtitle">Курсы русского языка &amp; Уровни (A1 → C2)</h3>
+      <div class="courses-grid summary-grid">
+        <div class="course-card course-card-general dark reveal visible">
+          <div class="cc-icon">📖</div>
+          <h3 class="cc-title">Общий курс</h3>
+          <p class="cc-desc">Уровни A1 → C2. Структурированная программа для взрослых: говорение, аудирование, чтение и грамматика.</p>
+          <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Общий%20курс%20русского%20языка." class="btn-primary btn-card-on-dark">Записаться →</a>
+        </div>
+        <div class="course-card course-card-spoken dark reveal visible">
+          <div class="cc-icon">🗣️</div>
+          <h3 class="cc-title">Разговорный курс</h3>
+          <p class="cc-desc">Уровни A1 → C2. Разговорные тренинги по 15 или 30 минут для развития спонтанной речи.</p>
+          <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Разговорный%20курс%20русского%20языка." class="btn-primary btn-card-on-dark">Записаться →</a>
+        </div>
+        <div class="course-card course-card-exam dark reveal visible">
+          <div class="cc-icon">📝</div>
+          <h3 class="cc-title">Подготовка к ТРКИ</h3>
+          <p class="cc-desc">Подготовка к ТРКИ (TORFL) от A1 до C2 в реальных экзаменационных условиях.</p>
+          <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20подготовку%20к%20ТРКИ." class="btn-primary btn-card-on-dark">Записаться →</a>
+        </div>
+        <div class="course-card course-card-travelling dark reveal visible">
+          <div class="cc-icon">✈️</div>
+          <h3 class="cc-title">Курс для путешествий</h3>
+          <p class="cc-desc">Практический русский в поездках: аэропорт, отель, рестораны, навигация и экстренные ситуации.</p>
+          <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Курс%20для%20путешествий." class="btn-primary btn-card-on-dark">Записаться →</a>
+        </div>
+        <div class="course-card course-card-professional dark reveal visible">
+          <div class="cc-icon">💼</div>
+          <h3 class="cc-title">Деловой русский</h3>
+          <p class="cc-desc">Русский для бизнеса, собеседований, деловой переписки, презентаций и переговоров.</p>
+          <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Деловой%20русский." class="btn-primary btn-card-on-dark">Записаться →</a>
+        </div>
+        <div class="course-card course-card-relocation dark reveal visible">
+          <div class="cc-icon">🏡</div>
+          <h3 class="cc-title">Курс для переезда</h3>
+          <p class="cc-desc">Аренда жилья, документы, медицина и бытовая адаптация в русскоязычной среде.</p>
+          <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Курс%20для%20переезда." class="btn-primary btn-card-on-dark">Записаться →</a>
+        </div>
+      </div>
     </div>
-    <div class="course-card course-card-spoken dark reveal visible">
-      <div class="cc-icon">🗣️</div>
-      <h3 class="cc-title">Разговорный курс</h3>
-      <p class="cc-desc">Уровни A1 → C2. Разговорные тренинги по 15 или 30 минут для развития спонтанной речи.</p>
-      <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Разговорный%20курс%20русского%20языка." class="btn-primary btn-card-on-dark">Записаться →</a>
-    </div>
-    <div class="course-card course-card-exam dark reveal visible">
-      <div class="cc-icon">📝</div>
-      <h3 class="cc-title">Подготовка к ТРКИ</h3>
-      <p class="cc-desc">Подготовка к ТРКИ (TORFL) от A1 до C2 в реальных экзаменационных условиях.</p>
-      <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20подготовку%20к%20ТРКИ." class="btn-primary btn-card-on-dark">Записаться →</a>
-    </div>
-    <div class="course-card course-card-travelling dark reveal visible">
-      <div class="cc-icon">✈️</div>
-      <h3 class="cc-title">Курс для путешествий</h3>
-      <p class="cc-desc">Практический русский в поездках: аэропорт, отель, рестораны, навигация и экстренные ситуации.</p>
-      <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Курс%20для%20путешествий." class="btn-primary btn-card-on-dark">Записаться →</a>
-    </div>
-    <div class="course-card course-card-professional dark reveal visible">
-      <div class="cc-icon">💼</div>
-      <h3 class="cc-title">Деловой русский</h3>
-      <p class="cc-desc">Русский для бизнеса, собеседований, деловой переписки, презентаций и переговоров.</p>
-      <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Деловой%20русский." class="btn-primary btn-card-on-dark">Записаться →</a>
-    </div>
-    <div class="course-card course-card-relocation dark reveal visible">
-      <div class="cc-icon">🏡</div>
-      <h3 class="cc-title">Курс для переезда</h3>
-      <p class="cc-desc">Аренда жилья, документы, медицина и бытовая адаптация в русскоязычной среде.</p>
-      <a href="https://wa.me/330766784195?text=Здравствуйте!%20Я%20хотел%20бы%20записаться%20на%20Курс%20для%20переезда." class="btn-primary btn-card-on-dark">Записаться →</a>
+
+    <div class="learn-block">
+      <h3 class="block-subtitle">Освойте русский язык (Главные порталы)</h3>
+      <div class="skills-grid reveal">
+        <a href="curriculum.html" class="skill-card">
+          <div class="sc-badge">📖</div>
+          <div class="sc-title">Учебная программа A1-C2</div>
+          <div class="sc-desc">Пошаговые модули и коммуникативные темы.</div>
+          <div class="sc-action">Открыть программу →</div>
+        </a>
+        <a href="grammar.html" class="skill-card">
+          <div class="sc-badge">⚡</div>
+          <div class="sc-title">Грамматика и Падежи</div>
+          <div class="sc-desc">Правила, падежные управленческие схемы и упражнения.</div>
+          <div class="sc-action">Изучать грамматику →</div>
+        </a>
+        <a href="vocabulary.html" class="skill-card">
+          <div class="sc-badge">📚</div>
+          <div class="sc-title">Словарь и Идиомы</div>
+          <div class="sc-desc">Тематические подборки и устойчивые выражения.</div>
+          <div class="sc-action">Учить слова →</div>
+        </a>
+        <a href="pronunciation.html" class="skill-card">
+          <div class="sc-badge">🗣️</div>
+          <div class="sc-title">Произношение и Фонетика</div>
+          <div class="sc-desc">Правила ударения и речевая тренировка.</div>
+          <div class="sc-action">Тренировать речь →</div>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Core Skill Portals -->
-<section id="skills">
-  <div class="sec-head reveal">
-    <span class="sec-tag">🎓 Обучающие порталы</span>
-    <h2>Освойте русский язык</h2>
-    <p>Структурированные учебные материалы по грамматике, лексике и произношению.</p>
-  </div>
-  <div class="skills-grid reveal">
-    <a href="curriculum.html" class="skill-card">
-      <div class="sc-badge">📖</div>
-      <div class="sc-title">Учебная программа A1-C2</div>
-      <div class="sc-desc">Пошаговые модули и коммуникативные темы.</div>
-      <div class="sc-action">Открыть программу →</div>
-    </a>
-    <a href="grammar.html" class="skill-card">
-      <div class="sc-badge">⚡</div>
-      <div class="sc-title">Грамматика и Падежи</div>
-      <div class="sc-desc">Правила, падежные управленческие схемы и упражнения.</div>
-      <div class="sc-action">Изучать грамматику →</div>
-    </a>
-    <a href="vocabulary.html" class="skill-card">
-      <div class="sc-badge">📚</div>
-      <div class="sc-title">Словарь и Идиомы</div>
-      <div class="sc-desc">Тематические подборки и устойчивые выражения.</div>
-      <div class="sc-action">Учить слова →</div>
-    </a>
-    <a href="pronunciation.html" class="skill-card">
-      <div class="sc-badge">🗣️</div>
-      <div class="sc-title">Произношение и Фонетика</div>
-      <div class="sc-desc">Правила ударения и речевая тренировка.</div>
-      <div class="sc-action">Тренировать речь →</div>
-    </a>
-  </div>
-</section>
+<div class="sec-divider" aria-hidden="true"><svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 0C240 32 480 48 720 48C960 48 1200 32 1440 0V48H0V0Z" fill="var(--bg-tone-2, #f0f5f1)"/></svg></div>
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🛠️</span> Milestone 2: Ежедневная практика</span></div>
 
-<!-- Daily dose -->
-<section id="daily-dose">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="daily_dose_tag">💊 Daily Dose &amp; Cultural Insights</span>
-    <h2 data-translate-key="daily_dose_title">Ежедневная порция русского языка 💡</h2>
-  </div>
-</section>
+<!-- SECTION 2: PRACTICE FREE (Interactive Tools + Essential Resources) -->
+<section id="practice-free" class="home-section lang-sec-tone-2">
+  <!-- Inner anchors for backward compatibility -->
+  <div id="interactive-tools"></div>
+  <div id="resources"></div>
 
-<!-- Interactive Reference Engines & Practice -->
-<section id="interactive-tools">
   <div class="sec-head reveal">
-    <span class="sec-tag">🛠️ Интерактивные инструменты</span>
-    <h2>Интерактивные приложения и практика</h2>
+    <span class="sec-tag">🛠️ Бесплатная практика</span>
+    <h2>Интерактивные приложения, Игры &amp; Ресурсы</h2>
     <p>Практикуйте русский язык с помощью интерактивных справочников, упражнений и обучающих игр.</p>
   </div>
-  <div class="resources-grid">
 
-    <a href="https://cosylanguages.github.io/COSYtools/ru-spryazhenie/index.html" target="_blank" class="resource-card reveal" rel="noopener">
-      <div class="rc-icon">⚙️</div>
-      <div class="rc-name">Спряжение русских глаголов</div>
-      <div class="rc-desc">Справочник спряжения и видовых пар русских глаголов.</div>
-      <div class="rc-link">Открыть приложение →</div>
-    </a>
-    <a href="https://cosylanguages.github.io/COSYtools/ru-rod-padezhi/index.html" target="_blank" class="resource-card reveal" rel="noopener">
-      <div class="rc-icon">⚙️</div>
-      <div class="rc-name">Род и падежи существительных</div>
-      <div class="rc-desc">Интерактивный справочник рода и 6 падежей русского языка.</div>
-      <div class="rc-link">Открыть приложение →</div>
-    </a>
-
-    <a href="../../practice/index.html?lang=RU" class="resource-card reveal">
-      <div class="rc-icon">💡</div>
-      <div class="rc-name">Интерактивная практика (COSYdata)</div>
-      <div class="rc-desc">Бесплатные упражнения, викторины и аудирование по русскому языку.</div>
-      <div class="rc-link">Начать практику →</div>
-    </a>
-    <a href="https://cosylanguages.github.io/COSYgames/scene_match/index.html?lang=RU" class="resource-card reveal">
-      <div class="rc-icon">🖼️</div>
-      <div class="rc-name">Интерактивный Scene Match</div>
-      <div class="rc-desc">Наглядно изучите слова и комнаты на русском языке.</div>
-      <div class="rc-link">Играть →</div>
-    </a>
-    <a href="https://cosylanguages.github.io/COSYgames/?lang=RU" class="resource-card reveal">
-      <div class="rc-icon">🎮</div>
-      <div class="rc-name">Языковые игры</div>
-      <div class="rc-desc">Игры на словарный запас и грамматику для проверки беглости.</div>
-      <div class="rc-link">Играть в игры →</div>
-    </a>
-  </div>
-</section>
-
-<section id="resources">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="sec_tag_tools">📚 Учебные ресурсы</span>
-    <h2 data-translate-key="learning_resources">Полезные инструменты для изучения русского</h2>
-    <p data-translate-key="learning_resources_desc">Словари, грамматика и произношение: всё бесплатно.</p>
-  </div>
-  <div class="resources-grid">
-    <a href="http://www.gramota.ru/slovari/dic/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">📖</div>
-      <div class="rc-name">Грамота.ру</div>
-      <div class="rc-desc">Толковые и орфографические словари, правила русского языка.</div>
-      <div class="rc-link">Перейти →</div>
-    </a>
-    <a href="https://www.wordreference.com/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">🔄</div>
-      <div class="rc-name">WordReference</div>
-      <div class="rc-desc">Многоязычный словарь: перевод на любые языки.</div>
-      <div class="rc-link">Перейти →</div>
-    </a>
-    <a href="https://www.cooljugator.com/ru" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">📝</div>
-      <div class="rc-name">Cooljugator</div>
-      <div class="rc-desc">Спряжение русских глаголов во всех времена и формах.</div>
-      <div class="rc-link">Перейти →</div>
-    </a>
-    <a href="https://forvo.com/" target="_blank" class="resource-card reveal">
-      <div class="rc-icon">🔊</div>
-      <div class="rc-name">Forvo</div>
-      <div class="rc-desc">Произношение слов от носителей языка.</div>
-      <div class="rc-link">Перейти →</div>
-    </a>
-  </div>
-</section>
-
-<!-- Media & Culture -->
-<section id="media-culture">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="media_culture_tag">🎭 Погружение</span>
-    <h2 data-translate-key="media_culture">Медиа и культура на русском</h2>
-    <p data-translate-key="media_culture_desc">Слушайте живое радио и смотрите ТВ из разных городов России.</p>
-  </div>
-  <div class="media-grid">
-    <div class="media-card reveal">
-      <div class="mc-icon">📻</div>
-      <div class="mc-body">
-        <h4>Radio Garden</h4>
-        <p>Слушайте русские радиостанции в прямом эфире со всей страны.</p>
-        <a href="https://radio.garden/" target="_blank" class="mc-link">Открыть Radio Garden →</a>
+  <div class="practice-entry-grid reveal">
+    <a href="../../practice/index.html?lang=RU" class="practice-entry-card highlight-practice">
+      <div class="pec-icon">💡</div>
+      <div class="pec-content">
+        <h3>Интерактивная практика</h3>
+        <p>Бесплатные упражнения, викторины и аудирование по русскому языку.</p>
       </div>
+      <div class="pec-action">Начать практику →</div>
+    </a>
+
+    <a href="https://cosylanguages.github.io/COSYtools/ru-spryazhenie/index.html" target="_blank" rel="noopener" class="practice-entry-card highlight-tools">
+      <div class="pec-icon">⚙️</div>
+      <div class="pec-content">
+        <h3>Спряжение глаголов</h3>
+        <p>Справочник спряжения и видовых пар русских глаголов.</p>
+      </div>
+      <div class="pec-action">Открыть приложение →</div>
+    </a>
+
+    <a href="https://cosylanguages.github.io/COSYgames/?lang=RU" target="_blank" rel="noopener" class="practice-entry-card highlight-games">
+      <div class="pec-icon">🎮</div>
+      <div class="pec-content">
+        <h3>Языковые игры</h3>
+        <p>Игры на словарный запас и грамматику для проверки беглости.</p>
+      </div>
+      <div class="pec-action">Играть в игры →</div>
+    </a>
+  </div>
+
+  <div class="resource-filter-wrapper reveal">
+    <h3 class="block-subtitle">Учебные инструменты &amp; Полезные ресурсы</h3>
+    <div class="resource-filter-tabs" role="tablist" aria-label="Категории ресурсов">
+      <button type="button" class="rf-tab active" onclick="filterResources('all', this)" role="tab" aria-selected="true">Все ресурсы</button>
+      <button type="button" class="rf-tab" onclick="filterResources('dictionary', this)" role="tab" aria-selected="false">Словари</button>
+      <button type="button" class="rf-tab" onclick="filterResources('grammar', this)" role="tab" aria-selected="false">Грамматика &amp; Инструменты</button>
+      <button type="button" class="rf-tab" onclick="filterResources('media', this)" role="tab" aria-selected="false">Медиа &amp; Аудио</button>
     </div>
-    <div class="media-card reveal">
-      <div class="mc-icon">📺</div>
-      <div class="mc-body">
-        <h4>TV Garden</h4>
-        <p>Смотрите российские телеканалы: новости, развлечения, культура.</p>
-        <a href="https://tv.garden/" target="_blank" class="mc-link">Открыть TV Garden →</a>
-      </div>
+
+    <div class="resources-grid" id="resources-grid">
+      <a href="http://www.gramota.ru/slovari/dic/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="dictionary">
+        <div class="rc-icon">📖</div>
+        <div class="rc-name">Грамота.ру</div>
+        <div class="rc-desc">Толковые и орфографические словари, правила русского языка.</div>
+        <div class="rc-link">Перейти →</div>
+      </a>
+      <a href="https://www.wordreference.com/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="dictionary">
+        <div class="rc-icon">🔄</div>
+        <div class="rc-name">WordReference</div>
+        <div class="rc-desc">Многоязычный словарь: перевод на любые языки.</div>
+        <div class="rc-link">Перейти →</div>
+      </a>
+      <a href="https://cosylanguages.github.io/COSYtools/ru-rod-padezhi/index.html" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">⚙️</div>
+        <div class="rc-name">Род и падежи существительных</div>
+        <div class="rc-desc">Интерактивный справочник рода и 6 падежей русского языка.</div>
+        <div class="rc-link">Открыть приложение →</div>
+      </a>
+      <a href="https://www.cooljugator.com/ru" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">📝</div>
+        <div class="rc-name">Cooljugator</div>
+        <div class="rc-desc">Спряжение русских глаголов во всех времена и формах.</div>
+        <div class="rc-link">Перейти →</div>
+      </a>
+      <a href="https://forvo.com/" target="_blank" rel="noopener" class="resource-card reveal" data-cat="media">
+        <div class="rc-icon">🔊</div>
+        <div class="rc-name">Forvo</div>
+        <div class="rc-desc">Произношение слов от носителей языка.</div>
+        <div class="rc-link">Перейти →</div>
+      </a>
+      <a href="https://cosylanguages.github.io/COSYgames/scene_match/index.html?lang=RU" target="_blank" rel="noopener" class="resource-card reveal" data-cat="grammar">
+        <div class="rc-icon">🖼️</div>
+        <div class="rc-name">Scene Match Интерактив</div>
+        <div class="rc-desc">Наглядно изучите слова и комнаты на русском языке.</div>
+        <div class="rc-link">Играть →</div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Blog Posts & Guides -->
-<section id="blog-guides" class="home-section">
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🎭</span> Milestone 3: Культурное погружение</span></div>
+
+<!-- SECTION 3: EXPLORE RUSSIAN (Media, Culture & Daily Life) -->
+<section id="explore" class="home-section lang-sec-tone-3">
+  <!-- Inner anchors for backward compatibility -->
+  <div id="media-culture"></div>
+  <div id="daily-life"></div>
+
+  <div class="sec-head reveal">
+    <span class="sec-tag">🎭 Изучайте русский</span>
+    <h2>Медиа, Культура &amp; Повседневная жизнь</h2>
+    <p>Погрузитесь в русский язык: живое радио, ТВ-эфиры и сервисы повседневной жизни.</p>
+  </div>
+
+  <div class="explore-tabs-container">
+    <div class="explore-main-tabs" role="tablist" aria-label="Категории погружения">
+      <button type="button" class="exp-tab active" onclick="showExploreTab('media', this)" role="tab" aria-selected="true" id="exp-tab-media">📺 Медиа &amp; Эфир</button>
+      <button type="button" class="exp-tab" onclick="showExploreTab('culture', this)" role="tab" aria-selected="false" id="exp-tab-culture">🎭 Культурное погружение</button>
+      <button type="button" class="exp-tab" onclick="showExploreTab('dailylife', this)" role="tab" aria-selected="false" id="exp-tab-dailylife">🛒 Жизнь в России &amp; Сервисы</button>
+    </div>
+
+    <!-- Tab 1: Media -->
+    <div class="explore-panel show" id="exp-panel-media" role="tabpanel" aria-labelledby="exp-tab-media">
+      <div class="media-grid">
+        <div class="media-card reveal">
+          <div class="mc-icon">📻</div>
+          <div class="mc-body">
+            <h4>Radio Garden</h4>
+            <p>Слушайте русские радиостанции в прямом эфире со всей страны.</p>
+            <a href="https://radio.garden/" target="_blank" rel="noopener" class="mc-link">Открыть Radio Garden →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">📺</div>
+          <div class="mc-body">
+            <h4>TV Garden</h4>
+            <p>Смотрите российские телеканалы: новости, развлечения, культура.</p>
+            <a href="https://tv.garden/" target="_blank" rel="noopener" class="mc-link">Открыть TV Garden →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Culture -->
+    <div class="explore-panel" id="exp-panel-culture" role="tabpanel" aria-labelledby="exp-tab-culture">
+      <div class="culture-intro">
+        <h3>Культурное наследие и язык</h3>
+        <p>Расширяйте словарный запас через русскую литературу, театр и радиопередачи.</p>
+      </div>
+      <div class="media-grid">
+        <div class="media-card reveal">
+          <div class="mc-icon">📖</div>
+          <div class="mc-body">
+            <h4>Грамота.ру</h4>
+            <p>Главный справочно-информационный портал о русском языке, правилах и словарях.</p>
+            <a href="http://www.gramota.ru/" target="_blank" rel="noopener" class="mc-link">Открыть Грамота.ру →</a>
+          </div>
+        </div>
+        <div class="media-card reveal">
+          <div class="mc-icon">📻</div>
+          <div class="mc-body">
+            <h4>Radio Garden Russia</h4>
+            <p>Слушайте радиостанции из Москвы, Санкт-Петербурга, Казани и Екатеринбурга.</p>
+            <a href="https://radio.garden/" target="_blank" rel="noopener" class="mc-link">Слушать радио →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Daily Life -->
+    <div class="explore-panel" id="exp-panel-dailylife" role="tabpanel" aria-labelledby="exp-tab-dailylife">
+      <div class="country-tabs">
+        <button type="button" class="ctab active" data-country="ru" onclick="showCountry('ru')">🇷🇺 Россия</button>
+      </div>
+
+      <div class="country-panel show" id="country-ru">
+        <div class="country-name">🇷🇺 Россия</div>
+        <div class="shop-category">
+          <h4>🏢 Недвижимость, Аренда и Жилье</h4>
+          <div class="shop-grid">
+            <a href="https://www.cian.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">ЦИАН</div>
+              <div class="sc-desc">База недвижимости, аренда и покупка квартир.</div>
+            </a>
+            <a href="https://www.avito.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Авито</div>
+              <div class="sc-desc">Главный сервис объявлений, аренды жилья и товаров.</div>
+            </a>
+            <a href="https://realty.yandex.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Яндекс Недвижимость</div>
+              <div class="sc-desc">Поиск и аренда проверенных квартир.</div>
+            </a>
+            <a href="https://domclick.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Домклик</div>
+              <div class="sc-desc">Поиск жилья и ипотека от Сбера.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>💄 Мода и красота</h4>
+          <div class="shop-grid">
+            <a href="https://www.lamoda.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Lamoda</div>
+              <div class="sc-desc">Одежда, обувь и аксессуары онлайн.</div>
+            </a>
+            <a href="https://www.letu.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Л'Этуаль</div>
+              <div class="sc-desc">Парфюмерия и косметика.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>🏡 Электроника и дом</h4>
+          <div class="shop-grid">
+            <a href="https://www.mvideo.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">М.Видео</div>
+              <div class="sc-desc">Крупная сеть электроники и бытовой техники.</div>
+            </a>
+            <a href="https://www.dns-shop.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">DNS</div>
+              <div class="sc-desc">Цифровая и бытовая техника.</div>
+            </a>
+          </div>
+        </div>
+        <div class="shop-category">
+          <h4>🍲 Продукты питания</h4>
+          <div class="shop-grid">
+            <a href="https://www.perekrestok.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Перекресток</div>
+              <div class="sc-desc">Сеть супермаркетов и доставка еды.</div>
+            </a>
+            <a href="https://www.auchan.ru/" target="_blank" rel="noopener" class="shop-card">
+              <div class="sc-name">Ашан</div>
+              <div class="sc-desc">Гипермаркеты и онлайн-покупки.</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">📝</span> Milestone 4: Знания &amp; Подкасты</span></div>
+
+<!-- SECTION 4: ARTICLES & TOP 100 -->
+<section id="blog-guides" class="home-section lang-sec-tone-4">
   <div class="sec-head reveal">
     <span class="sec-tag">📝 Vogue Gazette &amp; Гиды</span>
     <h2>Статьи и Гиды по русскому языку</h2>
     <p>Изучайте мастер-гид Top 100 A0–A1, глаголы и статьи с синхронным аудиоподкастом.</p>
   </div>
   <div class="resources-grid">
-    <a href="../../blog/posts/top-100-a0-a1-russian.html" class="resource-card reveal">
+    <a href="../../blog/top-100-a0-a1-russian.html" class="resource-card reveal">
       <div class="rc-icon">🏆</div>
       <div class="rc-name">Главный гид Top 100 Русский A0–A1</div>
       <div class="rc-desc">Ключевой высокочастотный словарь русского языка с примерами и произношением.</div>
       <div class="rc-link">Читать гид →</div>
     </a>
-    <a href="../../blog/posts/why-do-we-freeze-when-conversations-go-off-script-ru.html" class="resource-card reveal">
+    <a href="../../blog/why-do-we-freeze-when-conversations-go-off-script-ru.html" class="resource-card reveal">
       <div class="rc-icon">⚡</div>
       <div class="rc-name">Почему мы ступоримся вне сценария?</div>
       <div class="rc-desc">Как преодолеть языковой барьер и свободно вести живой разговор.</div>
@@ -302,8 +437,10 @@
   </div>
 </section>
 
-<!-- Upcoming Russian Events -->
-<section id="events" class="home-section">
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">🎉</span> Milestone 5: Сообщество</span></div>
+
+<!-- SECTION 5: EVENTS -->
+<section id="events" class="home-section lang-sec-tone-5">
   <div class="sec-head reveal">
     <span class="sec-tag">🎉 Живые встречи</span>
     <h2>Разговорные клубы и Мероприятия</h2>
@@ -319,15 +456,17 @@
   </div>
 </section>
 
-<!-- Student Reviews -->
-<section id="reviews" class="home-section">
+<div class="sec-milestone-divider"><span class="milestone-badge"><span class="m-icon">💬</span> Milestone 6: Отзывы</span></div>
+
+<!-- SECTION 6: REVIEWS -->
+<section id="reviews" class="home-section lang-sec-tone-6">
   <div class="sec-head reveal">
     <span class="sec-tag">💬 Отзывы студентов</span>
     <h2>Что говорят студенты ТАКОЙрусский</h2>
     <p>Реальные истории студентов, достигнувших уверенности в русском языке.</p>
   </div>
   <div class="reviews-carousel-wrapper reveal">
-    <div class="review-slide active" style="opacity: 1; position: relative;">
+    <div class="review-slide active">
       <div class="review-card-inner">
         <span class="rq-mark rq-top">❝</span>
         <p class="review-slide-text">Мне очень понравились занятия! Удобный формат, когда можно вести диалог с преподавателем на повседневные темы и одновременно глубоко понимать грамматику и логику языка.</p>
@@ -342,82 +481,7 @@
   </div>
 </section>
 
-<!-- Daily life / shopping -->
-<section id="daily-life">
-  <div class="sec-head reveal">
-    <span class="sec-tag" data-translate-key="daily_life">🛒 Повседневная жизнь</span>
-    <h2 data-translate-key="daily_life_title">Жизнь в России</h2>
-    <p data-translate-key="daily_life_desc">Изучайте реальные магазины и сервисы: лучший способ учить бытовую лексику.</p>
-  </div>
-  <div class="country-tabs">
-    <button type="button" class="ctab" data-country="ru" onclick="showCountry('ru')" data-translate-key="russia">🇷🇺 Россия</button>
-  </div>
-  <div class="country-panel" id="country-ru">
-    <div class="country-name">🇷🇺 Россия</div>
-      <div class="shop-category">
-        <h4>🏢 Недвижимость, Аренда и Жилье</h4>
-        <div class="shop-grid">
-          <a href="https://www.cian.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">ЦИАН</div>
-            <div class="sc-desc">База недвижимости, аренда и покупка квартир.</div>
-          </a>
-          <a href="https://www.avito.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">Авито</div>
-            <div class="sc-desc">Главный сервис объявлений, аренды жилья и товаров.</div>
-          </a>
-          <a href="https://realty.yandex.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">Яндекс Недвижимость</div>
-            <div class="sc-desc">Поиск и аренда проверенных квартир.</div>
-          </a>
-          <a href="https://domclick.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">Домклик</div>
-            <div class="sc-desc">Поиск жилья и ипотека от Сбера.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>💄 Мода и красота</h4>
-        <div class="shop-grid">
-          <a href="https://www.lamoda.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">Lamoda</div>
-            <div class="sc-desc">Одежда, обувь и аксессуары онлайн.</div>
-          </a>
-          <a href="https://www.letu.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">Л'Этуаль</div>
-            <div class="sc-desc">Парфюмерия и косметика.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>🏡 Электроника и дом</h4>
-        <div class="shop-grid">
-          <a href="https://www.mvideo.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">М.Видео</div>
-            <div class="sc-desc">Крупная сеть электроники и бытовой техники.</div>
-          </a>
-          <a href="https://www.dns-shop.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">DNS</div>
-            <div class="sc-desc">Цифровая и бытовая техника.</div>
-          </a>
-        </div>
-      </div>
-      <div class="shop-category">
-        <h4>🍲 Продукты питания</h4>
-        <div class="shop-grid">
-          <a href="https://www.perekrestok.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">Перекресток</div>
-            <div class="sc-desc">Сеть супермаркетов и доставка еды.</div>
-          </a>
-          <a href="https://www.auchan.ru/" target="_blank" class="shop-card">
-            <div class="sc-name">Ашан</div>
-            <div class="sc-desc">Гипермаркеты и онлайн-покупки.</div>
-          </a>
-        </div>
-      </div>
-  </div>
-</section>
-
-<!-- CTA -->
+<!-- SECTION 7: CTA -->
 <div class="cta-block reveal">
   <h2>Готовы заговорить по-русски? 🗣️</h2>
   <p>Напишите нам в WhatsApp или Telegram. Мы составим план, который поможет вам начать говорить с первого урока.</p>
@@ -428,6 +492,8 @@
 </div>
 
 </main>
+
+</div>
 
 <footer>
 
@@ -482,5 +548,63 @@
 <script src="../../js/core/ui.js"></script>
 <script src="../../js/daily-strip.js" defer></script>
 <script src="../../js/data/pricing.js"></script>
+
+<script>
+function filterResources(cat, btn) {
+  const tabs = document.querySelectorAll('.rf-tab');
+  tabs.forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+
+  const cards = document.querySelectorAll('#resources-grid .resource-card');
+  cards.forEach(card => {
+    if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function showExploreTab(tabId, btn) {
+  const tabs = document.querySelectorAll('.exp-tab');
+  tabs.forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+
+  const panels = document.querySelectorAll('.explore-panel');
+  panels.forEach(p => p.classList.remove('show'));
+
+  const targetPanel = document.getElementById('exp-panel-' + tabId);
+  if (targetPanel) {
+    targetPanel.classList.add('show');
+  }
+}
+
+function showCountry(code) {
+  const ctabs = document.querySelectorAll('.ctab');
+  ctabs.forEach(t => {
+    if (t.getAttribute('data-country') === code) {
+      t.classList.add('active');
+    } else {
+      t.classList.remove('active');
+    }
+  });
+
+  const cpanels = document.querySelectorAll('.country-panel');
+  cpanels.forEach(p => p.classList.remove('show'));
+
+  const target = document.getElementById('country-' + code);
+  if (target) {
+    target.classList.add('show');
+  }
+}
+</script>
 </body>
 </html>
